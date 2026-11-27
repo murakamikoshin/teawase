@@ -29,3 +29,13 @@
 5. 公開の 前に Console の **Deploy Schema Changes…** で 本番(Production)へ 反映。これを 忘れると 審査版・公開版で 動かない
 - 数字を 変える 所: ゲーム側 `RAID_TRY / RAID_GOAL / RAID_ME / RAID_RW`(index.html)、アプリ側 `capPerHit / maxTries`(Raid.swift)
 - 弱い 所: 合計は その日の 全員ぶんを 読んで 足す 作り。1日の 参加が 数千人を こえたら、集計を サーバー側に 移す 必要が ある
+
+## いっしょに でかける(Game Center)を 動かす 手順
+ゲーム側は ブラウザの テスト用の つなぎで 6手の 流れと 切断を 自動テスト済み。アプリ側は `Teawase/Multi.swift`。**まだ 一度も ビルドして いない**。
+1. developer.apple.com → Identifiers → `com.koshinstudio.teawase` で **Game Center** に チェック(Xcode の「+ Capability → Game Center」でも 同じ)
+2. App Store Connect → アプリ → **Game Center** を 有効に する(リーダーボードや 実績は 作らなくて いい)
+3. `xcodegen generate` → ビルド → TestFlight
+4. 実機 **2台**(別々の Apple ID で Game Center に サインイン)で バトル → 2ページ目 →「あいてを さがす」。片方が ともだちを よぶ か、2台とも おまかせで さがす
+5. たしかめる こと: 2台に 同じ 相手が 出る / 交互に 手が 出せる / 体力の 数字が 2台で 同じ / 片方の アプリを 落としても 残りが 続けられる / 30秒 何も しないと その 手が とぶ
+- 通信の 中身(ゲーム側が 決めている): `{t:"start",mid,hands,kira,area}` `{t:"hit",slot,id,dmg,pf}` `{t:"bye"}`
+- 弱い 所: けずった 量は 相手の 申告を 信じる(1手 3000 まで)。片方が 抜けても 体力は 2人ぶんの まま。シミュレーターでは Game Center の マッチングは ほぼ 試せない

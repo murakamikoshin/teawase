@@ -1157,6 +1157,9 @@ body,button,input{word-break:keep-all;overflow-wrap:break-word;line-break:strict
 .raidbar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#ff5a3c,#ffcf4a)}.raidbar span{position:relative;display:block;text-align:center;font-size:11px;font-weight:900;line-height:22px;text-shadow:0 1px 2px #000}
 .raidme{text-align:center;font-size:12px}.raidme b{font-family:var(--num);font-size:17px;color:var(--gold1)}
 .raidrw{font-size:10.5px;line-height:1.6;color:var(--mute);text-align:center}
+/* ---- マルチ B: いっしょに でかける ---- */
+.mptag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:999px;background:#7ad7ff;color:#0a0828;vertical-align:middle}
+.pg:has(.raidp){overflow-y:auto;scrollbar-width:none;display:block}.pg:has(.raidp)>.panel{margin-bottom:10px}
 /* ---- リニューアル 4b: ショップ(縦に 1本)---- */
 .shopx{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:10px;padding:2px 2px calc(84px + env(safe-area-inset-bottom,0px));scrollbar-width:none}
 .shopx::-webkit-scrollbar{display:none}
@@ -1759,7 +1762,9 @@ function skillMult(a,perfect,m){
 }
 var AREA_HP={field:1,forest:1.25,sea:1.4,volcano:1.5,snow:1.6,desert:1.7,tower:1.8};   // 先のエリアほど相手がタフ
 var HP5=1.35;   // 5体から えらべる+必殺ゲージ制で 楽に なった ぶん(tools/sim5.py: 3体・コンボ制の ころと けずれる 割合が ほぼ 同じに なる 倍率)
-function ehp(){if(E&&E.raid){return 99999;}return Math.round(HP5*HP[byId(E.mid).r-1]*(AREA_HP[E.area||area().id]||1)*(1+0.22*(E.depth||0))*(emod().hp||1)*(1-(PT().hp||0)));}
+function ehp(){if(E&&E.raid){return 99999;}
+  if(E&&E.mp){return Math.round(2*HP5*HP[byId(E.mid).r-1]*(AREA_HP[E.area]||1));}       // いっしょに: 2人ぶん。2人で 同じ 値に なる ように 自分だけの 補正は 入れない
+  return Math.round(HP5*HP[byId(E.mid).r-1]*(AREA_HP[E.area||area().id]||1)*(1+0.22*(E.depth||0))*(emod().hp||1)*(1-(PT().hp||0)));}
 var resetArmed=false;
 var token=0;         // 古いタイマーを無効にする番号
 
@@ -2915,6 +2920,8 @@ app.addEventListener("click",function(ev){
   if(act==="adaily"){startArena("daily",dailyFoes());return;}
   if(act==="acode"){shareText("テアワセ！で オレのパーティと 勝負しよう\nコード "+myCode()+"\n（バトル → ともだちバトル に入れてね）\n#テアワセ");return;}
   if(act==="raidgo"){startRaid();return;}
+  if(act==="mpfind"){MP.find();renderHome();return;}
+  if(act==="mpcancel"){MP.leave();renderHome();return;}
   if(act==="ahelp"){
     var hv=(document.getElementById("fcode")||{}).value, hc=readCode(hv);
     if(!hc){notice="コードが ちがうみたい。もう一度 たしかめて";renderHome();return;}
@@ -2970,6 +2977,7 @@ app.addEventListener("click",function(ev){
 
 // ---- 出会い ----
 function startEncounter(force,deeper){
+  if(MPon&&!MPstarting){MP.send({t:"bye"});MP.leave();}
   if(deeper){run.depth+=1;}else{run.depth=0;run.omi=0;run.mod=null;}
   var met=roll(force), mod=run.mod; run.mod=null;
   S.enc+=1;
@@ -3468,8 +3476,10 @@ function renderEnc(fx){
 
       c+='<button class="backlink" data-act="back" id="back-btn">‹ えらびなおす</button>';
       c+='</div>';
+    }else if(e.mp&&!mpMine()){
+      c+='<div class="msg big dots">あいての 番</div><div class="msg" id="mp-left">'+mpLeftSec()+'</div>';
     }else{
-      c+='<div class="msg">だれが 手合わせする？</div>';
+      c+='<div class="msg">'+(e.mp?'<b class="mptag">'+(e.mp.solo?"1人で つづける":"きみの 番")+'</b> ':'')+'だれが 手合わせする？'+(e.mp&&!e.mp.solo?' <span id="mp-left">'+mpLeftSec()+'</span>':'')+'</div>';
       if(S.joined<2){c+='<div class="coach">「有利」と出ている なかまを えらぶと 1.5倍</div>';}
       var gz=Math.min(2,e.combo||0);
       c+='<div class="spg'+(gz>=2?" full":"")+'"><span>必殺ゲージ</span><i class="'+(gz>=1?"f":"")+'"></i><i class="'+(gz>=2?"f":"")+'"></i>'+
@@ -3836,7 +3846,7 @@ function arenaTab(){
      '<div class="codebox"><input id="fcode" maxlength="14" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="ともだちのコード" value="'+(S.lastCode||"")+'"><button data-act="afriend" id="afriend-btn">たたかう</button></div>'+
      '<button class="btn sec hlpb" data-act="ahelp" id="ahelp-btn">先頭の 子を たすけっとに よぶ（1日 '+HLP_DAY+'回）</button>'+
      (S.hlp&&S.hlp.d===today()?'<div class="hlps">'+img(byId(S.hlp.id),S.hlp.kira)+'<span><b>きょうの たすけっと: '+byId(S.hlp.id).name+' Lv'+S.hlp.lv+'</b>あと '+S.hlp.n+'回</span></div>':'')+'</div>';
-  var pages=['<div class="pg">'+h.replace(/^<h2>.*?<\/h2>/,"")+'</div>','<div class="pg">'+raidPanel()+'</div>','<div class="pg">'+invitePanel()+'</div>'];
+  var pages=['<div class="pg">'+h.replace(/^<h2>.*?<\/h2>/,"")+'</div>','<div class="pg">'+raidPanel()+mpPanel()+'</div>','<div class="pg">'+invitePanel()+'</div>'];
   return '<h2>バトル <em>力くらべ と ともだち</em></h2>'+pager(pages);
 }
 function buzz(p){try{if(S.mute){return;} if(NATIVE){nativeSend({type:"haptic",strong:typeof p!=="number"});}else if(navigator.vibrate){navigator.vibrate(p);}}catch(err){}}
@@ -3940,6 +3950,7 @@ function doHit(accIn){
   setTimeout(function(){
     if(!E){return;}
     if(E.arena){arenaHit(a,dealt,perfect,special,mu,st,encin);return;}
+    if(E.mp&&Date.now()-E.mp.t0>(E.mp.first?48000:36000)){dealt=0;}        // おそすぎた 手は 0(相手側は もう とばして いる)
     E.dmg+=dealt; E.used.push(a.id); E.atk=null;
     if(E.hlp&&E.hlp.id===a.id&&S.hlp){S.hlp.n=Math.max(0,(S.hlp.n||0)-1);save();}
     E.slowNext=(a.id===14); E.peek=(a.id===19)||!!skx(a).peek;
@@ -3950,7 +3961,8 @@ function doHit(accIn){
     E.spOn=true;
     var ratio=Math.min(1,E.dmg/hp);
     E.hit=(special?"必殺！！ ":"")+(perfect?"PERFECT！ ":(acc>0.5?"いいぞ！ ":""))+dealt+" けずった"+(mu>1?"（有利）":(mu<1?"（不利）":""));
-    if(E.dmg>=hp||E.turn>=MAX_TURN){E.phase="chance";}else{E.turn+=1;}
+    if(E.mp){E.mp.mine=(E.mp.mine||0)+dealt;MP.send({t:"hit",slot:mpSlot(),id:a.id,dmg:dealt,pf:perfect?1:0});mpNext(hp);}
+    else if(E.dmg>=hp||E.turn>=MAX_TURN){E.phase="chance";}else{E.turn+=1;}
     sfx(perfect||special?"perfect":"hit");
     if(!st.isConnected){return;}
     var foe=st.querySelector(".foe");
@@ -4107,7 +4119,96 @@ function raidPanel(){
   }
   return h+'</div>';
 }
-function closeEnc(){token++;E=null;enc.hidden=true;playBgm("home");renderHome();}
+// ===== いっしょに でかける(マルチ B): 2人で 同じ 相手に 交互に 手を 出す。通信は アプリの Game Center(GameKit)。
+// ブラウザでは URL に ?mptest=1 が ある 時だけ、同じ ブラウザの 2ページを つなぐ テスト用の つなぎが 動く(ふつうの 人には 出ない) =====
+var MPT=/[?&]mptest=1/.test(location.search), MPch=null, MPid=Math.random().toString(36).slice(2), MPon=false, MPwait=false, MPstarting=false;
+var MP={
+  find:function(){
+    MPwait=true;
+    if(NATIVE){nativeSend({type:"mp",op:"find"});return;}
+    if(!MPT){return;}
+    if(!MPch){MPch=new BroadcastChannel("twmp");
+      MPch.onmessage=function(ev){var m=ev.data||{};
+        if(m.sys==="hello"&&MPwait&&!MPon){MPch.postMessage({sys:"hello2",id:MPid,to:m.id});mpMatched(MPid<m.id);}
+        else if(m.sys==="hello2"&&m.to===MPid&&MPwait&&!MPon){mpMatched(MPid<m.id);}
+        else if(m.sys==="left"){if(MPon){mpLeft();}}
+        else if(m.d&&MPon){mpOnData(m.d);}};}
+    MPch.postMessage({sys:"hello",id:MPid});
+  },
+  send:function(d){if(!MPon){return;} if(NATIVE){nativeSend({type:"mp",op:"send",data:JSON.stringify(d)});}else if(MPch){MPch.postMessage({d:d});}},
+  leave:function(){var was=MPon||MPwait; MPon=false; MPwait=false; if(!was){return;} if(NATIVE){nativeSend({type:"mp",op:"leave"});}else if(MPch){MPch.postMessage({sys:"left"});}}
+};
+if(MPT){window.__mp=MP;}
+window.teawaseMP=function(o){
+  if(!o){return;}
+  if(o.ev==="matched"){mpMatched(!!o.host);}
+  else if(o.ev==="data"){try{mpOnData(typeof o.data==="string"?JSON.parse(o.data):o.data);}catch(err){}}
+  else if(o.ev==="left"){mpLeft();}
+  else if(o.ev==="fail"){MPwait=false;notice=o.why==="gc"?"Game Center に サインインすると いっしょに でかけられる":"あいてが 見つからなかった";if(enc.hidden){renderHome();}}
+};
+function mpMine(){return (E.mp.half===0)===!!E.mp.host;}
+function mpSlot(){return (E.turn-1)*2+E.mp.half;}
+function mpLeftSec(){if(!E||!E.mp||E.mp.solo){return "";} var lim=(E.mp.first?42:30), sec=Math.max(0,Math.ceil(lim-(Date.now()-E.mp.t0)/1000)); return "あと "+sec+"秒";}
+function mpNext(hp){          // 手が 1つ 終わった: 先攻(ホスト)→ 後攻(ゲスト)→ つぎの ターン
+  var mp=E.mp; mp.first=false;
+  if(E.dmg>=hp){E.phase="chance";return;}
+  for(;;){
+    if(mp.half===0){mp.half=1;}else{mp.half=0; if(E.turn>=MAX_TURN){E.phase="chance";return;} E.turn+=1;}
+    if(!(mp.solo&&!mpMine())){break;}                   // 相手が いない なら 相手の 番は とばす
+  }
+  mp.t0=Date.now();
+}
+function mpMatched(host){
+  MPon=true; MPwait=false;
+  if(!host){notice="つながった！ あいてが 相手を さがして いる…";if(enc.hidden){renderHome();}return;}
+  MPstarting=true; startEncounter(); MPstarting=false;
+  E.mp={host:true,half:0,t0:Date.now(),first:true}; E.intruded=true; E.omen=0; E.hlp=null; E.area=area().id;
+  MP.send({t:"start",mid:E.mid,hands:E.hands,kira:E.kira?1:0,area:E.area});
+}
+function mpGuestStart(d){
+  if(!byId(d.mid)||byId(d.mid).id!==d.mid){return;}
+  run.depth=0;run.omi=0;run.mod=null; S.enc+=1; save();
+  E={mid:d.mid,phase:"appear",revealed:false,dmg:0,turn:1,atk:null,used:[],hit:"",retry:false,perf:0,combo:0,hands:(d.hands||[]).slice(0,MAX_TURN),kira:!!d.kira,uid:S.enc,intruded:true,depth:0,omen:0,area:d.area,
+     mp:{host:false,half:0,t0:Date.now(),first:true}};
+  audio(); playBgm("battle"); enc.hidden=false; renderEnc(); sfx("step"); scheduleAppear();
+}
+function mpOnData(d){
+  if(!d){return;}
+  if(d.t==="start"){if(MPon&&!(E&&E.mp)){mpGuestStart(d);}return;}
+  if(d.t==="bye"){mpLeft();return;}
+  if(d.t==="hit"&&E&&E.mp&&E.phase!=="chance"){
+    if(mpMine()||d.slot!==mpSlot()){return;}                    // もう とばした 手・順番ちがいは 受けとらない
+    var hp=ehp(), dm=Math.max(0,Math.min(3000,Number(d.dmg)||0)), pm=byId(d.id);
+    E.dmg+=dm; E.mp.peer=(E.mp.peer||0)+dm;
+    E.hit=dm>0?("あいての "+(d.id&&pm?pm.name:"なかま")+" が "+dm+" けずった"+(d.pf?"（PERFECT）":"")):"あいては 手を 出せなかった";
+    mpNext(hp); sfx(d.pf?"perfect":"hit"); buzz(18);
+    if(!E.busy){renderEnc();}
+  }
+}
+function mpLeft(){
+  MPon=false; MPwait=false;
+  if(E&&E.mp&&!E.mp.solo){
+    E.mp.solo=true;
+    if(E.phase!=="chance"&&E.phase!=="appear"&&!mpMine()){E.hit="あいてが はなれた。ここからは 1人で";mpNext(ehp());}
+    else if(E.phase!=="chance"){E.hit="あいてが はなれた。ここからは 1人で";}
+    if(!E.busy&&!enc.hidden){renderEnc();}
+  }else if(enc.hidden){notice="あいてとの つながりが 切れた";renderHome();}
+}
+setInterval(function(){        // 30秒(最初の 手は 登場の ぶん 42秒)手が 出なければ その 手は とばす
+  if(!E||!E.mp||E.mp.solo||E.busy||!E.revealed||(E.phase!=="battle"&&E.phase!=="pick")){return;}
+  var el=Date.now()-E.mp.t0, lim=E.mp.first?42000:30000, tx=document.getElementById("mp-left");
+  if(tx){tx.textContent=mpLeftSec();}
+  if(mpMine()&&el>lim&&E.atk==null){MP.send({t:"hit",slot:mpSlot(),id:0,dmg:0,pf:0});E.hit="時間ぎれ… この 手は とばした";mpNext(ehp());renderEnc();}
+  else if(!mpMine()&&el>lim+8000){E.hit="あいては 手を 出せなかった";mpNext(ehp());renderEnc();}
+},1000);
+function mpPanel(){
+  var can=NATIVE||MPT;
+  return '<div class="panel acard2 raidp"><div class="ah"><b class="goldtxt">いっしょに でかける</b><span>2人で 同じ 相手に 交互に</span></div>'+
+    '<p class="raidrw" style="font-size:11.5px">1ターンに 2人が 1手ずつ。相手の 体力は 2人ぶん。けずった 合計で なかま率が 決まり、さそうのは それぞれ。'+(can?'':'<br><b style="color:#fff">アプリ版で 遊べる</b>（Game Center で ともだちを よぶ か、おまかせで さがす）')+'</p>'+
+    (can?(MPwait?'<button class="btn sec" data-act="mpcancel" id="mp-cancel">さがすのを やめる</button><div class="msg dots">あいてを さがして いる</div>':(MPon?'<div class="msg dots">つながった。はじまるのを まって いる</div>':'<button class="btn gold" data-act="mpfind" id="mp-find">あいてを さがす</button>')):'')+'</div>';
+}
+function closeEnc(){
+  if(E&&E.mp&&(MPon||MPwait)){MP.send({t:"bye"});MP.leave();}token++;E=null;enc.hidden=true;playBgm("home");renderHome();}
 
 enc.addEventListener("click",function(ev){
   var b=ev.target.closest("[data-act]"); if(!b||!E||E.busy){return;}

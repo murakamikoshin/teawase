@@ -74,6 +74,18 @@ struct WebGameView: UIViewRepresentable {
                     let result = op == "hit" ? await Raid.shared.hit(dmg: dmg) : await Raid.shared.status()
                     self.sendJSON("teawaseRaid", result)
                 }
+            case "mp":
+                // いっしょに でかける: op "find" = 相手を さがす / "send" = 相手へ 送る / "leave" = やめる。結果は teawaseMP({...}) で 返す
+                let op = body["op"] as? String ?? ""
+                Multi.shared.onEvent = { [weak self] event in self?.sendJSON("teawaseMP", event) }
+                DispatchQueue.main.async {
+                    switch op {
+                    case "find": Multi.shared.find()
+                    case "send": Multi.shared.send(body["data"] as? String ?? "")
+                    case "leave": Multi.shared.leave()
+                    default: break
+                    }
+                }
             case "open":
                 if let key = body["page"] as? String, let s = pages[key], let url = URL(string: s) {
                     UIApplication.shared.open(url)
