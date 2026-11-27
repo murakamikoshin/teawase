@@ -1686,7 +1686,8 @@ function skillMult(a,perfect,m){
   return k;
 }
 var AREA_HP={field:1,forest:1.25,sea:1.4,volcano:1.5,snow:1.6,desert:1.7,tower:1.8};   // 先のエリアほど相手がタフ
-function ehp(){return Math.round(HP[byId(E.mid).r-1]*(AREA_HP[E.area||area().id]||1)*(1+0.22*(E.depth||0))*(emod().hp||1)*(1-(PT().hp||0)));}
+var HP5=1.35;   // 5体から えらべる+必殺ゲージ制で 楽に なった ぶん(tools/sim5.py: 3体・コンボ制の ころと けずれる 割合が ほぼ 同じに なる 倍率)
+function ehp(){return Math.round(HP5*HP[byId(E.mid).r-1]*(AREA_HP[E.area||area().id]||1)*(1+0.22*(E.depth||0))*(emod().hp||1)*(1-(PT().hp||0)));}
 var resetArmed=false;
 var token=0;         // 古いタイマーを無効にする番号
 
