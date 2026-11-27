@@ -570,3 +570,6 @@
   - 済(新キャラ): 404, 251〜254, 248〜250, 401〜403, 405〜408, 410〜413, 415, 416, 418, 421〜424, 427。次: H10 の ★5以上・★4
   - ★未 publish: v/427.mp4(★4 1本目。base = ゲーム 1795743858-68e4 / ムービー集 1795743861-31f2)
 - 11:22 H10: 絵は 生成済み(media MAHcEmI96sM。6体 OK: 430〜435。432 パティシエル ★5 / 435 ★4)。separate-image-layers が quota_cooldown → 60分後(12:22 ごろ)に 再トライを 予約
+- 11:55 GitHub: murakamikoshin/teawase(Koshin が 作成)に 初回 push 済(main, 11 commit。クローンは /home/claude/repo_teawase。中身: TeawaseApp/・tools/(+helpers = /tmp の one/shot10/comp/sc)・artplan/・dots5/・newsrc/・sheets/・hsgal/index.html・TODO)。1回の push は 約 38MB ずつに 分けた。入れて いない: hs4(高画質の 元動画。スクリプトで 作り直せる)・古い 試作フォルダ。★鎖は まだ 自動 push しない(Koshin に 聞いた)
+- 12:02 ガチャの 卵えんしゅつ 済(Koshin 依頼「高品質で ワクワク・低レアの 卵が 最高レアに 昇格」): index.html に eggShow(res, done)・geEgg(t,u)(SVG の 卵 4種: 青★3 / 紫★4 / 金★5 / 虹★6)・geSnd・CSS「ガチャの 卵えんしゅつ」(#gegg)。結果は 先に 決まり、卵の 色と 昇格は 見た目だけ(確率は 変えて いない。確率表に その むね 追記)。見かけの 始まり: 45% 本当の色 / 37% 1つ下 / 18% 2つ下。★6 の 7%(全体の 約0.1%)は 青から いきなり 虹「大昇格!!」(暗転・心音・ひび・虹の 光・紙ふぶき)。10連は 10個が ふって きて 1個ずつ 割る。タップで すすむ・スキップあり。★5以上が 出た 時だけ あとで playAnime。確認用: window.__geRun([3,4,6,…],[{a:0,big:true},…])。バックアップ index_pre_egg.html。石の 名前は 前から「きずな石」(ショップに stone1〜3 = ¥160/¥800/¥3,000、Store.swift に teawase.stone1〜3 の 対応あり。App Store Connect への 商品登録は まだ)
+- 12:02 publish 済: ゲーム 1795748482-dffc / ムービー集 1795748484-b918(index.html, v/427)。★未 publish: なし。直近 publish = この 2つ
