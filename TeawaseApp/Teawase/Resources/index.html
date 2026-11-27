@@ -1117,6 +1117,18 @@ html.short .qb img{width:24px;height:24px}
 #title .tgi .spr{height:calc(var(--h)*var(--tf,1))!important}
 #title .tgi.sil{bottom:calc(64px*var(--tf,1))}
 #title .tgi.sil .spr{height:calc(var(--h)*var(--ts,1)*1.12)!important}
+/* ---- リニューアル 9: はじめの 体験 ---- */
+.st0{width:100%;max-width:400px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.st0h{font-family:var(--display);font-weight:400;font-size:25px}.st0 p{font-size:12px;line-height:1.7;color:#e3dfff}
+.st0r{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%}
+.st0c{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px 10px;border-radius:18px;color:#fff;background:linear-gradient(180deg,#2c2478,#151046);border:2px solid rgba(255,255,255,.25);box-shadow:0 5px 0 #0a0730;transition:transform .15s}
+.st0c .st0p{display:block;width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center}.st0c .st0p .spr,.st0c .st0p img{width:92%!important;height:auto!important;max-height:100%;margin:0}
+.st0c b{font-family:var(--display);font-weight:400;font-size:15px}.st0c em{font-style:normal;font-weight:900;font-size:12px;display:flex;align-items:center;gap:2px}.st0c em .hnd{height:18px;width:auto}
+.st0c small{font-size:9.5px;line-height:1.45;color:#cfc9ff}
+.st0c.on{border-color:var(--gold1);background:linear-gradient(180deg,#5a45c8,#241a6e);transform:translateY(-6px);box-shadow:0 9px 0 #0a0730,0 0 22px -2px rgba(247,189,63,.9)}
+.tgban{display:flex;flex-direction:column;align-items:center;gap:1px;width:min(92%,360px);margin:0 auto;padding:9px 10px 8px;border-radius:16px;color:#3b2203;background:linear-gradient(180deg,#fff6c9,#f7bd3f 55%,#d98a12);border:2px solid #fff;box-shadow:0 4px 0 #7a4a06,0 0 22px rgba(247,189,63,.7);animation:float 2.4s ease-in-out infinite}
+.tgban b{font-family:var(--display);font-weight:400;font-size:19px}.tgban span{font-size:10px;font-weight:900}
+.tgb{display:grid;grid-template-columns:1fr 1.4fr;gap:8px}.tgb .btn{width:100%;margin:0}
 /* ---- リニューアル 4b: ショップ(縦に 1本)---- */
 .shopx{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:10px;padding:2px 2px calc(84px + env(safe-area-inset-bottom,0px));scrollbar-width:none}
 .shopx::-webkit-scrollbar{display:none}
@@ -1735,6 +1747,7 @@ function load(){
     if(typeof S.pity!=="number"){S.pity=0;}
   }catch(err){}
   if(!S.owned||Object.keys(S.owned).length===0){S.owned={1:1};}
+  if(!S.st0&&(S.enc>0||S.joined>0||Object.keys(S.owned).length>1)){S.st0=1;}
 }
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(err){}}
 
@@ -2191,6 +2204,7 @@ function homeTab(){
      '</div></section>';
   function qb(act,id,ic,label,n,hot,did){return '<button class="qb'+(hot?" hot":"")+'" data-act="'+act+'"'+(did?' data-id="'+did+'"':'')+' id="'+id+'"><img src="a/i_'+ic+'.webp" alt=""><span>'+label+'</span>'+(n?'<em>'+n+'</em>':'')+'</button>';}
   h+='<div class="qrow">'+
+    (tgOpen()?qb("tgacha","tg-btn","gift","無料10連",0,true):"")+
     qb("daily","daily-btn","mission","きょうの",dailyLeft(),dailyLeft()>0)+
     qb("mile","mile-btn","trophy","ごほうび",mileOpen(),mileOpen()>0)+
     (S.boost>0?qb("info","boost-on","kira","色違い3倍",S.boost,false,"boost"):qb("boost","boost-btn",S.premium?"kira":"ad",S.premium?"ブースト":"広告で3倍",0,false))+
@@ -2667,6 +2681,42 @@ function shareCard(id){
     }catch(err){fallback();}
   });
 }
+// ===== はじめの 体験: 最初の 1体を えらぶ(手が ちがう 3体) + はじめての 10連(引き直し 10回まで) =====
+var ST0=[1,2,3], TG_MAX=10;
+function needStarter(){return !S.st0&&S.enc===0&&!(S.joined>0)&&Object.keys(S.owned).length<=1;}
+function showStarter(){
+  var why={rock:"ためて ドカン。<br>ザンに 強い",scissors:"スワイプで 斬る。<br>ジュツに 強い",paper:"ピタッと 止める。<br>ゴウに 強い"};
+  cardEl.innerHTML='<div class="st0"><b class="goldtxt st0h">さいしょの なかまを えらぼう</b><p>強さは みんな 同じ。ちがうのは 手(操作)。<br>のこりの 2体も あとで なかまに できる。</p><div class="st0r">'+
+    ST0.map(function(id){var m=byId(id);return '<button class="st0c" data-st0="'+id+'" id="st0-'+id+'"><span class="st0p">'+img(m,0,2)+'</span><b>'+m.name+'</b><em>'+HANDS[m.hand].e+HANDS[m.hand].l+'</em><small>'+why[m.hand]+'</small></button>';}).join("")+
+    '</div><button class="btn gold" id="st0-ok" data-st0ok="1" disabled>えらんで ください</button></div>';
+  cardEl.hidden=false;
+}
+function tgOpen(){return GACHAS.length>=6&&!S.tgDone&&S.enc>=1;}
+function tgRoll(){     // ★5 を 1体 確定、ほかは ★3〜5 を いつもの 割合で。天井や 回数には 数えない
+  var tb=gachaTable().filter(function(t){return t.r<=5;}), hi=tb.filter(function(t){return t.r===5;}), res=[];
+  function one(t){var tot=t.reduce(function(a,x){return a+x.p;},0),x=Math.random()*tot,pk=t[t.length-1];for(var i=0;i<t.length;i++){if(x<t[i].p){pk=t[i];break;}x-=t[i].p;}return pk.list[Math.floor(Math.random()*pk.list.length)].id;}
+  for(var q=0;q<10;q++){res.push(one(q===9&&hi.length?hi:tb));}
+  return res;
+}
+function tgRes(){var seen={};return (S.tgRes||[]).map(function(id){var m=byId(id),h0=count(id)+(seen[id]||0);seen[id]=(seen[id]||0)+1;
+  return {m:m,k:false,isNew:h0===0,had:h0,tag:h0===0?"new":(h0<MAX_LV?"up":"shard"),tagT:h0===0?"NEW":(h0<MAX_LV?"Lv"+h0+" → Lv"+(h0+1):"きずなのかけら +"+m.r)};});}
+function tgPull(){
+  if(!tgOpen()||(S.tgN||0)>TG_MAX){return;}
+  var first=!S.tgN; S.tgRes=tgRoll(); S.tgN=(S.tgN||0)+1; save();
+  var el=document.getElementById("gacha");
+  if(first){if(el){el.hidden=true;} eggShow(tgRes(),function(){showGacha("tres");});}
+  else{sfx("charge");showGacha("tres");}
+}
+function tgKeep(){
+  if(!S.tgRes||S.tgDone){return;}
+  var res=tgRes(), top=res.slice().sort(function(a,c){return c.m.r-a.m.r;})[0];
+  res.forEach(function(z){gainChar(z.m,false);});
+  S.tgDone=true; S.tgRes=null;
+  var pt=(S.party||[]).filter(function(id){return count(id)>0;}); res.slice().sort(function(a,c){return c.m.r-a.m.r;}).forEach(function(z){if(pt.length<PMAX&&pt.indexOf(z.m.id)<0){pt.push(z.m.id);}}); S.party=pt;
+  save(); notice="はじめての 10連の 子が なかまに なった。強い子から パーティに 入れた";
+  var el=document.getElementById("gacha"); if(el){el.hidden=true;}
+  playAnime(top.m,false,function(){tab="dex";renderHome();});
+}
 // ===== はじめての人むけの 4まいの説明 =====
 var TUT=[
  ['<img class="icx" src="a/i_bell.webp" alt="">',"でかけて 出会う","「でかける」を押すと だれかが あらわれる。<br>だれが来るかは 毎回ちがう。"],
@@ -2675,7 +2725,7 @@ var TUT=[
  ['<img class="icx" src="a/stone1.webp" alt="">',"なかまに さそう","けずった分だけ なかま率が上がる。<br>ことわられても きずなが深まって、<br>つぎは さそいやすくなる。"]
 ];
 function showTut(i){
-  if(i>=TUT.length){S.tut=true;save();cardEl.hidden=true;return;}
+  if(i>=TUT.length){S.tut=true;save();cardEl.hidden=true;if(needStarter()){showStarter();}return;}
   var t=TUT[i], d=''; for(var k=0;k<TUT.length;k++){d+='<i class="'+(k===i?"on":"")+'"></i>';}
   cardEl.innerHTML='<div class="bcard rk5"><div class="bi" style="display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center;padding:26px 16px">'+
     '<div class="hw-i" style="font-size:54px;line-height:1.1">'+t[0]+'</div>'+
@@ -2709,6 +2759,12 @@ function showCard(id){
   beep(880,0.08);
 }
 cardEl.addEventListener("click",function(ev){
+  var s0=ev.target.closest("[data-st0]"), s0k=ev.target.closest("[data-st0ok]");
+  if(s0){var sid=s0.getAttribute("data-st0"), all=cardEl.querySelectorAll(".st0c"); for(var si=0;si<all.length;si++){all[si].classList.toggle("on",all[si]===s0);}
+    var ok=document.getElementById("st0-ok"); ok.disabled=false; ok.setAttribute("data-st0ok",sid); ok.textContent=byId(Number(sid)).name+" に きめる"; beep(880,0.06,"triangle"); ev.stopPropagation(); return;}
+  if(s0k){var pid0=Number(s0k.getAttribute("data-st0ok")); if(ST0.indexOf(pid0)<0){return;}
+    S.owned={}; S.owned[pid0]=1; S.norm={}; S.norm[pid0]=true; S.st0=pid0; S.fav=pid0; S.party=[pid0]; save(); cardEl.hidden=true; jingle([523,659,784,1047]); notice=byId(pid0).name+" が さいしょの なかまに なった。「でかける」で なかまを ふやそう"; renderHome(); ev.stopPropagation(); return;}
+  if(cardEl.querySelector(".st0")){ev.stopPropagation();return;}
   var f=ev.target.closest("[data-fav]"), by=ev.target.closest("[data-buy]");
   if(f){S.fav=Number(f.getAttribute("data-fav"));save();}
   if(by){
@@ -2793,6 +2849,7 @@ app.addEventListener("click",function(ev){
     notice=b.getAttribute("data-id")==="boost"?"色違い3倍ブースト中。あと "+S.boost+" 回の出会いで 色違いが 3倍 出やすい":"いままでで いちばん奥：おく "+S.best;
     beep(760,0.05); renderHome(); return;
   }
+  if(act==="tgacha"){tab="gacha";renderHome();showGacha();return;}
   if(act==="daily"){showDaily();return;}
   if(act==="mile"){showMile();return;}
   if(act==="invsend"){shareText("テアワセ！を いっしょに あそぼう。この招待コードを入れると ★4以上確定チケット×2 と ガチャメダル×3 が もらえるよ\n招待コード "+inviteCode()+"\n（バトル → ともだちを さそう に入れてね）\n#テアワセ");return;}
@@ -3063,6 +3120,7 @@ window.__geRun=function(rs,force,cb){   // えんしゅつの 確認用(結果�
   window.__geForce=force||null; eggShow(seq,function(){window.__geForce=null;if(cb){cb();}});
 };
 function showGacha(mode,res){
+  if(!mode&&S.tgRes&&!S.tgDone){mode="tres";}
   var el=document.getElementById("gacha");
   if(!el){
     el=document.createElement("section"); el.id="gacha"; document.body.appendChild(el);
@@ -3078,6 +3136,8 @@ function showGacha(mode,res){
         if((S.gpick||0)>0&&pm.gacha&&pm.r<=5){S.gpick-=1;el.hidden=true;playAnime(pm,false,function(){var hd=gainChar(pm,false);notice=pm.name+" を なかまにした"+(hd?"（Lv"+lv(pm.id)+"）":"");showGacha();});}
         return;
       }
+      if(k==="tg"||k==="tgre"){tgPull();return;}
+      if(k==="tgkeep"){tgKeep();return;}
       if(k==="shop"){el.hidden=true;tab="shop";beep(700,0.05);renderHome();return;}
       if(k==="pull1"||k==="pull10"||k==="pullS"){
         var nn=k==="pull10"?10:1, cost=GSTONE*nn;
@@ -3122,6 +3182,11 @@ function showGacha(mode,res){
     res.forEach(function(z){h+='<div class="pe-cell rk'+z.m.r+(z.isNew?" in":"")+'">'+(z.tag==="new"?'<em style="width:auto;padding:0 6px;border-radius:999px">NEW</em>':'')+img(z.m,z.k)+'<b>'+z.m.name+'</b><span>'+stars(z.m.r)+'</span><i class="rtag r-'+(z.tag||"new")+'">'+(z.tag==="up"?z.tagT:(z.tag==="shard"?"かけら +"+z.m.r:"はじめまして"))+'</i></div>';});
     var nN=0,nU=0,nS=0; res.forEach(function(z){if(z.tag==="up"){nU++;}else if(z.tag==="shard"){nS+=z.m.r;}else{nN++;}});
     h+='</div><div class="pe-sum">'+(nN?'<span class="r-new">はじめまして <b>'+nN+'</b></span>':'')+(nU?'<span class="r-up">レベルアップ <b>'+nU+'</b></span>':'')+(nS?'<span class="r-shard">かけら <b>+'+nS+'</b></span>':'')+'</div><button class="btn gold" data-g="back">つづける</button></div>';
+  }else if(mode==="tres"){
+    var tr=tgRes(), left=TG_MAX+1-(S.tgN||0);
+    h+='<div class="pe-h"><b>はじめての 10連</b><span>★5 1体 確定</span></div><div class="pe-grid">';
+    tr.forEach(function(z){h+='<div class="pe-cell rk'+z.m.r+(z.m.r>=5?" in":"")+'">'+img(z.m,0)+'<b>'+z.m.name+'</b><span>'+stars(z.m.r)+'</span><i class="rtag" style="background:rgba(255,255,255,.14);color:#fff">'+HANDS[z.m.hand].l+'</i></div>';});
+    h+='</div><div class="pe-sum"><span>引き直し あと <b>'+left+'</b>回</span></div><div class="tgb"><button class="btn sec" data-g="tgre" id="tg-re"'+(left>0?'':' disabled')+'>引き直す</button><button class="btn gold" data-g="tgkeep" id="tg-keep">これに 決める</button></div></div>';
   }else if(mode==="info"){
     h+='<div class="pe-h"><b>確率・くわしく</b><span>ガチャ限定 '+GACHAS.length+'体</span></div>'+'<div class="g-odds"><b>出る確率</b>'+tb.map(function(t){return '<div><span>'+stars(t.r)+'（'+t.list.length+'体）</span><em>'+(t.p*100).toFixed(1)+'%</em></div>';}).join("")+
       '<p><b style="color:#fff">かぶっても むだに ならない:</b> 同じ子が また出ると Lv アップ（最大 Lv'+MAX_LV+'・1つごとに パワー +10%）。Lv最大の あとは「きずなのかけら」（★の数ぶん）に なり、ほかの子の レベルアップ か、'+GSHARD+'こで ガチャ 1回に 使える。<br>卵の色は えんしゅつ。とちゅうで 上の 卵に「昇格」する ことが ある（出る確率は この表の とおりで、えんしゅつでは 変わらない）。<br>同じレア度の中では どの子も同じ確率。色違いは '+(KIRA_RATE*100)+'%。'+GPITY+'回 ★5以上が出なければ 次は ★5以上（あと '+(GPITY-(S.gpity||0))+'回）。<br>メダルは デイリーミッション（+1）・ランクアップ（+2）で もらえる。<br>10連の10回目は ★4以上だけの中から、上の比で出る。'+GCEIL+'回 まわすごとに「えらべる交換チケット」が1まい もらえる（あと '+(GCEIL-((S.gcount||0)%GCEIL))+'回）。</p></div>'+'<button class="btn sec" data-g="back">もどる</button></div>';
@@ -3137,6 +3202,7 @@ function showGacha(mode,res){
       '<div class="gx-feat"><em>いま 出る</em>'+feat.map(function(m){return '<span class="rk'+m.r+'">'+img(m,0)+'</span>';}).join("")+'<b>'+stars(feat[0].r)+' '+feat[0].name+' ほか '+(GACHAS.length-1)+'体</b></div>'+
       '<div class="gx-stage"><img class="e l" src="a/egg1.webp" alt=""><img class="e r" src="a/egg2.webp" alt=""><img class="e c" src="a/egg3.webp" alt=""></div>'+
       (notice?'<div class="gx-msg">'+notice+'</div>':'')+
+      (tgOpen()?'<button class="tgban" data-g="tg" id="tg-pull"><b>はじめての 10連</b><span>無料・★5 1体 確定・気に入るまで '+TG_MAX+'回 引き直せる</span></button>':'')+
       '<div class="gx-pity">★5以上 確定まで あと <b>'+(GPITY-(S.gpity||0))+'</b>回</div>'+
       '<div class="gx-btns"><button class="gx-b one'+(free?" free":"")+'" data-g="'+k1+'" id="g-pull"><b>'+(free?"無料で 1回":"1回")+'</b><small>'+(free?"きょうの ぶん":(hasM?"メダル "+GCOST+"まい":(st>=GSTONE?'<img src="a/stone1.webp" alt="">'+GSTONE:"石が たりない"))) +'</small></button>'+
       '<button class="gx-b ten" data-g="'+k10+'" id="g-pull10"><b>10連</b><small>'+(st>=GSTONE*10?'<img src="a/stone1.webp" alt="">'+(GSTONE*10)+'・★4以上 1体':"石が たりない")+'</small></button></div>'+
@@ -3994,7 +4060,7 @@ function showTitle(played){
     vxStop(); if(VX.cv){VX.cv.style.zIndex="";}
     titleEl.hidden=true; titleEl.onclick=null; var bgv2=titleEl.querySelector(".t-bgv"); if(bgv2){try{bgv2.pause();bgv2.removeAttribute("src");bgv2.load();}catch(err){}} homeVx();
     audio(); jingle([523,784,1047,1319,1568]); playBgm("home");
-    if(!S.tut&&S.enc===0){showTut(0);}
+    if(!S.tut&&S.enc===0){showTut(0);}else if(needStarter()){showStarter();}
   };
 }
 function start(data){
