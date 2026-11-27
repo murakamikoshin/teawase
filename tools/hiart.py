@@ -63,6 +63,10 @@ for i in (10,19,31,68,72,15,11,14,20):
     f=src(i)
     if f:
         W,H,data=cut(f,820); tot+=len(data); tents.append('%d:"data:image/webp;base64,%s"'%(i,base64.b64encode(data).decode()))
+# エイオン(83)は タイトルでは 止め絵(動く 絵に しない。Koshin 指定)。取りこみの たびに 消えない ように ここで 毎回 入れる
+import os
+if os.path.exists('/home/claude/anim/cut/83_0.png'):
+    W,H,data=cut('/home/claude/anim/cut/83_0.png',820); tot+=len(data); tents.append('83:"data:image/webp;base64,%s"'%base64.b64encode(data).decode())
 tline='var ARTT={'+','.join(tents)+'};'
 if 'var ARTT={' in s:
     a=s.index('var ARTT={'); e=s.index('};',a)+2; s=s[:a]+tline+s[e:]

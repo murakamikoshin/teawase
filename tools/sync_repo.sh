@@ -2,7 +2,7 @@
 # 作業場 → GitHub(murakamikoshin/teawase)に 差分を 送る。1回の push を 小さく する ため 40MB ごとに 分ける
 set -e; R=/home/claude/repo_teawase; cd /home/claude
 rm -rf $R/TeawaseApp; cp -r TeawaseApp $R/; cp -r tools/. $R/tools/; find $R/tools -name __pycache__ -prune -exec rm -rf {} +; cp /tmp/one.py /tmp/shot10.py /tmp/comp.py /tmp/sc.py $R/tools/helpers/ 2>/dev/null || true
-cp -r artplan/. $R/artplan/; cp -r dots5/. $R/dots5/; cp -r newsrc/. $R/newsrc/; cp -r sheets/. $R/sheets/; cp hsgal/index.html $R/hsgal/; cp TODO_teawase.md $R/
+cp -r artplan/. $R/artplan/; cp -r dots5/. $R/dots5/; cp -r newsrc/. $R/newsrc/; cp -r sheets/. $R/sheets/; cp hsgal/index.html $R/hsgal/; cp TODO_teawase.md DESIGN_renewal.md $R/
 cd $R; MSG="${1:-テアワセ！: 更新}"
 commit(){ git commit -qm "$MSG
 
