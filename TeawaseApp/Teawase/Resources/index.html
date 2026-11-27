@@ -1873,10 +1873,23 @@ function roll(force){
 var ac=null;
 function audio(){
   try{
+    sndProbe();
     if(!ac){var AC=window.AudioContext||window.webkitAudioContext;if(!AC){return null;}ac=new AC();}
     if(ac.state==="suspended"){ac.resume();}
   }catch(err){return null;}
   return ac;
+}
+// ---- 音声ファイル(あれば 使う): a/snd/<名前>.mp3 が 置いて あれば 合成音の かわりに 鳴らす。無ければ 今までどおり 合成音。名前の 一覧は artplan/音の発注.md ----
+var SND={}, SNDLIST=["bgm_title","bgm_home","bgm_battle","se_tap","se_jingle","se_whoosh","se_hit","se_perfect","se_special","se_charge","se_step","se_beat",
+  "se_egg_drop","se_egg_tick","se_egg_up","se_egg_crack","se_egg_hatch0","se_egg_hatch1","se_egg_hatch2","se_egg_hatch3","se_egg_omen","se_egg_big"], sndProbed=false, bgmEl=null, BGMVOL=0.5;
+function sndProbe(){
+  if(sndProbed){return;} sndProbed=true;
+  SNDLIST.forEach(function(n){try{var a=new Audio(); a.preload="auto"; a.addEventListener("canplaythrough",function(){SND[n]=a;},{once:true}); a.addEventListener("error",function(){}); a.src="a/snd/"+n+".mp3";}catch(err){}});
+}
+function sndPlay(n,vol){
+  var a=SND[n]; if(!a){return false;}
+  try{var c=a.cloneNode(); c.volume=Math.max(0,Math.min(1,vol==null?1:vol)); var pr=c.play(); if(pr&&pr.catch){pr.catch(function(){});}}catch(err){}
+  return true;
 }
 var outNode=null;
 function out(){
@@ -1904,6 +1917,7 @@ function bus(kind){
   return kind==="bgm"?bgmNode:fxNode;
 }
 function duck(sec,to){      // 見せ場の あいだ BGM を 下げて、おわったら もどす
+  if(bgmEl){try{bgmEl.volume=BGMVOL*(to||0.3);setTimeout(function(){if(bgmEl){bgmEl.volume=BGMVOL;}},sec*1000);}catch(err){}}
   try{ if(!ac){return;} bus(); if(!bgmNode||bgmNode===outNode){return;} var t=ac.currentTime, g=bgmNode.gain; g.cancelScheduledValues(t); g.setTargetAtTime(to||0.3,t,0.04); g.setTargetAtTime(1,t+sec,0.3); }catch(err){}
 }
 function tone(freq,dur,type,at,vol,dest,send){
@@ -1921,11 +1935,12 @@ function tone(freq,dur,type,at,vol,dest,send){
 }
 function beep(freq,dur,type,delay){      // UI の 音。ピコピコの 四角い波を やめて、丸い「ポン」(サイン + 倍音)に。同じ 音が 続いても 飽きない ように 高さを 少し ゆらす
   if(S.mute||!audio()){return;}
+  if(!delay&&sndPlay("se_tap",0.8)){return;}
   var at=ac.currentTime+(delay||0), f=delay?freq:freq*(1+(Math.random()-0.5)*0.04);
   if(type==="square"||type==="sawtooth"){tone(f,dur,type,at,0.045,null,true);tone(f*2,dur*0.6,"sine",at,0.02);}
   else{tone(f,dur*1.3,"sine",at,0.085,null,true);tone(f*2,dur*0.7,"triangle",at,0.028);tone(f*3,dur*0.35,"sine",at,0.012);}
 }
-function jingle(notes,type){duck(notes.length*0.11+0.3,0.45);notes.forEach(function(n,i){beep(n,0.2,type,i*0.11);});}
+function jingle(notes,type){duck(notes.length*0.11+0.3,0.45);if(!S.mute&&audio()&&sndPlay("se_jingle")){return;}notes.forEach(function(n,i){beep(n,0.2,type,i*0.11+0.0005);});}
 var noiseBuf=null;
 function noise(dur,at,vol,hp){
   try{
@@ -1944,6 +1959,7 @@ function noise(dur,at,vol,hp){
 function sfx(name,k){
   if(S.mute||!audio()){return;}
   var t=ac.currentTime;
+  if(sndPlay("se_"+name)){if(name==="perfect"){duck(0.5);}else if(name==="special"){duck(1.1,0.25);}return;}
   var jt=1+(Math.random()-0.5)*0.12;      // 当たる 音は 毎回 少し ちがう 高さに
   if(name==="whoosh"){noise(0.2,t,0.09,2400);}
   else if(name==="hit"){noise(0.16,t,0.12,0);noise(0.05,t,0.07,2600);tone(165*jt,0.18,"triangle",t,0.12);tone(330*jt,0.09,"sine",t,0.05);}      // 低い 音は スマホの スピーカーで 消えるので 高い「カッ」と 1オクターブ上を 重ねる
@@ -2001,6 +2017,9 @@ function playBgm(name){
   if(name==="battle"&&E&&E.revealed){var bm=byId(E.mid);if(bm&&bm.r>=5){name=bossTrack(bm);}}   // UR以上は そのキャラ専用の曲
   if(bgm.track===name){return;} bgm.track=name; bgm.step=0; bgm.next=0; }
 setInterval(function(){
+  var want=(!S.mute&&!S.bgmOff&&bgm.track&&SND["bgm_"+bgm.track])||null;      // 曲の ファイルが あれば そっちを ループ(無ければ 下の 合成)
+  if(bgmEl!==want){ if(bgmEl){try{bgmEl.pause();}catch(err){}} bgmEl=want; if(bgmEl){try{bgmEl.loop=true;bgmEl.currentTime=0;bgmEl.volume=BGMVOL;var bp=bgmEl.play();if(bp&&bp.catch){bp.catch(function(){});}}catch(err){}} }
+  if(want){return;}
   if(S.mute||S.bgmOff||!ac||!bgm.track||ac.state!=="running"){return;}
   var BG=bus("bgm");
   var t=TRACKS[bgm.track], sp=60/t.bpm/2;
@@ -3122,6 +3141,7 @@ function geEgg(t,u){   // 絵の 卵(a/egg0〜3.webp)。割れる 時は 同じ 
 }
 function geSnd(kind,t){
   if(S.mute||!audio()){return;} var a=ac.currentTime, i;
+  if(sndPlay("se_egg_"+kind+(kind==="hatch"?t:""))){if(kind==="hatch"){duck(0.9+t*0.4,0.3);}else if(kind==="big"){duck(2.4,0.2);}else if(kind==="omen"){duck(2.2,0.15);}return;}
   if(kind==="drop"){tone(520,0.07,"sine",a,0.06);tone(180,0.12,"triangle",a+0.06,0.1);}
   else if(kind==="tick"){tone(900+t*160,0.05,"square",a,0.04);}
   else if(kind==="up"){[523,659,784,1047,1319].forEach(function(f,i){tone(f*(1+t*0.12),0.13,"square",a+i*0.06,0.06);});noise(0.25,a,0.07,3000);}
