@@ -1170,6 +1170,7 @@ body,button,input{word-break:keep-all;overflow-wrap:break-word;line-break:strict
 .tutpulse{animation:tutp 1s ease-in-out infinite;z-index:2}
 @keyframes tutp{0%,100%{box-shadow:0 0 0 0 rgba(255,221,90,.0);transform:translateY(0)}50%{box-shadow:0 0 0 6px rgba(255,221,90,.85),0 0 24px rgba(255,221,90,.9);transform:translateY(-4px)}}
 .ctl.tuton #invite-btn,.ctl.tuton #hit-btn{animation:tutp 1s ease-in-out infinite}
+.hlps button{margin-left:auto;flex:0 0 auto;font-size:11px;font-weight:900;padding:6px 10px;border-radius:999px;color:#3b2203;background:linear-gradient(180deg,#fff6c9,#f7bd3f)}
 /* ---- リニューアル 4b: ショップ(縦に 1本)---- */
 .shopx{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:10px;padding:2px 2px calc(84px + env(safe-area-inset-bottom,0px));scrollbar-width:none}
 .shopx::-webkit-scrollbar{display:none}
@@ -2274,15 +2275,16 @@ function homeTab(){
      '<div class="np"><div class="nm">'+ttl(fav)+(S.kira[fav.id]?'<img class="icx" src="a/i_kira.webp" alt="">':"")+fav.name+'</div><div class="pw">'+HANDS[fav.hand].e+' '+power(fav)+'<small>Lv'+lv(fav.id)+'</small></div></div>'+
      '</div></section>'+(notice?'<div class="snack">'+notice+'</div>':'');
   function qb(act,id,ic,label,n,hot,did){return '<button class="qb'+(hot?" hot":"")+'" data-act="'+act+'"'+(did?' data-id="'+did+'"':'')+' id="'+id+'"><img src="a/i_'+ic+'.webp" alt=""><span>'+label+'</span>'+(n?'<em>'+n+'</em>':'')+'</button>';}
-  h+='<div class="qrow">'+
-    (tgOpen()?qb("tgacha","tg-btn","gift","無料10連",0,true):"")+
-    qb("daily","daily-btn","mission","きょうの",dailyLeft(),dailyLeft()>0)+
-    qb("mile","mile-btn","trophy","ごほうび",mileOpen(),mileOpen()>0)+
-    (S.boost>0?qb("info","boost-on","kira","色違い3倍",S.boost,false,"boost"):qb("boost","boost-btn",S.premium?"kira":"ad",S.premium?"ブースト":"広告で3倍",0,false))+
-    ((S.utix||0)>0?qb("uticket","uticket-btn","rank","UR確定",S.utix,true):"")+
-    (S.tix>0?qb("ticket","ticket-btn","ticket","★4確定",S.tix,true):"")+
-    ((S.bought&&S.bought.welcome)?"":qb("goshop","welcome-pill","gift","パック",0,true))+
-    '</div>';
+  var qs=[];
+  if(tgOpen()){qs.push(qb("tgacha","tg-btn","gift","無料10連",0,true));}
+  qs.push(qb("daily","daily-btn","mission","きょうの",dailyLeft(),dailyLeft()>0));
+  if(S.joined>=3){var rl=NATIVE?Math.max(0,RAID_TRY-raidSt().n):0; qs.push(qb("multi","multi-btn","arena","みんなで",rl,rl>0));}      // 大ボス・いっしょに でかける への 入口
+  qs.push(qb("mile","mile-btn","trophy","ごほうび",mileOpen(),mileOpen()>0));
+  qs.push(S.boost>0?qb("info","boost-on","kira","色違い3倍",S.boost,false,"boost"):qb("boost","boost-btn",S.premium?"kira":"ad",S.premium?"ブースト":"広告で3倍",0,false));
+  if((S.utix||0)>0){qs.push(qb("uticket","uticket-btn","rank","UR確定",S.utix,true));}
+  if(S.tix>0){qs.push(qb("ticket","ticket-btn","ticket","★4確定",S.tix,true));}
+  if(!(S.bought&&S.bought.welcome)&&qs.length<6){qs.push(qb("goshop","welcome-pill","gift","パック",0,true));}      // 6こを こえる 時は パックを ゆずる(ショップから 行ける)
+  h+='<div class="qrow">'+qs.join("")+'</div>';
   h+=partyRow(false);
   var opens=AREAS.filter(function(x){return kinds()>=x.need;}), ai=opens.indexOf(area()), nextA=AREAS[opens.length];
   h+='<div class="areasel"><button data-act="areamv" data-id="-1" id="area-prev"'+(opens.length<2?" disabled":"")+'>‹</button>'+
@@ -2924,6 +2926,7 @@ app.addEventListener("click",function(ev){
     notice=b.getAttribute("data-id")==="boost"?"色違い3倍ブースト中。あと "+S.boost+" 回の出会いで 色違いが 3倍 出やすい":"いままでで いちばん奥：おく "+S.best;
     beep(760,0.05); renderHome(); return;
   }
+  if(act==="multi"){pgs.arena=1;tab="arena";raidAsk();beep(700,0.05);renderHome();return;}
   if(act==="tgacha"){tab="gacha";renderHome();showGacha();return;}
   if(act==="daily"){showDaily();return;}
   if(act==="mile"){showMile();return;}
@@ -2935,6 +2938,7 @@ app.addEventListener("click",function(ev){
   if(act==="raidgo"){startRaid();return;}
   if(act==="mpfind"){MP.find();renderHome();return;}
   if(act==="mpcancel"){MP.leave();renderHome();return;}
+  if(act==="hthx"){shareText("テアワセ！で たすけっとに 来てくれて ありがとう。この お礼コードを 入れると きずなのかけらが もらえるよ\nお礼コード "+helpThanksCode()+"\n（バトル → ともだちを さそう の 入力らんに 入れてね）");return;}
   if(act==="ahelp"){
     var hv=(document.getElementById("fcode")||{}).value, hc=readCode(hv);
     if(!hc){notice="コードが ちがうみたい。もう一度 たしかめて";renderHome();return;}
@@ -3823,8 +3827,22 @@ function ck2(t){var a=7,b=3;for(var i=0;i<t.length;i++){var k=B36.indexOf(t.char
 function inviteCode(){return "IV-"+uid()+ck2("I"+uid());}
 function thanksCode(friend){return "TH-"+uid()+ck2("T"+friend+uid());}
 var INV_NEW={tix:2,medal:3,boost:10}, INV_EACH={tix:1,medal:3,boost:5}, INV_MAX=10, INV_STEP={3:{utix:1},5:{seal:2},10:{utix:2,seal:3}};
+var HTHX=2;        // たすけっとの お礼: きずなのかけら +2(1日 1回)
+function helpThanksCode(){var d=enc3(today()%39304);return "HP-"+uid()+d+ck2("H"+uid()+d);}
+function useHelpThanks(body){
+  if(body.length!==11){return "コードが ちがうみたい。もう一度 たしかめて";}
+  var who=body.slice(0,6), d=body.slice(6,9), ck=body.slice(9);
+  if(who===uid()){return "じぶんのコードは 使えない";}
+  if(ck!==ck2("H"+who+d)){return "コードが ちがうみたい。もう一度 たしかめて";}
+  var dv=dec3(d), td=today()%39304;
+  if(dv!==td&&dv!==td-1){return "この お礼コードは 期限が 切れている（きょうと きのうの ぶんだけ）";}
+  if(S.hthx===today()){return "たすけっとの お礼は 1日 1回まで。また あした";}
+  S.hthx=today(); S.shard=(S.shard||0)+HTHX; save(); jingle([659,784,1047,1319]);
+  return "たすけっとの お礼！ きずなのかけら +"+HTHX+" を 受け取った";
+}
 function useInvite(txt){
   var t=String(txt||"").toUpperCase().replace(/[^0-9A-Z]/g,""), kind=t.slice(0,2), body=t.slice(2);
+  if(kind==="HP"){return useHelpThanks(body);}
   if((kind!=="IV"&&kind!=="TH")||body.length!==8){return "コードが ちがうみたい。もう一度 たしかめて";}
   var who=body.slice(0,6), ck=body.slice(6);
   if(who===uid()){return "じぶんのコードは 使えない";}
@@ -3855,7 +3873,7 @@ function invitePanel(){
   return '<div class="panel acard2"><div class="ah"><b class="goldtxt">ともだちを さそう</b><span>'+n+' / '+INV_MAX+'人</span></div>'+
     '<p style="font-size:11px;color:var(--mute)">コードを送る → ともだちが入れる（ともだちに '+rwText(INV_NEW)+'）→ 返ってきた お礼コードを入れると じぶんにも '+rwText(INV_EACH)+'。'+(nx?'あと '+(nx-n)+'人で さらに '+rwText(INV_STEP[nx])+'。':'')+'</p>'+
     '<div class="codebox"><span>じぶん</span><b id="invcode">'+inviteCode()+'</b><button data-act="invsend" id="invsend-btn">送る</button></div>'+
-    '<div class="codebox"><input id="icode" maxlength="14" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="招待コード / お礼コード"><button data-act="invuse" id="invuse-btn">つかう</button></div>'+
+    '<div class="codebox"><input id="icode" maxlength="14" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="招待コード / お礼コード（IV- TH- HP-）"><button data-act="invuse" id="invuse-btn">つかう</button></div>'+
     (S.invBy?'<button class="btn sec" data-act="invthx" style="font-size:12px;padding:8px">お礼コードを もう一度 見る</button>':'')+'</div>';
 }
 function arenaTab(){
@@ -3867,7 +3885,7 @@ function arenaTab(){
      '<div class="codebox"><span>じぶん</span><b id="mycode">'+myCode()+'</b><button data-act="acode" id="acode-btn">送る</button></div>'+
      '<div class="codebox"><input id="fcode" maxlength="14" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="ともだちのコード" value="'+(S.lastCode||"")+'"><button data-act="afriend" id="afriend-btn">たたかう</button></div>'+
      '<button class="btn sec hlpb" data-act="ahelp" id="ahelp-btn">先頭の 子を たすけっとに よぶ（1日 '+HLP_DAY+'回）</button>'+
-     (S.hlp&&S.hlp.d===today()?'<div class="hlps">'+img(byId(S.hlp.id),S.hlp.kira)+'<span><b>きょうの たすけっと: '+byId(S.hlp.id).name+' Lv'+S.hlp.lv+'</b>あと '+S.hlp.n+'回</span></div>':'')+'</div>';
+     (S.hlp&&S.hlp.d===today()?'<div class="hlps">'+img(byId(S.hlp.id),S.hlp.kira)+'<span><b>きょうの たすけっと: '+byId(S.hlp.id).name+' Lv'+S.hlp.lv+'</b>あと '+S.hlp.n+'回</span><button data-act="hthx" id="hthx-btn">お礼を 送る</button></div>':'')+'</div>';
   var pages=['<div class="pg">'+h.replace(/^<h2>.*?<\/h2>/,"")+'</div>','<div class="pg">'+raidPanel()+mpPanel()+'</div>','<div class="pg">'+invitePanel()+'</div>'];
   return '<h2>バトル <em>力くらべ と ともだち</em></h2>'+pager(pages);
 }

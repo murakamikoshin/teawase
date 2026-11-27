@@ -640,4 +640,6 @@
 - 公開 最新: game 1795760687-91af / gallery 1795757176-395d
 - (2・3 は 済: 操作つきの 説明 S.tut2 / tutOn / tutB、説明カード 2まい、最初の 1体の あと すぐ はじめての 10連。Koshin 15:30: 10連は 11回(+1)に → 済。backup index_pre_tut2.html)
 - 公開 最新: game 1795762445-6913 / gallery 1795757176-395d
-- つぎ(絵に よらない もの): 4 たすけっとの お礼 → 5 大ボス・いっしょにの 入口を ホームに → 6 音の 素材リスト → 7 App Store 用の 文と スクショ案
+- (4・5 は 済: お礼コード HP-(helpThanksCode/useHelpThanks、かけら+2・1日1回・きょうと きのうの ぶん)、ホームの「みんなで」ボタン(act multi → バトル 2ページ目)。backup index_pre_thx.html。テスト /tmp/thx.py)
+- 公開 最新: game 1795763183-add9 / gallery 1795757176-395d
+- つぎ(絵に よらない もの): 6 音の 素材リスト → 7 App Store 用の 文と スクショ案
