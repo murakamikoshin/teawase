@@ -960,7 +960,15 @@ h2 em{font-style:normal;font-family:var(--body);font-weight:900;font-size:11px;c
 #gegg .ge-cell.on{background:rgba(255,255,255,.10);box-shadow:0 0 0 2px #fff,0 0 16px var(--ec)}
 #gegg .ge-cell.done{background:var(--rg);box-shadow:0 0 12px -2px var(--rc),inset 0 0 0 2px rgba(255,255,255,.75);overflow:hidden}
 #gegg .ge-cell.done img,#gegg .ge-cell.done canvas{position:static;width:92%;height:92%;object-fit:contain}
-#gegg .ge-cell.done.new::after{content:"NEW";position:absolute;left:2px;top:2px;font-family:var(--num);font-size:9px;line-height:1;padding:2px 4px;border-radius:6px;background:#ff3d6e;color:#fff}
+#gegg .ge-cell.done.t-up::after{content:"Lv UP";position:absolute;left:2px;top:2px;font-family:var(--num);font-size:8px;line-height:1;padding:2px 4px;border-radius:6px;background:#19b46a;color:#fff}
+#gegg .ge-cell.done.t-shard::after{content:"+かけら";position:absolute;left:2px;top:2px;font-size:7px;font-weight:900;line-height:1;padding:2px 3px;border-radius:6px;background:#7a5cff;color:#fff}
+#gegg .ge-card .gup{display:block;margin:8px auto 0;width:max-content;max-width:100%;padding:5px 14px 4px;border-radius:12px;font-family:var(--num);font-size:17px;color:#fff;background:linear-gradient(180deg,#27d483,#0f8f52);box-shadow:0 3px 0 rgba(0,0,0,.4);animation:gepop2 .4s .25s cubic-bezier(.2,1.7,.4,1) both}
+@keyframes gepop2{0%{opacity:0;transform:scale(.3)}100%{opacity:1;transform:scale(1)}}
+#gegg .ge-card .gup i{font-style:normal;font-size:10px;letter-spacing:.14em;margin-right:8px;opacity:.9}
+#gegg .ge-card .gup small{font-size:11px;margin-left:8px;color:#fff6c9}
+#gegg .ge-card .gup.sh{background:linear-gradient(180deg,#9a84ff,#5a3fd6);font-family:var(--body);font-weight:900;font-size:13px}
+#gegg .ge-card .gup{position:relative;left:auto;top:auto;transform:none}
+#gegg .ge-cell.done.t-new::after{content:"NEW";position:absolute;left:2px;top:2px;font-family:var(--num);font-size:9px;line-height:1;padding:2px 4px;border-radius:6px;background:#ff3d6e;color:#fff}
 #gegg .ge-skip{position:absolute;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));padding:9px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.45);background:rgba(20,16,60,.7);color:#fff;font-size:13px;font-weight:800}
 #gegg .ge-hint{position:absolute;left:14px;bottom:calc(18px + env(safe-area-inset-bottom,0px));font-size:11px;color:rgba(255,255,255,.6)}
 #gegg .ge-cnt{position:absolute;left:0;right:0;top:calc(10px + env(safe-area-inset-top,0px));text-align:center;font-family:var(--num);font-size:14px;letter-spacing:.2em;color:rgba(255,255,255,.75)}
@@ -1080,6 +1088,19 @@ html.short .qb img{width:24px;height:24px}
 .picks.p5x .pick .mt{font-size:9px;letter-spacing:-.02em;width:100%}
 .pick:has(.mt.win){box-shadow:0 0 0 2px var(--gold1),0 0 14px rgba(255,200,80,.7),0 5px 0 rgba(0,0,0,.45)}
 .pick:has(.mt.lose){filter:saturate(.55) brightness(.8)}
+/* ---- リニューアル 6: かぶりの 見せかた ---- */
+.pe-cell .rtag{display:block;font-style:normal;font-size:8px;font-weight:900;margin-top:2px;padding:1px 4px;border-radius:999px;white-space:nowrap}
+.rtag.r-new{background:#ff3d6e;color:#fff}.rtag.r-up{background:#19b46a;color:#fff;font-family:var(--num);font-size:9px}.rtag.r-shard{background:#7a5cff;color:#fff}
+.gx-links button.gs{background:linear-gradient(180deg,#9a84ff,#5a3fd6);border-color:#fff}
+.gx-sh{text-align:center;font-size:10px;color:#cfc9ff;margin-top:6px}
+.spg{display:flex;align-items:center;justify-content:center;gap:6px;margin:2px 0 6px;font-size:10px;font-weight:900;color:#cfc9ff}
+.spg i{width:22px;height:9px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3)}
+.spg i.f{background:linear-gradient(90deg,#ffe66a,#ff8a2e);border-color:#fff;box-shadow:0 0 8px #ffb52e}
+.spg em{font-style:normal;color:#8f8ab8;margin-left:4px}
+.spg b{color:var(--gold1);margin-left:4px}
+.spg button{margin-left:4px;padding:5px 12px;border-radius:999px;font-size:11px;font-weight:900;color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.5)}
+.spg button.on{color:#3b2203;background:linear-gradient(180deg,#fff6c9,#f7bd3f 55%,#d98a12);border-color:#fff;box-shadow:0 0 12px rgba(247,189,63,.7)}
+.spg.full span{color:var(--gold1)}
 .hs-h{white-space:nowrap;font-size:clamp(10px,3.1vw,12px);letter-spacing:0}
 #gacha{position:fixed;inset:0;z-index:9;background:rgba(5,4,20,.97);display:flex;justify-content:center;top:var(--vt,0px);height:var(--vh,100dvh)}
 #gacha[hidden]{display:none}
@@ -1551,7 +1572,7 @@ var SKX={67:{any:1.3,zone:1.5},55:{zone:1.5},56:{perf2:1},57:{turn:2,tk:1.6},58:
          61:["居合","PERFECTなら さらに1.6倍"],62:["星読み","次のターンの 相手の手が見える"],63:["鉄壁","はずしても 6割の力は出る"],
          64:["うずしお","ゲージが ゆっくりになる"],65:["日輪","いつ出しても 1.4倍"],66:["終焉","さいごのターンに出すと 2倍"],
          34:["いたずら","不利な手のとき 逆に1.5倍"],35:["選定","PERFECTゾーンが 2倍"]};
-  var N2={"232":["先読みの歌","次のターンの 相手の手が見える"],"233":["荒波","さいごのターンに出すと 1.6倍"],"234":["ひと突き","相手の体力が 半分以下なら 1.5倍"],"235":["たたき上げ","はずしても 6割の力は出る"],"236":["火消し","不利な手でも 等倍で通る"],"237":["雪道","ゲージが ゆっくりになる"],"238":["ひとふり","PERFECTなら さらに1.5倍"],"239":["一番のり","1ターン目に出すと 1.5倍"],"240":["舞い","当たりの広さが 1.5倍"],"241":["護衛","SSR以上の相手に 1.3倍"],"242":["発明","いつ出しても 1.2倍"],"243":["おいのり","PERFECT 1回が 2回ぶんに数えられる"],"244":["一番槍","相手の体力が満タンなら 1.5倍"],"245":["木々の声","次の手が見える。いつでも 1.15倍"],"246":["大海原","さいごのターンに出すと 1.8倍"],"247":["錬金","PERFECTなら さらに1.6倍"],"248":["不眠","はずしても 7割の力は出る"],"249":["千夜","ゲージが とても ゆっくり"],"250":["西風","当たり1.6倍。いつでも 1.1倍"],"251":["真夏の夜","いつ出しても 1.35倍"],"252":["満ち引き","不利な手のとき 逆に1.5倍"],"253":["霜の一歩","相手の体力が満タンなら 1.8倍"],"254":["再起動","PERFECTなら さらに1.8倍"],"36":["八つ首","SSR以上の相手に 1.5倍"],"37":["月あかり","次の手が見える。PERFECTで1.4倍"],"38":["鎖ちぎり","不利な手のとき 逆に1.6倍"],"68":["朱雀","いつでも1.3倍。さいごのターンは さらに1.3倍"],"69":["白虎","いつでも1.3倍。PERFECTで さらに1.3倍"],"71":["はじまり","いつ出しても 1.5倍"],"72":["雷帝","PERFECTなら 2倍"],"73":["方舟","はずしても 8割。いつでも1.3倍"],"74":["千刃","当たり2倍。いつでも1.3倍"],"75":["世界樹","次の手が見える。いつでも1.4倍"],"76":["大渦","相手の体力が満タンなら 2倍"],"77":["日食","不利な手のとき 逆に2倍"],"78":["極光","ゲージが とてもゆっくり。いつでも1.3倍"],"79":["ひとしずく","さいごのターンに出すと 2.2倍"],"80":["未来","いつ出しても 1.6倍。PERFECT 1回が 2回ぶん"]};
+  var N2={"232":["先読みの歌","さいごの ターンの 相手の手まで 見える"],"233":["荒波","さいごのターンに出すと 1.6倍"],"234":["ひと突き","相手の体力が 半分以下なら 1.5倍"],"235":["たたき上げ","はずしても 6割の力は出る"],"236":["火消し","不利な手でも 等倍で通る"],"237":["雪道","ゲージが ゆっくりになる"],"238":["ひとふり","PERFECTなら さらに1.5倍"],"239":["一番のり","1ターン目に出すと 1.5倍"],"240":["舞い","当たりの広さが 1.5倍"],"241":["護衛","SSR以上の相手に 1.3倍"],"242":["発明","いつ出しても 1.2倍"],"243":["おいのり","PERFECT 1回が 2回ぶんに数えられる"],"244":["一番槍","相手の体力が満タンなら 1.5倍"],"245":["木々の声","次の手が見える。いつでも 1.15倍"],"246":["大海原","さいごのターンに出すと 1.8倍"],"247":["錬金","PERFECTなら さらに1.6倍"],"248":["不眠","はずしても 7割の力は出る"],"249":["千夜","ゲージが とても ゆっくり"],"250":["西風","当たり1.6倍。いつでも 1.1倍"],"251":["真夏の夜","いつ出しても 1.35倍"],"252":["満ち引き","不利な手のとき 逆に1.5倍"],"253":["霜の一歩","相手の体力が満タンなら 1.8倍"],"254":["再起動","PERFECTなら さらに1.8倍"],"36":["八つ首","SSR以上の相手に 1.5倍"],"37":["月あかり","次の手が見える。PERFECTで1.4倍"],"38":["鎖ちぎり","不利な手のとき 逆に1.6倍"],"68":["朱雀","いつでも1.3倍。さいごのターンは さらに1.3倍"],"69":["白虎","いつでも1.3倍。PERFECTで さらに1.3倍"],"71":["はじまり","いつ出しても 1.5倍"],"72":["雷帝","PERFECTなら 2倍"],"73":["方舟","はずしても 8割。いつでも1.3倍"],"74":["千刃","当たり2倍。いつでも1.3倍"],"75":["世界樹","次の手が見える。いつでも1.4倍"],"76":["大渦","相手の体力が満タンなら 2倍"],"77":["日食","不利な手のとき 逆に2倍"],"78":["極光","ゲージが とてもゆっくり。いつでも1.3倍"],"79":["ひとしずく","さいごのターンに出すと 2.2倍"],"80":["未来","いつ出しても 1.6倍。PERFECT 1回が 2回ぶん"]};
   for(var k in N){SK[k]=N[k];}
   for(var k3 in N2){SK[k3]=N2[k3];SKX[k3]=SKX2[k3];}
   SK[70]=["虚無","いつ出しても 1.5倍。当たりも 1.5倍 広い"]; SKX[70]={any:1.5,zone:1.5};
@@ -2202,7 +2223,7 @@ function guideTab(){
   rates+='</div>';
   var P=[
    '<p class="how panel"><b>① 手合わせは3ターン。連れていくのは5体、出すのは そのうち3体。</b><br>相手の手は ターンごとに変わる（とくいな手が出やすい）。<br><b>勝てる手の なかまを 出せば1.5倍、負ける手だと0.7倍。</b><br>「つぎの手」も 見えるので、だれを いつ出すかを読む。1体は1回しか出せない。</p>',
-   '<p class="how panel"><b>② 手ごとに 操作がちがう。</b><br>ゴウ（剛）は ザン（斬）に強く、ザンは ジュツ（術）に強く、ジュツは ゴウに強い。<br>✊ゴウ：おしっぱなしで ためて、金のゾーンで はなす（ためすぎると弱い）。<br>✌️ザン：回っている矢印の向きに スワイプ。<br>🖐ジュツ：動く線を まんなかで止める。<br><br><b>PERFECTを2回つづけると、つぎの一撃が必殺（2倍）。</b><br>ザンは 当たりが広い、ジュツは せまいが PERFECTで1.25倍。<br>英雄と進化形は とくぎを持つ。カードで確認できる。<br><br><b>とくせい：</b>どの子も 1つ持っている（★7以上は2つ）。パーティに入れている間 ずっと効き、3体ぶんが 足される（上限あり：パワー・体力は35%、ゲージ40%、当たり・会心・大物狩り・手の絆は60%、先手・底力は70%）。<b>UR以上の出現・なかまになる確率・色違い</b>を上げる とくせいは オルレアだけ。</p>',
+   '<p class="how panel"><b>② 手ごとに 操作がちがう。</b><br>ゴウ（剛）は ザン（斬）に強く、ザンは ジュツ（術）に強く、ジュツは ゴウに強い。<br>✊ゴウ：おしっぱなしで ためて、金のゾーンで はなす（ためすぎると弱い）。<br>✌️ザン：回っている矢印の向きに スワイプ。<br>🖐ジュツ：動く線を まんなかで止める。<br><br><b>必殺ゲージ: PERFECT で +1、有利な手で 当てても +1。2つ たまると つぎの一撃が 必殺（2倍）。いつ つかうかは えらべる。</b><br>ザンは 当たりが広い、ジュツは せまいが PERFECTで1.25倍。<br>英雄と進化形は とくぎを持つ。カードで確認できる。<br><br><b>とくせい：</b>どの子も 1つ持っている（★7以上は2つ）。パーティに入れている間 ずっと効き、3体ぶんが 足される（上限あり：パワー・体力は35%、ゲージ40%、当たり・会心・大物狩り・手の絆は60%、先手・底力は70%）。<b>UR以上の出現・なかまになる確率・色違い</b>を上げる とくせいは オルレアだけ。</p>',
    '<p class="how panel"><b>③ けずった分だけ なかま率が上がる。</b><br>PERFECT 1回ごとに+4%、けずりきると+10%。先のエリアや 奥ほど 相手はタフになる。<br><b>ことわられても むだにならない。</b>その子との きずなが深まり、つぎに会えたとき なかま率 +8%（3回ぶんまで。なかまになると 0にもどる）。</p>',
    '<p class="how panel"><b>④ 連戦：</b>なかまにしたら「もっと おくへ」。そのたび 2つの道から選ぶ（色違い3倍・大物・体力ダウン・おみやげ+2・なかま率+10% のどれか）。奥ほどレアが出やすく、奥で なかまにするたび おみやげが1こ増える（入口の1体めは つかない）。帰れば おみやげが 色違い3倍ブーストになる。奥で ことわられると おみやげは全部なくなる。<br><b>育成：</b>N・Rは 5体あつめると進化。同じ子が来るたびレベルも上がる（最大Lv'+MAX_LV+'）。色違いはパワー1.2倍。なかまが増えるとランクが上がり、ランクアップごとに 色違い3倍ブースト+1回。</p>',
    '<h2>出会う確率 <em>'+area().name+'</em></h2>'+rates+
@@ -2869,6 +2890,7 @@ function toggleParty(id){
   S.party=p; save();
 }
 // ---- ガチャ(メダルで回す。メダルは 遊んで ためる。お金では売らない) ----
+var GSHARD=30;   // きずなのかけら 30こで ガチャ 1回(かぶりの 行き先)
 var GODDS=[0,0,0.60,0.30,0.085,0.015], GCOST=3, GPITY=50, GSTONE=150, GCEIL=200;
 function gainChar(m,kira){
   var had=count(m.id); S.owned[m.id]=had+1; S.joined+=1;
@@ -2925,6 +2947,10 @@ function eggShow(res,done){
     if(force&&force[i]){A=Math.min(T,force[i].a);big=!!force[i].big&&T===3;}
     return {T:T,A:A,big:big};
   });
+  var seen={};
+  res.forEach(function(z){var h0=count(z.m.id)+(seen[z.m.id]||0);seen[z.m.id]=(seen[z.m.id]||0)+1;z.had=h0;
+    z.tag=h0===0?"new":(h0<MAX_LV?"up":"shard");
+    z.tagT=h0===0?"NEW":(h0<MAX_LV?"Lv"+h0+" → Lv"+(h0+1):"きずなのかけら +"+z.m.r);});
   el.className=N===1?"one":""; el.hidden=false; vxStop();
   el.innerHTML='<div class="ge-rays"></div><div class="ge-halo"></div><div class="ge-dim"></div><canvas></canvas><div class="ge-in"><div class="ge-cnt"></div><div class="ge-floor"></div><div class="ge-main"></div><div class="ge-up"></div>'+
     '<div class="ge-grid">'+plan.map(function(p,i){return '<div class="ge-cell" style="--i:'+i+'">'+geEgg(p.A,uid+"c"+i)+'</div>';}).join("")+'</div><div class="ge-hint">タップで すすむ</div><button class="ge-skip">スキップ</button></div><div class="ge-flash"></div>';
@@ -2980,15 +3006,18 @@ function eggShow(res,done){
       burst([26,50,110,200][T],cols(T),[5,7,9,12][T],2); if(T>=2){rain(T===3?140:50,cols(T));}
       geSnd("hatch",T); buzz(T>=2?[40,30,40,30,120]:25);
       card=document.createElement("div"); card.className="ge-card rk"+z.m.r;
-      card.innerHTML='<div class="pic">'+img(z.m,z.k,3)+(z.isNew?'<span class="tg">NEW</span>':'')+'</div><b>'+z.m.name+'</b><span class="st">'+stars(z.m.r)+'</span>'+(z.k?'<span class="kr">✦ 色違い ✦</span>':'');
+      card.innerHTML='<div class="pic">'+img(z.m,z.k,3)+(z.tag==="new"?'<span class="tg">NEW</span>':'')+'</div><b>'+z.m.name+'</b><span class="st">'+stars(z.m.r)+'</span>'+
+        (z.tag==="up"?'<span class="gup"><i>LEVEL UP</i>'+z.tagT+'<small>パワー +'+Math.round(PW[z.m.r-1]*0.1)+'</small></span>':(z.tag==="shard"?'<span class="gup sh"><i>MAX</i>'+z.tagT+'</span>':''))+(z.k?'<span class="kr">✦ 色違い ✦</span>':'');
+      if(z.tag==="up"){geSnd("up",1);}
       el.querySelector(".ge-in").appendChild(card); main.classList.add("gone");
-      cells[i].className="ge-cell done rk"+z.m.r+(z.isNew?" new":""); cells[i].style.opacity=1; cells[i].style.transform="none"; cells[i].innerHTML=img(z.m,z.k);
+      cells[i].className="ge-cell done rk"+z.m.r+" t-"+z.tag; cells[i].style.opacity=1; cells[i].style.transform="none"; cells[i].innerHTML=img(z.m,z.k);
     });
     step(p.T>=3?4200:(p.T===2?2600:(N>1?950:1700)),function(){});
   });
   step(200,function(){});
   run();
 }
+window.__spFill=function(){if(E){E.combo=2;E.spOn=true;renderEnc();}};   // 確認用: 必殺ゲージを 満たす
 window.__geRun=function(rs,force,cb){   // えんしゅつの 確認用(結果は 変えない: 見た目だけ 再生)
   var by={};GACHAS.forEach(function(m){(by[m.r]=by[m.r]||[]).push(m);});
   var seq=rs.map(function(r,i){var l=by[r]||by[3];return {m:l[i%l.length],k:false,isNew:true};});
@@ -3011,10 +3040,11 @@ function showGacha(mode,res){
         return;
       }
       if(k==="shop"){el.hidden=true;tab="shop";beep(700,0.05);renderHome();return;}
-      if(k==="pull1"||k==="pull10"){
+      if(k==="pull1"||k==="pull10"||k==="pullS"){
         var nn=k==="pull10"?10:1, cost=GSTONE*nn;
-        if((S.stone||0)<cost){beep(160,0.15,"triangle");return;}
-        S.stone-=cost; var res=[];
+        if(k==="pullS"){if((S.shard||0)<GSHARD){beep(160,0.15,"triangle");return;}S.shard-=GSHARD;}
+        else{if((S.stone||0)<cost){beep(160,0.15,"triangle");return;}S.stone-=cost;}
+        var res=[];
         for(var q=0;q<nn;q++){var gm=gachaRoll(nn===10&&q===9), gk=Math.random()<KIRA_RATE; res.push({m:gm,k:gk,isNew:count(gm.id)===0&&!res.some(function(z){return z.m.id===gm.id;})});}
         save();
         el.classList.add("busy"); var top=res.slice().sort(function(a,c){return c.m.r-a.m.r;})[0];
@@ -3050,11 +3080,11 @@ function showGacha(mode,res){
   var tb=gachaTable(), free=S.gfree!==today(), h='<div class="pe-in">';
   if(mode==="res"){
     h+='<div class="pe-h"><b>ガチャ結果</b><span>'+res.length+'回</span></div><div class="pe-grid">';
-    res.forEach(function(z){h+='<div class="pe-cell rk'+z.m.r+(z.isNew?" in":"")+'">'+(z.isNew?'<em style="width:auto;padding:0 6px;border-radius:999px">NEW</em>':'')+img(z.m,z.k)+'<b>'+z.m.name+'</b><span>'+stars(z.m.r)+'</span></div>';});
+    res.forEach(function(z){h+='<div class="pe-cell rk'+z.m.r+(z.isNew?" in":"")+'">'+(z.tag==="new"?'<em style="width:auto;padding:0 6px;border-radius:999px">NEW</em>':'')+img(z.m,z.k)+'<b>'+z.m.name+'</b><span>'+stars(z.m.r)+'</span><i class="rtag r-'+(z.tag||"new")+'">'+(z.tag==="up"?z.tagT:(z.tag==="shard"?"かけら +"+z.m.r:"はじめまして"))+'</i></div>';});
     h+='</div><button class="btn gold" data-g="back">つづける</button></div>';
   }else if(mode==="info"){
     h+='<div class="pe-h"><b>確率・くわしく</b><span>ガチャ限定 '+GACHAS.length+'体</span></div>'+'<div class="g-odds"><b>出る確率</b>'+tb.map(function(t){return '<div><span>'+stars(t.r)+'（'+t.list.length+'体）</span><em>'+(t.p*100).toFixed(1)+'%</em></div>';}).join("")+
-      '<p>卵の色は えんしゅつ。とちゅうで 上の 卵に「昇格」する ことが ある（出る確率は この表の とおりで、えんしゅつでは 変わらない）。<br>同じレア度の中では どの子も同じ確率。色違いは '+(KIRA_RATE*100)+'%。'+GPITY+'回 ★5以上が出なければ 次は ★5以上（あと '+(GPITY-(S.gpity||0))+'回）。<br>メダルは デイリーミッション（+1）・ランクアップ（+2）で もらえる。<br>10連の10回目は ★4以上だけの中から、上の比で出る。'+GCEIL+'回 まわすごとに「えらべる交換チケット」が1まい もらえる（あと '+(GCEIL-((S.gcount||0)%GCEIL))+'回）。</p></div>'+'<button class="btn sec" data-g="back">もどる</button></div>';
+      '<p><b style="color:#fff">かぶっても むだに ならない:</b> 同じ子が また出ると Lv アップ（最大 Lv'+MAX_LV+'・1つごとに パワー +10%）。Lv最大の あとは「きずなのかけら」（★の数ぶん）に なり、ほかの子の レベルアップ か、'+GSHARD+'こで ガチャ 1回に 使える。<br>卵の色は えんしゅつ。とちゅうで 上の 卵に「昇格」する ことが ある（出る確率は この表の とおりで、えんしゅつでは 変わらない）。<br>同じレア度の中では どの子も同じ確率。色違いは '+(KIRA_RATE*100)+'%。'+GPITY+'回 ★5以上が出なければ 次は ★5以上（あと '+(GPITY-(S.gpity||0))+'回）。<br>メダルは デイリーミッション（+1）・ランクアップ（+2）で もらえる。<br>10連の10回目は ★4以上だけの中から、上の比で出る。'+GCEIL+'回 まわすごとに「えらべる交換チケット」が1まい もらえる（あと '+(GCEIL-((S.gcount||0)%GCEIL))+'回）。</p></div>'+'<button class="btn sec" data-g="back">もどる</button></div>';
   }else if(mode==="list"){
     h+='<div class="pe-h"><b>えらんで こうかん</b><span>チケット '+(S.gpick||0)+'まい・★5まで</span></div><div class="pe-grid">';
     GACHAS.filter(function(m){return m.r<=5;}).sort(function(a,c){return c.r-a.r;}).forEach(function(m){
@@ -3070,7 +3100,7 @@ function showGacha(mode,res){
       '<div class="gx-pity">★5以上 確定まで あと <b>'+(GPITY-(S.gpity||0))+'</b>回</div>'+
       '<div class="gx-btns"><button class="gx-b one'+(free?" free":"")+'" data-g="'+k1+'" id="g-pull"><b>'+(free?"無料で 1回":"1回")+'</b><small>'+(free?"きょうの ぶん":(hasM?"メダル "+GCOST+"まい":(st>=GSTONE?'<img src="a/stone1.webp" alt="">'+GSTONE:"石が たりない"))) +'</small></button>'+
       '<button class="gx-b ten" data-g="'+k10+'" id="g-pull10"><b>10連</b><small>'+(st>=GSTONE*10?'<img src="a/stone1.webp" alt="">'+(GSTONE*10)+'・★4以上 1体':"石が たりない")+'</small></button></div>'+
-      '<div class="gx-links"><button data-g="info" id="g-info">確率・くわしく</button>'+((S.gpick||0)>0?'<button data-g="list" id="g-list">こうかん '+S.gpick+'まい</button>':'')+'<button data-g="shop" id="g-shop">石を 買う</button></div></div>';
+      '<div class="gx-links"><button data-g="info" id="g-info">確率・くわしく</button>'+((S.gpick||0)>0?'<button data-g="list" id="g-list">こうかん '+S.gpick+'まい</button>':'')+((S.shard||0)>=GSHARD?'<button data-g="pullS" id="g-pulls" class="gs">かけら '+GSHARD+'こで 1回</button>':'')+'<button data-g="shop" id="g-shop">石を 買う</button></div><div class="gx-sh">きずなのかけら '+(S.shard||0)+' / '+GSHARD+'</div></div>';
     notice="";
   }
   el.innerHTML=h;
@@ -3213,7 +3243,7 @@ function renderEnc(fx){
     if(e.phase==="battle"){
       var fh=HANDS[foeHand()];
       h+='<div class="ehand"><span>このターンの手</span><span class="now" style="--hc:'+fh.c+'">'+fh.e+' '+fh.l+'</span>'+
-         '<span class="nx">'+(e.turn<MAX_TURN?"つぎは "+HANDS[e.hands[e.turn]].e+HANDS[e.hands[e.turn]].l:"さいごの手")+'</span></div>';
+         '<span class="nx">'+(e.turn<MAX_TURN?"つぎは "+HANDS[e.hands[e.turn]].e+HANDS[e.hands[e.turn]].l+((e.peek&&e.turn+1<MAX_TURN)?" → "+HANDS[e.hands[e.turn+1]].e:""):"さいごの手")+'</span></div>';
     }
     h+='<div class="hpw panel"><div class="barlab"><span>たいりょく</span><span id="hptxt">'+Math.max(0,hp-e.dmg)+' / '+hp+'</span></div>'+
        '<div class="bar"><b id="hptrail" style="width:'+(100*(1-ratio))+'%"></b><i id="hpfill" style="width:'+(100*(1-ratio))+'%"></i></div>'+
@@ -3250,8 +3280,8 @@ function renderEnc(fx){
         c+='<button class="btn hitbig" data-act="hit" id="hit-btn">いけ！</button>';
       }
       c+='<div class="under">';
-      if((e.combo||0)>=2){c+='<div class="combo">必殺チャンス ×2</div>';}
-      else if((e.combo||0)===1){c+='<div class="combo">PERFECT 1連。もう1回で 必殺</div>';}
+      if((e.combo||0)>=2&&e.spOn!==false){c+='<div class="combo">必殺 ×2 を 放つ！</div>';}
+      else if((e.combo||0)>=2){c+='<div class="combo" style="opacity:.7">必殺は とっておく</div>';}
       c+='<div class="coach" style="color:var(--mute)">'+(a.hand==="scissors"?"ザン：スワイプの向きが 矢印に近いほど強い":(a.hand==="paper"?"ジュツ：ゾーンがせまい。PERFECTで1.25倍":"ゴウ：ためすぎると 力んで弱くなる"))+(sko?"　／　とくぎ「"+sko[0]+"」":"")+'</div>';
 
       c+='<button class="backlink" data-act="back" id="back-btn">‹ えらびなおす</button>';
@@ -3259,6 +3289,9 @@ function renderEnc(fx){
     }else{
       c+='<div class="msg">だれが 手合わせする？</div>';
       if(S.joined<2){c+='<div class="coach">「有利」と出ている なかまを えらぶと 1.5倍</div>';}
+      var gz=Math.min(2,e.combo||0);
+      c+='<div class="spg'+(gz>=2?" full":"")+'"><span>必殺ゲージ</span><i class="'+(gz>=1?"f":"")+'"></i><i class="'+(gz>=2?"f":"")+'"></i>'+
+         (gz>=2?(e.turn<MAX_TURN?'<button data-act="sptog" id="sp-tog" class="'+(e.spOn!==false?"on":"")+'">'+(e.spOn!==false?"この ターンで つかう":"とっておく")+'</button>':'<b>さいごの ターン: 必殺 ×2</b>'):'<em>PERFECT と 有利で +1</em>')+'</div>';
       c+='<div class="picks'+(attackers().length>3?" p5x":"")+'">';
       attackers().forEach(function(p){
         var mu=effMu(p), sk=skillOf(p);
@@ -3424,7 +3457,7 @@ function arenaHit(a,dealt,perfect,special,mu,st,encin){
   var opp=Math.round(foePower(f)*mult(fm.hand,a.hand)*1.2), win=dealt>=opp;
   A.res.push({win:win,my:dealt,opp:opp,who:a.id}); A.score+=dealt;
   E.used.push(a.id); E.atk=null; E.slowNext=false; E.peek=false;
-  if(perfect){E.combo=(E.combo||0)+1;}else{E.combo=0;}
+  if(special){E.combo=0;}else{E.combo=Math.min(2,(E.combo||0)+(perfect?1:0)+(mu>1?1:0));} E.spOn=true;
   E.hit=(win?"勝ち！ ":"負け… ")+dealt+" 対 "+opp;
   dq("hit",1); if(perfect){dq("perf",1);}
   sfx(perfect||special?"perfect":"hit"); buzz(perfect||special?[25,30,45]:18);
@@ -3680,7 +3713,7 @@ function doHit(accIn){
   var m=byId(E.mid), a=byId(E.atk), hp=ehp();
   var acc=(typeof accIn==="number")?accIn:1-Math.abs(gaugePos()-0.5)*2;          // 0(はずれ)〜1(ど真ん中)
   if(E.atk&&skx(byId(E.atk)).floor){acc=Math.max(acc,skx(byId(E.atk)).floor);}
-  var special=(E.combo||0)>=2, mu=effMu(a);
+  var special=(E.combo||0)>=2&&E.spOn!==false, mu=effMu(a);
   if(special&&E.spK==null){                      // 必殺は れんだで ためてから放つ
     E.busy=true; token++;
     spCharge(a,function(k){if(!E){return;}E.spK=k;E.busy=false;doHit(acc);});
@@ -3723,7 +3756,9 @@ function doHit(accIn){
     E.slowNext=(a.id===14); E.peek=(a.id===19)||!!skx(a).peek;
     dq("hit",1); if(perfect){dq("perf",1);}
     if(!E.koDone&&E.dmg>=hp){E.koDone=true;dq("ko",1);}
-    if(perfect){E.perf=(E.perf||0)+1+(skx(a).perf2?1:0);E.combo=(E.combo||0)+1;}else{E.combo=0;}
+    if(perfect){E.perf=(E.perf||0)+1+(skx(a).perf2?1:0);}
+    if(special){E.combo=0;}else{E.combo=Math.min(2,(E.combo||0)+(perfect?1:0)+(mu>1?1:0));}   // 必殺ゲージ: PERFECT +1・有利 +1。2で 必殺(つかうか とっておくかを えらべる)
+    E.spOn=true;
     var ratio=Math.min(1,E.dmg/hp);
     E.hit=(special?"必殺！！ ":"")+(perfect?"PERFECT！ ":(acc>0.5?"いいぞ！ ":""))+dealt+" けずった"+(mu>1?"（有利）":(mu<1?"（不利）":""));
     if(E.dmg>=hp||E.turn>=MAX_TURN){E.phase="chance";}else{E.turn+=1;}
@@ -3848,6 +3883,7 @@ function closeEnc(){token++;E=null;enc.hidden=true;playBgm("home");renderHome();
 enc.addEventListener("click",function(ev){
   var b=ev.target.closest("[data-act]"); if(!b||!E||E.busy){return;}
   var act=b.getAttribute("data-act");
+  if(act==="sptog"){E.spOn=(E.spOn===false);beep(E.spOn?880:520,0.05);renderEnc();return;}
   if(act==="pick"){E.atk=Number(b.getAttribute("data-id"));startAtk();beep(600,0.06);token++;renderEnc();}
   else if(act==="back"){E.atk=null;token++;renderEnc();}
   else if(act==="hit"){if(atkHand()==="paper"){doHit();}}
