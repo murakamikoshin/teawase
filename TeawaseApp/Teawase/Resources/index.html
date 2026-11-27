@@ -1118,6 +1118,7 @@ html.short .qb img{width:24px;height:24px}
 #title .tgi{bottom:calc(var(--up,0px)*var(--tf,1))}
 #title .tgi .spr{height:calc(var(--h)*var(--tf,1))!important}
 #title .tgi.sil{bottom:calc(64px*var(--tf,1))}
+html.short #title .tgi.sil{bottom:calc(40px*var(--tf,1))}
 #title .tgi.sil .spr{height:calc(var(--h)*var(--ts,1)*1.12)!important}
 /* ---- リニューアル 9: はじめの 体験 ---- */
 .st0{width:100%;max-width:400px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
@@ -1141,7 +1142,7 @@ html.short .qb img{width:24px;height:24px}
 .hlps{display:flex;align-items:center;gap:8px;margin-top:8px;padding:6px 10px;border-radius:12px;background:rgba(122,215,255,.12);border:1px solid rgba(122,215,255,.5);font-size:11px}
 .hlps .spr{width:40px!important;height:40px!important;margin:0}.hlps b{display:block;font-size:12px;color:#fff}
 /* ---- リニューアル 5: 見直しで 直した もの ---- */
-.snack{position:fixed;left:14px;right:14px;bottom:calc(172px + env(safe-area-inset-bottom,0px));z-index:6;max-width:432px;margin:0 auto;text-align:center;font-size:12px;font-weight:900;line-height:1.5;color:#15123a;background:linear-gradient(180deg,var(--gold1),var(--gold2));border-radius:12px;padding:8px 10px;box-shadow:0 6px 18px rgba(0,0,0,.5),0 0 22px -2px var(--gold2);pointer-events:none;animation:stamp .35s ease-out,snackout .5s ease-in 4s forwards}
+.snack{position:fixed;left:14px;right:14px;top:var(--sy,auto);bottom:var(--sb,calc(172px + env(safe-area-inset-bottom,0px)));min-height:var(--sh,auto);display:flex;align-items:center;justify-content:center;z-index:6;max-width:432px;margin:0 auto;text-align:center;font-size:12px;font-weight:900;line-height:1.5;color:#15123a;background:linear-gradient(180deg,var(--gold1),var(--gold2));border-radius:12px;padding:8px 10px;box-shadow:0 6px 18px rgba(0,0,0,.5),0 0 22px -2px var(--gold2);pointer-events:none;animation:stamp .35s ease-out,snackout .5s ease-in 4s forwards}
 @keyframes snackout{to{opacity:0;transform:translateY(8px)}}
 .encin .ctl{min-height:0;overflow-y:auto;scrollbar-width:none;flex-shrink:1}.encin .ctl::-webkit-scrollbar{display:none}
 .encin .stage{flex-shrink:0}
@@ -2291,6 +2292,8 @@ function renderHome(){
   h+='</div></nav>';
   document.documentElement.classList.toggle("short",visH()<=740);
   app.innerHTML=h;
+  var sn=app.querySelector(".snack"), qr=app.querySelector(".qrow");          // お知らせは ボタン列の 上に ちょうど 重ねる
+  if(sn&&qr){var rq=qr.getBoundingClientRect(); sn.style.setProperty("--sy",rq.top+"px"); sn.style.setProperty("--sb","auto"); sn.style.setProperty("--sh",rq.height+"px");}
   homeVx();
 }
 // ホームの主役を3Dで立たせる(出会い・登場アニメの間は そっちが3Dを使う)
@@ -4442,7 +4445,7 @@ function showTitle(played){
   }
   if(!S.mute){playBgm("title");}
   var feat=[], T=0.15;   // 登場ムービーは なし。最初から 集合の画面(Koshin 指定)
-  var grp=[[81,17,150,1,1,0],[82,83,150,1,1,0],[83,50,200,1,1,0],[11,15,128,2,0,38],[14,85,128,2,0,38],[20,30,160,3,0,8],[68,70,160,3,0,8],[15,50,200,4,0,0]];   // 6つ目: 下から 何px 上げるか(うしろの 子の 顔が かくれない ように)   // [id, まん中の位置%, 高さ, 重なり, 影]
+  var grp=[[81,17,150,1,1,0],[82,83,150,1,1,0],[83,50,200,1,1,0],[11,11,120,2,0,30],[14,89,120,2,0,30],[20,28,150,3,0,6],[68,72,150,3,0,6],[15,50,196,4,0,0]];   // 6つ目: 下から 何px 上げるか(うしろの 子の 顔が かくれない ように)   // [id, まん中の位置%, 高さ, 重なり, 影]
   var h='<div class="t-streak"></div><div class="t-rays"></div><video class="t-bgv" src="v/title.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>';
   feat.forEach(function(m,i){
     h+='<div class="tp" style="--i:'+i+';--pc:'+FXC[fxOf(m)]+';--d:'+(i%2?-1:1)+'"><span>'+m.name+m.name+m.name+'</span></div><div class="tf" style="--i:'+i+'"></div><div class="tc" style="--i:'+i+';--from:'+(i%2?"-":"")+'110vw;--pc:'+FXC[fxOf(m)]+'">'+timg(m,3)+
@@ -4457,7 +4460,7 @@ function showTitle(played){
     '<div class="t-tap" style="--t:'+T+'s">TAP TO START</div><div class="t-foot">'+(NATIVE?"":"TEST BUILD ・ ")+'v'+VERSION+'</div>';
   titleEl.innerHTML=h;
   (function(){var vh=window.innerHeight||800, vw=Math.min(window.innerWidth||390,460), free=vh*0.85-(vh*0.095+190)-vh*0.15;   // ロゴの 下から TAP の 上までの 空き
-    var ts=Math.max(0.8,Math.min(1.5,free/300)); titleEl.style.setProperty("--ts",ts.toFixed(3)); titleEl.style.setProperty("--tf",Math.max(0.8,Math.min(ts,vw/390*0.98)).toFixed(3));})();
+    var ts=Math.max(0.7,Math.min(1.5,free/300)); if(vh<720){ts*=0.86;} titleEl.style.setProperty("--ts",ts.toFixed(3)); titleEl.style.setProperty("--tf",Math.max(0.8,Math.min(ts,vw/390*0.98)).toFixed(3));})();
   var bgv=titleEl.querySelector(".t-bgv"); if(bgv){try{bgv.muted=true;var bpp=bgv.play();if(bpp&&bpp.catch){bpp.catch(function(){});}}catch(err){}}
   // 絵を先に全部ひらいてから 動かす(途中で絵を開くと カクッとなる)
   titleEl.classList.add("wait");
