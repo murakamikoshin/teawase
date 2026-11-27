@@ -7,7 +7,7 @@ from scipy import ndimage
 f,cols,rows,out,ids=sys.argv[1],int(sys.argv[2]),int(sys.argv[3]),sys.argv[4],sys.argv[5].split(',')
 im=Image.open(f).convert('RGBA'); W,H=im.size; res=[]
 for k,i in enumerate(ids):
-    if not i: continue
+    if not i or i=='0': continue
     r,c=divmod(k,cols)
     cell=im.crop((c*W//cols,r*H//rows,(c+1)*W//cols,(r+1)*H//rows))
     a=np.asarray(cell)[:,:,3]>40

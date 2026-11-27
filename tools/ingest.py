@@ -7,6 +7,7 @@ os.makedirs('/home/claude/newsrc',exist_ok=True)
 subprocess.check_call(['python3','/home/claude/tools/slice_grid.py' if '--grid' in sys.argv else '/home/claude/tools/slice.py',sys.argv[2],str(sh["cols"]),str(sh["rows"]),'/home/claude/newsrc',','.join(ids)])
 ok=[]
 for i in ids:
+    if i=='0': continue
     if os.path.exists('/home/claude/newsrc/%s.png'%i):
         subprocess.check_call(['python3','/home/claude/tools/dot5.py','/home/claude/newsrc/%s.png'%i,'/home/claude/dots5/%s.png'%i,'108','20']); ok.append(i)
 subprocess.check_call(['python3','/home/claude/tools/addart.py',','.join(ok)])

@@ -51,7 +51,7 @@ TIER0={1:"【★1 素朴】まるい シンプルな 形・色 2〜3色",2:"【�
  5:"【★5 豪華】金の ふち・宝石・なびく マントや 布。かっこいい 決めポーズ",
  6:"【★6 超豪華】金銀の 細かい 装飾、大きな マント・翼・武器。服や 武器の 作りこみを ★5より 一段 上に。堂々とした 主役級の ポーズと 表情",
  7:"【★7 最上級】★6より さらに 上。冠・翼・衣装の 作りこみで ひと目で 別格と わかる"}
-TIER={k:(v+("。こまかい 模様を ぎっしり 描かず、大きな パーツ(冠・マント・翼・武器)で 豪華さを 出す。小さく 縮めても 顔と 形が はっきり わかる ように" if k>=5 else "")) for k,v in TIER0.items()}
+TIER={k:(v+("")) for k,v in TIER0.items()}
 def line(k,i,tier=True):
     c=C[i]; t=c['t'] or (TITLES.get(i) if isinstance(TITLES,dict) else "") or ""
     return "%d. %s%s(★%d)— %s%s"%(k,c['n'],"「"+t+"」" if t else "",c['r'],look(i),("。"+TIER.get(c['r'],"")) if tier else "")
