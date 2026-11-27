@@ -20,9 +20,15 @@ async def main():
         code=await O.inner_text('#mycode')
         C=await openp(b,base([19,31,15,84,20]),errs)             # 呼ぶ 側
         await C.click('#tab-arena'); await C.wait_for_timeout(300); await C.fill('#fcode',code); await C.click('#ahelp-btn'); await C.wait_for_timeout(400)
+        print('btn before help used:', await C.evaluate("!!document.querySelector('#hthx-btn')"))
+        st=json.loads(await C.evaluate("localStorage.getItem('teawase_v1')")); st['hlp']['n']=2
+        await C.evaluate("v=>localStorage.setItem('teawase_v1',v)",json.dumps(st)); await C.reload(); await C.wait_for_timeout(500); await C.click('#title .t-tap', force=True); await C.wait_for_timeout(300); await C.click('#tab-arena'); await C.wait_for_timeout(300)
         await C.click('#hthx-btn'); await C.wait_for_timeout(400); txt=await C.evaluate("window.__sh"); m=re.search(r'HP-[0-9A-Z]+',txt or ''); print('share:',(txt or '')[:60].replace('\n',' '), m and m.group(0))
         await C.screenshot(path='/tmp/thx_c.png')
         hp=m.group(0)
+        await O.click('[data-act=pg][data-id="1"]:visible'); await O.wait_for_timeout(200); await O.click('[data-act=pg][data-id="1"]:visible'); await O.wait_for_timeout(300)
+        await O.click('[data-act=pg][data-id="-1"]:visible'); await O.wait_for_timeout(200); await O.click('[data-act=pg][data-id="-1"]:visible'); await O.wait_for_timeout(200)
+        await O.fill('#fcode',hp); await O.click('#afriend-btn'); await O.wait_for_timeout(400); print('via friend field:', json.loads(await O.evaluate("localStorage.getItem('teawase_v1')")).get('shard'), await O.evaluate("(document.querySelector('.notice')||{}).textContent"))
         await O.click('[data-act=pg][data-id="1"]:visible'); await O.wait_for_timeout(200); await O.click('[data-act=pg][data-id="1"]:visible'); await O.wait_for_timeout(300)
         for k in range(2):
             await O.fill('#icode',hp); await O.click('#invuse-btn'); await O.wait_for_timeout(400)

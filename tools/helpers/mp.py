@@ -2,6 +2,11 @@ import asyncio,json,sys
 from playwright.async_api import async_playwright
 own={i:2 for i in list(range(1,21))+[31,101,84,68,404]}
 base={'owned':own,'enc':40,'joined':30,'mute':True,'tut':True,'st0':1,'tgDone':True,'login':{'d':99991231,'n':1},'area':'forest','kira':{},'fav':84,'party':[404,19,31,15,84],'stone':100}
+async def _safe(pg,sel,**kw):
+    try:
+        await pg.click(sel,force=True,timeout=2500,**kw); return True
+    except Exception:
+        return False
 async def openp(ctx,errs):
     pg=await ctx.new_page(); await pg.set_viewport_size({'width':390,'height':844}); pg.on('pageerror',lambda e:errs.append(str(e)))
     await pg.goto('file:///home/claude/teawase/index.html?mptest=1'); await pg.evaluate("v=>localStorage.setItem('teawase_v1',v)",json.dumps(base)); await pg.reload(); await pg.wait_for_timeout(500)
@@ -10,15 +15,17 @@ async def openp(ctx,errs):
 async def state(pg):
     return await pg.evaluate("(()=>{const w=!!document.querySelector('#mp-left')&&!document.querySelector('.pick');return {pick:!!document.querySelector('.pick'),wait:w,inv:!!document.querySelector('#invite-btn'),hp:(document.querySelector('#hptxt')||{}).textContent,anime:!document.getElementById('anime').hidden}})()")
 async def move(pg):
-    await pg.click('.pick:visible'); await pg.wait_for_timeout(500)
+    await _safe(pg,'.pick:visible'); await pg.wait_for_timeout(500)
     for _ in range(40):
         hb=await pg.query_selector('#hit-btn:visible')
         if hb:
             box=await hb.bounding_box(); await pg.mouse.move(box['x']+box['width']/2,box['y']+box['height']/2); await pg.mouse.down(); await pg.wait_for_timeout(450); await pg.mouse.move(box['x']+box['width']/2+60,box['y']+box['height']/2-60); await pg.mouse.up()
         g=await pg.query_selector('.gauge[data-act=hit]:visible')
-        if g: await g.click()
+        if g:
+            try: await g.click(timeout=2000)
+            except Exception: pass
         await pg.wait_for_timeout(350)
-        if await pg.query_selector('#anime:not([hidden])'): await pg.click('#anime')
+        if await pg.query_selector('#anime:not([hidden])'): await _safe(pg,'#anime')
         st=await state(pg)
         if (st['wait'] or st['inv'] or st['pick']) and not await pg.query_selector('#hit-btn:visible') and not await pg.query_selector('.gauge[data-act=hit]:visible'): return
 async def run(b,drop):
@@ -29,7 +36,7 @@ async def run(b,drop):
     for step in range(200):
         for pg in (A,B):
             if pg.is_closed(): continue
-            if await pg.query_selector('#anime:not([hidden])'): await pg.click('#anime')
+            if await pg.query_selector('#anime:not([hidden])'): await _safe(pg,'#anime')
         sa=await state(A); sb=None if B.is_closed() else await state(B)
         if step==0 or step%15==0: print(step,sa,sb)
         if sa['inv'] and (sb is None or sb['inv']): break

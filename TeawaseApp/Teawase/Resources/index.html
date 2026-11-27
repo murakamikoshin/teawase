@@ -1215,6 +1215,15 @@ body,button,input{word-break:keep-all;overflow-wrap:break-word;line-break:strict
 @keyframes gxbusyc{0%{transform:translateY(0) scale(1)}30%{transform:translateY(-6px) rotate(-4deg)}50%{transform:translateY(-14px) rotate(4deg)}70%{transform:translateY(-26px) rotate(-5deg) scale(1.06)}100%{transform:translateY(-52px) scale(1.18);filter:drop-shadow(0 0 40px #fff) brightness(2.2)}}
 .mpatk .spr{filter:drop-shadow(0 0 10px #7ad7ff)}.float.mpf{-webkit-text-stroke:2px #0b5fa8;text-shadow:0 4px 0 #063a68,0 0 18px #7ad7ff;left:62%}
 .mptg{position:absolute;left:62%;top:6px;transform:translateX(-50%);font-size:11px;font-weight:900;padding:2px 8px;border-radius:999px;background:#7ad7ff;color:#0a0828;animation:floatup .9s ease-out forwards;pointer-events:none;z-index:4}
+#gegg .ge-up.jp{font-family:var(--display);font-weight:400;letter-spacing:.02em;-webkit-text-stroke:2px rgba(10,6,40,.85);paint-order:stroke fill}
+.tutfing{position:absolute;left:50%;top:50%;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:rgba(255,255,255,.85);box-shadow:0 0 0 4px rgba(255,221,90,.9),0 0 18px rgba(255,221,90,.9);pointer-events:none;z-index:5}
+.tutfing.f-rock{animation:tfrock 1.6s ease-in-out infinite}
+@keyframes tfrock{0%{transform:scale(1.4);opacity:0}15%{transform:scale(1);opacity:1}25%,75%{transform:scale(.82);box-shadow:0 0 0 10px rgba(255,221,90,.55),0 0 26px rgba(255,221,90,.9)}85%{transform:scale(1.2);opacity:1}100%{transform:scale(1.4);opacity:0}}
+.tutfing.f-scissors{animation:tfsw 1.3s ease-in-out infinite}
+@keyframes tfsw{0%{opacity:0;transform:rotate(var(--ang,0deg)) translateX(-46px)}20%{opacity:1}70%{opacity:1;transform:rotate(var(--ang,0deg)) translateX(46px)}100%{opacity:0;transform:rotate(var(--ang,0deg)) translateX(56px)}}
+.tutfing.f-paper{animation:tftap 1s ease-in-out infinite}
+@keyframes tftap{0%,100%{transform:scale(1);opacity:.4}40%{transform:scale(.7);opacity:1}55%{transform:scale(1.25);opacity:.9}}
+#hit-btn,.gauge[data-act=hit]{position:relative}
 /* ---- リニューアル 4b: ショップ(縦に 1本)---- */
 .shopx{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:10px;padding:2px 2px calc(84px + env(safe-area-inset-bottom,0px));scrollbar-width:none}
 .shopx::-webkit-scrollbar{display:none}
@@ -3002,6 +3011,9 @@ app.addEventListener("click",function(ev){
   if(act==="mpfind"){MP.find();renderHome();return;}
   if(act==="mpcancel"){MP.leave();renderHome();return;}
   if(act==="hthx"){shareText("テアワセ！で たすけっとに 来てくれて ありがとう。この お礼コードを 入れると きずなのかけらが もらえるよ\nお礼コード "+helpThanksCode()+"\n（バトル → ともだちを さそう の 入力らんに 入れてね）");return;}
+  if((act==="ahelp"||act==="afriend")&&/^\s*HP/i.test((document.getElementById("fcode")||{}).value||"")){
+    var hr=useInvite((document.getElementById("fcode")||{}).value); if(hr){notice=hr;} renderHome(); return;
+  }
   if(act==="ahelp"){
     var hv=(document.getElementById("fcode")||{}).value, hc=readCode(hv);
     if(!hc){notice="コードが ちがうみたい。もう一度 たしかめて";renderHome();return;}
@@ -3243,7 +3255,7 @@ function eggShow(res,done,quick){
   function setCol(t){el.style.setProperty("--ec",GE_COL[t]);el.classList.toggle("hot",t===2);el.classList.toggle("rain",t===3);}
   function jolt(){el.classList.remove("jolt");void el.offsetWidth;el.classList.add("jolt");}
   function doFlash(big){flash.className="ge-flash";void flash.offsetWidth;flash.className="ge-flash "+(big?"gebig":"gego");}
-  function showUp(txt,big){up.textContent=txt;up.className="ge-up";void up.offsetWidth;up.className="ge-up gego"+(big?" gebig":"");}
+  function showUp(txt,big){up.textContent=txt;up.className="ge-up";void up.offsetWidth;up.className="ge-up gego"+(big?" gebig":"")+(/[^\x00-\x7f]/.test(txt)?" jp":"");}
   function cols(t){return [["#bfe4ff","#4aa8ff","#fff"],["#ecd0ff","#b765ff","#fff"],["#fff3b0","#ffc640","#fff","#ff9d2e"],["#ff7ad9","#ffe66a","#6affc0","#6ae3ff","#b68cff","#fff"]][t];}
   el.onclick=function(ev){
     if(ev.target.closest(".ge-skip")){              // スキップ: つぎの ★5以上の 卵まで 飛ぶ(無ければ 結果へ)
@@ -3667,16 +3679,23 @@ function renderEnc(fx){
     c+='<button class="btn sec" data-act="again" id="again-btn">入口から さがしなおす</button>';
     c+='<button class="btn sec" data-act="home" id="home-btn">ホームに もどる</button>';
   }
-  if(tutOn()){                                   // 最初の 1回だけ: いま やる ことを 1つずつ
+  var tH=null;                                   // まだ 教えて いない 手を はじめて 使う 時
+  if(!e.arena&&!e.raid&&e.phase==="battle"&&e.atk&&!(S.tutH&&S.tutH[byId(e.atk).hand])){tH=byId(e.atk).hand;}
+  if(tutOn()||tH){
     var tb="", ta=e.atk?byId(e.atk):null;
-    if(e.phase==="battle"&&!ta){tb=tutB(1,"光っている 子を タップ。<b>「有利」</b>なら 1.5倍");}
+    if(!tutOn()){tb=tutB("!",tH==="rock"?"<b>ゴウ</b>: ボタンを <b>おしっぱなし</b> → 金の ゾーンで <b>はなす</b>":(tH==="scissors"?"<b>ザン</b>: 矢印の 向きに <b>スワイプ</b>":"<b>ジュツ</b>: 線が まんなかに 来たら <b>タップ</b>"));}
+    else if(e.phase==="battle"&&!ta){tb=tutB(1,"光っている 子を タップ。<b>「有利」</b>なら 1.5倍");}
     else if(e.phase==="battle"&&ta){tb=tutB(2,ta.hand==="rock"?"ボタンを <b>おしっぱなし</b> → 金の ゾーンで <b>はなす</b>":(ta.hand==="scissors"?"矢印の 向きに <b>スワイプ</b>":"線が まんなかに 来たら <b>タップ</b>"));}
     else if(e.phase==="chance"){tb=tutB(3,"<b>なかまに さそう</b> を タップ。けずった ぶん 成功しやすい");}
     else if(e.phase==="joined"||e.phase==="refused"){S.tut2=true;save();}
     c=tb+c;
   }
-  h+='<div class="ctl'+(tutOn()?" tuton":"")+'">'+c+'</div></div>';
+  h+='<div class="ctl'+(tutOn()||tH?" tuton":"")+'">'+c+'</div></div>';
   enc.innerHTML=h;
+  if(e.phase==="battle"&&e.atk&&(tutOn()||tH)){            // 指の 動き(押す・スワイプ・タップ)
+    var hb=enc.querySelector("#hit-btn")||enc.querySelector(".gauge[data-act=hit]"), hh=byId(e.atk).hand;
+    if(hb){var fg=document.createElement("i"); fg.className="tutfing f-"+hh; if(hh==="scissors"){var aw=enc.querySelector("#mk"); fg.style.setProperty("--ang",(typeof arrowDeg==="function"?arrowDeg():0)+"deg");} hb.appendChild(fg);}
+  }
   if(tutOn()&&e.phase==="battle"&&!e.atk){var tp=enc.querySelector(".pick .mt.win"); tp=tp?tp.closest(".pick"):enc.querySelector(".pick"); if(tp){tp.classList.add("tutpulse");}}
   if(e.phase==="battle"&&e.atk){runGauge();}
 }
@@ -3991,9 +4010,9 @@ function arenaTab(){
      '<button class="btn gold" data-act="adaily" id="adaily-btn">挑戦する<small>2勝で 色違い3倍ブースト+2（1日1回）</small></button></div>';
   h+='<div class="panel acard2"><div class="ah"><b class="goldtxt">ともだちバトル</b><span>コードを 送りあって たたかう</span></div>'+
      '<div class="codebox"><span>じぶん</span><b id="mycode">'+myCode()+'</b><button data-act="acode" id="acode-btn">送る</button></div>'+
-     '<div class="codebox"><input id="fcode" maxlength="14" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="ともだちのコード" value="'+(S.lastCode||"")+'"><button data-act="afriend" id="afriend-btn">たたかう</button></div>'+
+     '<div class="codebox"><input id="fcode" maxlength="14" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="ともだちの コード / お礼コード(HP-)" value="'+(S.lastCode||"")+'"><button data-act="afriend" id="afriend-btn">たたかう</button></div>'+
      '<button class="btn sec hlpb" data-act="ahelp" id="ahelp-btn">先頭の 子を たすけっとに よぶ（1日 '+HLP_DAY+'回）</button>'+
-     (S.hlp&&S.hlp.d===today()?'<div class="hlps">'+img(byId(S.hlp.id),S.hlp.kira)+'<span><b>きょうの たすけっと: '+byId(S.hlp.id).name+' Lv'+S.hlp.lv+'</b>あと '+S.hlp.n+'回</span><button data-act="hthx" id="hthx-btn">お礼を 送る</button></div>':'')+'</div>';
+     (S.hlp&&S.hlp.d===today()?'<div class="hlps">'+img(byId(S.hlp.id),S.hlp.kira)+'<span><b>きょうの たすけっと: '+byId(S.hlp.id).name+' Lv'+S.hlp.lv+'</b>あと '+S.hlp.n+'回</span>'+(S.hlp.n<HLP_DAY?'<button data-act="hthx" id="hthx-btn">お礼を 送る</button>':'')+'</div>':'')+'</div>';
   var pages=['<div class="pg">'+h.replace(/^<h2>.*?<\/h2>/,"")+'</div>','<div class="pg">'+raidPanel()+mpPanel()+'</div>','<div class="pg">'+invitePanel()+'</div>'];
   return '<h2>バトル <em>力くらべ と ともだち</em></h2>'+pager(pages);
 }
@@ -4099,6 +4118,7 @@ function doHit(accIn){
     if(!E){return;}
     if(E.arena){arenaHit(a,dealt,perfect,special,mu,st,encin);return;}
     if(E.mp&&Date.now()-E.mp.t0>(E.mp.first?48000:36000)){dealt=0;}        // おそすぎた 手は 0(相手側は もう とばして いる)
+    if(!S.tutH){S.tutH={};} S.tutH[a.hand]=1;
     E.dmg+=dealt; E.used.push(a.id); E.atk=null;
     if(E.hlp&&E.hlp.id===a.id&&S.hlp){S.hlp.n=Math.max(0,(S.hlp.n||0)-1);save();}
     E.slowNext=(a.id===14); E.peek=(a.id===19)||!!skx(a).peek;
@@ -4376,7 +4396,7 @@ function closeEnc(){
 enc.addEventListener("click",function(ev){
   var b=ev.target.closest("[data-act]"); if(!b||!E||E.busy){return;}
   var act=b.getAttribute("data-act");
-  if(act==="tutskip"){S.tut2=true;save();renderEnc();return;}
+  if(act==="tutskip"){S.tut2=true;S.tutH={rock:1,scissors:1,paper:1};save();renderEnc();return;}
   if(act==="sptog"){E.spOn=(E.spOn===false);beep(E.spOn?880:520,0.05);renderEnc();return;}
   if(act==="pick"){E.atk=Number(b.getAttribute("data-id"));startAtk();beep(600,0.06);token++;renderEnc();}
   else if(act==="back"){E.atk=null;token++;renderEnc();}
