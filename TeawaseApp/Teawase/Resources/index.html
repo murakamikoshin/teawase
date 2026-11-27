@@ -65,7 +65,7 @@ html,body{overflow:hidden;overscroll-behavior:none}
 .rk6{--rc:var(--r6);--rg:linear-gradient(135deg,#ffffff,#ff4fd8 22%,#6ae3ff 44%,#fff36a 66%,#ff6a3a 84%,#b24dff)}
 .rk7{--rc:#fff;--rg:conic-gradient(from 0deg,#fff,#ffe07a,#ff6ad5,#8a6aff,#6ae3ff,#8affd0,#fff36a,#fff)}
 .rk8{--rc:#9fd8ff;--rg:conic-gradient(from 90deg,#0a0828,#9fd8ff,#fff,#ffe07a,#0a0828,#b28cff,#fff,#9fd8ff,#0a0828)}
-.rkl{--rc:#ff5a7a;--rg:linear-gradient(135deg,#ffd0d0,#ff3d5e 35%,#2a0a1a 60%,#ff8a5a)}
+.rkl{}   /* 限定の 赤い 背景は やめた(レア度の 色を そのまま 使う。限定は LIMITED の バッジで 示す) */
 .bdg{display:inline-block;font-family:var(--num);font-size:13px;line-height:1;padding:4px 9px 3px;border-radius:6px;color:#15123a;background:var(--rg);box-shadow:0 2px 0 rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.7);letter-spacing:.04em;transform:skewX(-8deg)}
 .bdg.q{background:linear-gradient(135deg,#6f6aa8,#3a356e);color:#fff}
 .stars{color:var(--gold2);letter-spacing:-1px;font-size:11px;text-shadow:0 1px 0 rgba(0,0,0,.5)}
@@ -1101,6 +1101,33 @@ html.short .qb img{width:24px;height:24px}
 .spg button{margin-left:4px;padding:5px 12px;border-radius:999px;font-size:11px;font-weight:900;color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.5)}
 .spg button.on{color:#3b2203;background:linear-gradient(180deg,#fff6c9,#f7bd3f 55%,#d98a12);border-color:#fff;box-shadow:0 0 12px rgba(247,189,63,.7)}
 .spg.full span{color:var(--gold1)}
+.icx{height:1.25em;width:auto;vertical-align:-.28em;margin:0 .18em 0 0;filter:drop-shadow(0 1px 1px rgba(0,0,0,.4))}
+.path>i .icx,.hw-i .icx{height:34px;margin:0 1px;vertical-align:middle}
+.pe-in:has(.pe-sum){justify-content:center}.pe-in:has(.pe-sum) .pe-grid{flex:0 0 auto;margin:auto 0 0}
+.pe-sum{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:12px 0 auto}
+.pe-sum span{font-size:11px;font-weight:900;padding:6px 12px;border-radius:999px;color:#fff;background:rgba(20,14,60,.8);border:1.5px solid rgba(255,255,255,.3)}
+.pe-sum b{font-family:var(--num);font-size:15px;margin-left:3px}.pe-sum .r-new b{color:#ff8fae}.pe-sum .r-up b{color:#5dffb0}.pe-sum .r-shard b{color:#c3b2ff}
+.bc-acts{width:100%;max-width:340px;display:flex;flex-direction:column;gap:8px}
+.bca2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.bca3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.bc-acts .btn{width:100%;max-width:none;margin:0;min-height:0;padding:11px 4px 10px;font-size:14px;white-space:nowrap}
+.bca3 .btn{font-size:12px;padding:10px 2px 9px}
+.bc-acts .bcup{display:flex;align-items:center;justify-content:center;gap:10px;padding:9px 6px 8px}.bc-acts .bcup small{display:inline;margin:0;font-size:10px;opacity:.85}
+/* ---- リニューアル 4b: ショップ(縦に 1本)---- */
+.shopx{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:10px;padding:2px 2px calc(84px + env(safe-area-inset-bottom,0px));scrollbar-width:none}
+.shopx::-webkit-scrollbar{display:none}
+.shopx>*{flex:0 0 auto}
+.sth{display:flex;align-items:baseline;gap:8px;margin:6px 2px -2px}
+.sth b{font-family:var(--display);font-weight:400;font-size:17px}.sth span{font-size:10px;color:#cfc9ff}
+.strow{display:grid;grid-template-columns:1fr 1fr 1.12fr;gap:8px;align-items:end}
+.stc{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:12px 4px 8px;border-radius:16px;color:#fff;background:linear-gradient(180deg,#3d3399,#1c1558);border:1.5px solid rgba(255,255,255,.35);box-shadow:0 5px 0 #0c0830}
+.stc img{width:64px;height:56px;object-fit:contain;filter:drop-shadow(0 4px 4px rgba(0,0,0,.45))}
+.stc b{font-family:var(--num);font-size:19px;line-height:1.1}
+.stc span{display:block;width:86%;margin-top:3px;padding:5px 0 4px;border-radius:999px;font-family:var(--num);font-size:14px;color:#3b2203;background:linear-gradient(180deg,#fff6c9,#f7bd3f 55%,#d98a12);box-shadow:0 2px 0 #7a4a06}
+.stc.best{border-color:var(--gold1);background:linear-gradient(180deg,#5a45c8,#241a6e);box-shadow:0 5px 0 #0c0830,0 0 16px -2px rgba(247,189,63,.8)}
+.stc.best img{width:78px;height:68px}
+.stc .stsave{position:absolute;left:50%;top:-9px;transform:translateX(-50%);white-space:nowrap;font-style:normal;font-size:9px;font-weight:900;padding:3px 8px;border-radius:999px;background:#ff3d6e;color:#fff;border:1.5px solid #fff}
+.stc:active{transform:translateY(3px);box-shadow:0 2px 0 #0c0830}
+.shopx .show{height:min(132vw,560px)}
 .hs-h{white-space:nowrap;font-size:clamp(10px,3.1vw,12px);letter-spacing:0}
 #gacha{position:fixed;inset:0;z-index:9;background:rgba(5,4,20,.97);display:flex;justify-content:center;top:var(--vt,0px);height:var(--vh,100dvh)}
 #gacha[hidden]{display:none}
@@ -1547,11 +1574,11 @@ var E=null;          // いまの出会い
 var run={depth:0,omi:0,mod:null};
 // 分かれ道: 奥へ進むたび 2つの道から選ぶ。書いてある効果は そのまま本当にかかる
 var PATHS={
-  kira:{n:"光る道",i:"✨",d:"色違いの確率 3倍",kira:3},
-  rare:{n:"大物の気配",i:"👑",d:"レアが さらに出やすい／相手の体力+25%",rare:1,hp:1.25},
-  calm:{n:"おだやかな道",i:"🍀",d:"相手の体力 −30%",hp:0.7},
-  gift:{n:"宝の道",i:"🎁",d:"なかまにできたら おみやげ+2",omi:2},
-  bond:{n:"なかよしの道",i:"💗",d:"なかま率 +10%",join:0.10}
+  kira:{n:"光る道",i:'<img class="icx" src="a/i_kira.webp" alt="">',d:"色違いの確率 3倍",kira:3},
+  rare:{n:"大物の気配",i:'<img class="icx" src="a/i_rank.webp" alt="">',d:"レアが さらに出やすい／相手の体力+25%",rare:1,hp:1.25},
+  calm:{n:"おだやかな道",i:'<img class="icx" src="a/i_home.webp" alt="">',d:"相手の体力 −30%",hp:0.7},
+  gift:{n:"宝の道",i:'<img class="icx" src="a/i_gift.webp" alt="">',d:"なかまにできたら おみやげ+2",omi:2},
+  bond:{n:"なかよしの道",i:'<img class="icx" src="a/stone1.webp" alt="">',d:"なかま率 +10%",join:0.10}
 };
 function pickFork(){
   var k=Object.keys(PATHS), a=k.splice(Math.floor(Math.random()*k.length),1)[0], b=k[Math.floor(Math.random()*k.length)];
@@ -2155,7 +2182,7 @@ function homeTab(){
      
      '<div class="tl">'+badge(fav)+'<span class="stars">'+(fav.lim?"":stars(fav.r))+'</span></div>'+
      (notice?'<div class="toast">'+notice+'</div>':'')+
-     '<div class="np"><div class="nm">'+ttl(fav)+(S.kira[fav.id]?"✨":"")+fav.name+'</div><div class="pw">'+HANDS[fav.hand].e+' '+power(fav)+'<small>Lv'+lv(fav.id)+'</small></div></div>'+
+     '<div class="np"><div class="nm">'+ttl(fav)+(S.kira[fav.id]?'<img class="icx" src="a/i_kira.webp" alt="">':"")+fav.name+'</div><div class="pw">'+HANDS[fav.hand].e+' '+power(fav)+'<small>Lv'+lv(fav.id)+'</small></div></div>'+
      '</div></section>';
   function qb(act,id,ic,label,n,hot,did){return '<button class="qb'+(hot?" hot":"")+'" data-act="'+act+'"'+(did?' data-id="'+did+'"':'')+' id="'+id+'"><img src="a/i_'+ic+'.webp" alt=""><span>'+label+'</span>'+(n?'<em>'+n+'</em>':'')+'</button>';}
   h+='<div class="qrow">'+
@@ -2209,13 +2236,18 @@ function shopTab(){
      '<button class="btn sec" data-act="restore" id="restore-btn">購入を 復元する</button>'+
      (S.ageb?'<button class="btn sec" data-act="agereset" id="agereset-btn">年齢を えらびなおす<small>いまの上限：'+(capNow()<1e8?"月 ¥"+capNow():"なし")+'</small></button>':'')+
      '<p class="how panel">確率は ぜんぶ ガイドとガチャ画面に 書いてある。オルレアの とくせい（UR以上 +15%・なかま +15%・色違い +5%）も 表示どおり。</p>';
-  var pages=[], per=TALL()?2:1, rest=[];
+  var heroes=[], rest=[], stones='';
   SHOP.forEach(function(p,ix){
-    if(SHOW[p.id]&&SHOW[p.id].ids&&hasArt(SHOW[p.id].ids[0])){pages.push('<div class="pg">'+heroShop(p)+'</div>');}else{rest.push(items[ix]);}
+    if(/^stone\d$/.test(p.id)){
+      var n=p.id.slice(5), amt=p.name.replace("きずな石 ","").replace("こ","");
+      stones+='<button class="stc'+(n==="3"?" best":"")+'" data-act="buy" data-id="'+p.id+'" id="buy-'+p.id+'">'+(p.save?'<i class="stsave">'+p.save+'</i>':'')+'<img src="a/stone'+n+'.webp" alt=""><b>'+amt+'</b><span>'+p.price+'</span></button>';
+    }else if(SHOW[p.id]&&SHOW[p.id].ids&&hasArt(SHOW[p.id].ids[0])){heroes.push(heroShop(p));}
+    else{rest.push(items[ix]);}
   });
-  for(var i=0;i<rest.length;i+=per){pages.push('<div class="pg">'+rest.slice(i,i+per).join("")+'</div>');}
-  pages.push('<div class="pg">'+info+'</div>');
-  return '<h2>ショップ <em>テスト版。請求は発生しない</em></h2>'+pager(pages);
+  return '<h2>ショップ <em>テスト版。請求は発生しない</em></h2><div class="shopx">'+
+    (GACHAS.length>=6?'<div class="sth"><b>きずな石</b><span>いま '+(S.stone||0)+'こ・ガチャ 1回 '+GSTONE+'こ</span></div><div class="strow">'+stones+'</div>':'')+
+    (heroes.length?'<div class="sth"><b>限定の なかま</b><span>ここでしか 会えない</span></div>'+heroes.join(""):'')+
+    '<div class="sth"><b>パック・パス</b><span>1回だけ 買える もの が 多い</span></div>'+rest.join("")+info+'</div>';
 }
 
 function guideTab(){
@@ -2224,7 +2256,7 @@ function guideTab(){
   rates+='</div>';
   var P=[
    '<p class="how panel"><b>① 手合わせは3ターン。連れていくのは5体、出すのは そのうち3体。</b><br>相手の手は ターンごとに変わる（とくいな手が出やすい）。<br><b>勝てる手の なかまを 出せば1.5倍、負ける手だと0.7倍。</b><br>「つぎの手」も 見えるので、だれを いつ出すかを読む。1体は1回しか出せない。</p>',
-   '<p class="how panel"><b>② 手ごとに 操作がちがう。</b><br>ゴウ（剛）は ザン（斬）に強く、ザンは ジュツ（術）に強く、ジュツは ゴウに強い。<br>✊ゴウ：おしっぱなしで ためて、金のゾーンで はなす（ためすぎると弱い）。<br>✌️ザン：回っている矢印の向きに スワイプ。<br>🖐ジュツ：動く線を まんなかで止める。<br><br><b>必殺ゲージ: PERFECT で +1、有利な手で 当てても +1。2つ たまると つぎの一撃が 必殺（2倍）。いつ つかうかは えらべる。</b><br>ザンは 当たりが広い、ジュツは せまいが PERFECTで1.25倍。<br>英雄と進化形は とくぎを持つ。カードで確認できる。<br><br><b>とくせい：</b>どの子も 1つ持っている（★7以上は2つ）。パーティに入れている間 ずっと効き、3体ぶんが 足される（上限あり：パワー・体力は35%、ゲージ40%、当たり・会心・大物狩り・手の絆は60%、先手・底力は70%）。<b>UR以上の出現・なかまになる確率・色違い</b>を上げる とくせいは オルレアだけ。</p>',
+   '<p class="how panel"><b>② 手ごとに 操作がちがう。</b><br>ゴウ（剛）は ザン（斬）に強く、ザンは ジュツ（術）に強く、ジュツは ゴウに強い。<br><img class="icx" src="a/i_gou.webp" alt="">ゴウ：おしっぱなしで ためて、金のゾーンで はなす（ためすぎると弱い）。<br><img class="icx" src="a/i_zan.webp" alt="">ザン：回っている矢印の向きに スワイプ。<br><img class="icx" src="a/i_jutsu.webp" alt="">ジュツ：動く線を まんなかで止める。<br><br><b>必殺ゲージ: PERFECT で +1、有利な手で 当てても +1。2つ たまると つぎの一撃が 必殺（2倍）。いつ つかうかは えらべる。</b><br>ザンは 当たりが広い、ジュツは せまいが PERFECTで1.25倍。<br>英雄と進化形は とくぎを持つ。カードで確認できる。<br><br><b>とくせい：</b>どの子も 1つ持っている（★7以上は2つ）。パーティに入れている間 ずっと効き、3体ぶんが 足される（上限あり：パワー・体力は35%、ゲージ40%、当たり・会心・大物狩り・手の絆は60%、先手・底力は70%）。<b>UR以上の出現・なかまになる確率・色違い</b>を上げる とくせいは オルレアだけ。</p>',
    '<p class="how panel"><b>③ けずった分だけ なかま率が上がる。</b><br>PERFECT 1回ごとに+4%、けずりきると+10%。先のエリアや 奥ほど 相手はタフになる。<br><b>ことわられても むだにならない。</b>その子との きずなが深まり、つぎに会えたとき なかま率 +8%（3回ぶんまで。なかまになると 0にもどる）。</p>',
    '<p class="how panel"><b>④ 連戦：</b>なかまにしたら「もっと おくへ」。そのたび 2つの道から選ぶ（色違い3倍・大物・体力ダウン・おみやげ+2・なかま率+10% のどれか）。奥ほどレアが出やすく、奥で なかまにするたび おみやげが1こ増える（入口の1体めは つかない）。帰れば おみやげが 色違い3倍ブーストになる。奥で ことわられると おみやげは全部なくなる。<br><b>育成：</b>N・Rは 5体あつめると進化。同じ子が来るたびレベルも上がる（最大Lv'+MAX_LV+'）。色違いはパワー1.2倍。なかまが増えるとランクが上がり、ランクアップごとに 色違い3倍ブースト+1回。</p>',
    '<h2>出会う確率 <em>'+area().name+'</em></h2>'+rates+
@@ -2257,7 +2289,7 @@ function cellHtml(m){
   if(c>0){
     h='<div class="cell '+rk(m)+(k?" kira":"")+'" data-act="card" data-id="'+m.id+'"><div class="ci">'+badge(m)+
       '<span class="lv">Lv'+lv(m.id)+'</span>'+(inParty(m.id)?'<span class="ptag">PARTY</span>':'')+img(m,k)+
-      '<div class="nm">'+ttl(m)+(k?"✨":"")+m.name+'</div>'+
+      '<div class="nm">'+ttl(m)+(k?'<img class="icx" src="a/i_kira.webp" alt="">':"")+m.name+'</div>'+
       '<div class="pw">'+HANDS[m.hand].e+' '+power(m)+'</div>';
     if(ev){
       h+=c>=EVO_NEED
@@ -2632,16 +2664,16 @@ function shareCard(id){
 }
 // ===== はじめての人むけの 4まいの説明 =====
 var TUT=[
- ["👣","でかけて 出会う","「でかける」を押すと だれかが あらわれる。<br>だれが来るかは 毎回ちがう。"],
- ["✊✌️🖐","相性で 読む","相手の手は ターンごとに変わる。<br><b>勝てる手の なかまを出すと 1.5倍。</b><br>3ターンで どれだけ けずれるか。"],
- ["🎯","手ごとに 操作がちがう","✊ おして ためて、ゾーンで はなす<br>✌️ 矢印の向きに スワイプ<br>🖐 動く線を まんなかで 止める"],
- ["🤝","なかまに さそう","けずった分だけ なかま率が上がる。<br>ことわられても きずなが深まって、<br>つぎは さそいやすくなる。"]
+ ['<img class="icx" src="a/i_bell.webp" alt="">',"でかけて 出会う","「でかける」を押すと だれかが あらわれる。<br>だれが来るかは 毎回ちがう。"],
+ ['<img class="icx" src="a/i_gou.webp" alt=""><img class="icx" src="a/i_zan.webp" alt=""><img class="icx" src="a/i_jutsu.webp" alt="">',"相性で 読む","相手の手は ターンごとに変わる。<br><b>勝てる手の なかまを出すと 1.5倍。</b><br>3ターンで どれだけ けずれるか。"],
+ ['<img class="icx" src="a/i_mission.webp" alt="">',"手ごとに 操作がちがう","<img class='icx' src='a/i_gou.webp' alt=''>おして ためて、ゾーンで はなす<br><img class='icx' src='a/i_zan.webp' alt=''>矢印の向きに スワイプ<br><img class='icx' src='a/i_jutsu.webp' alt=''>動く線を まんなかで 止める"],
+ ['<img class="icx" src="a/stone1.webp" alt="">',"なかまに さそう","けずった分だけ なかま率が上がる。<br>ことわられても きずなが深まって、<br>つぎは さそいやすくなる。"]
 ];
 function showTut(i){
   if(i>=TUT.length){S.tut=true;save();cardEl.hidden=true;return;}
   var t=TUT[i], d=''; for(var k=0;k<TUT.length;k++){d+='<i class="'+(k===i?"on":"")+'"></i>';}
   cardEl.innerHTML='<div class="bcard rk5"><div class="bi" style="display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center;padding:26px 16px">'+
-    '<div style="font-size:54px;line-height:1.1">'+t[0]+'</div>'+
+    '<div class="hw-i" style="font-size:54px;line-height:1.1">'+t[0]+'</div>'+
     '<b class="goldtxt" style="font-family:var(--display);font-weight:400;font-size:26px">'+t[1]+'</b>'+
     '<p style="font-size:14px;line-height:1.9;color:#e8e5ff">'+t[2]+'</p>'+
     '<div class="pager"><div class="dots">'+d+'</div></div></div></div>'+
@@ -2655,18 +2687,19 @@ function showCard(id){
   cardEl.innerHTML='<div class="bcard '+rk(m)+'"><div class="bi'+(m.r>=4||k?" shine":"")+'">'+
     '<div class="bc-top">'+badge(m)+'<span class="stars" style="font-size:14px">'+(m.lim?"":stars(m.r))+'</span><span>No.'+("00"+m.id).slice(-3)+'</span></div>'+
     '<div class="bc-art"><div class="rays"></div>'+fxBg(m)+img(m,k,2)+'</div>'+
-    '<div class="bc-name">'+ttl(m)+(k?"✨ ":"")+m.name+'</div>'+
+    '<div class="bc-name">'+ttl(m)+(k?'<img class="icx" src="a/i_kira.webp" alt="">':"")+m.name+'</div>'+
     '<div class="bc-stats"><div>TYPE<b>'+HANDS[m.hand].e+'</b></div><div>LEVEL<b>'+lv(m.id)+'</b></div><div>POWER<b>'+power(m)+'</b></div></div>'+
     (skillOf(m)?'<div class="bc-flav"><b>とくぎ：'+skillOf(m)[0]+'</b>'+skillOf(m)[1]+'</div>':'')+
     (traitOf(m)?'<div class="bc-flav trt"><b>とくせい：'+traitOf(m).n+'<i>パーティにいる間 ずっと</i></b>'+traitOf(m).d+'</div>':'')+
     (lore?'<div class="bc-flav"><b>モチーフ：'+lore[0]+'</b>'+lore[1]+'</div>':'')+
     '<div class="bc-foot">TEAWASE!  '+ownedList().length+' / '+ALL.length+(k?"  KIRA":"")+'</div></div></div>'+
-    ((S.fav===m.id)?'':'<button class="btn gold" data-fav="'+m.id+'" id="fav-btn">ホームに かざる</button>')+
-    ((count(m.id)>0&&lv(m.id)<MAX_LV)?'<button class="btn sec" data-shard="'+m.id+'" id="shard-btn"'+((S.shard||0)>=shardCost(m)?'':' disabled')+'>きずなのかけらで レベルアップ<small>'+shardCost(m)+'こ つかう・いま '+(S.shard||0)+'こ</small></button>':'')+
-    '<button class="btn" data-party="'+m.id+'" id="party-btn">'+(inParty(m.id)?"パーティから はずす":"パーティに 入れる")+'</button>'+
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;max-width:320px"><button class="btn sec" data-anime="'+m.id+'" id="anime-btn" style="font-size:13px">▶ 3D登場シーン</button>'+
-    '<button class="btn sec" data-share="'+m.id+'" id="share-btn" style="font-size:13px">📤 じまん画像</button></div>'+
-    '<button class="btn sec" id="card-close">とじる</button>';
+    '<div class="bc-acts"><div class="bca2">'+
+    ((S.fav===m.id)?'<button class="btn sec" disabled id="fav-btn">ホームに かざり中</button>':'<button class="btn gold" data-fav="'+m.id+'" id="fav-btn">ホームに かざる</button>')+
+    '<button class="btn" data-party="'+m.id+'" id="party-btn">'+(inParty(m.id)?"パーティから はずす":"パーティに 入れる")+'</button></div>'+
+    ((count(m.id)>0&&lv(m.id)<MAX_LV)?'<button class="btn sec bcup" data-shard="'+m.id+'" id="shard-btn"'+((S.shard||0)>=shardCost(m)?'':' disabled')+'><span>かけらで レベルアップ</span><small>'+shardCost(m)+'こ つかう・いま '+(S.shard||0)+'こ</small></button>':'')+
+    '<div class="bca3"><button class="btn sec" data-anime="'+m.id+'" id="anime-btn">▶ 登場シーン</button>'+
+    '<button class="btn sec" data-share="'+m.id+'" id="share-btn">じまん画像</button>'+
+    '<button class="btn sec" id="card-close">とじる</button></div></div>';
   cardEl.hidden=false;
   beep(880,0.08);
 }
@@ -3082,7 +3115,8 @@ function showGacha(mode,res){
   if(mode==="res"){
     h+='<div class="pe-h"><b>ガチャ結果</b><span>'+res.length+'回</span></div><div class="pe-grid">';
     res.forEach(function(z){h+='<div class="pe-cell rk'+z.m.r+(z.isNew?" in":"")+'">'+(z.tag==="new"?'<em style="width:auto;padding:0 6px;border-radius:999px">NEW</em>':'')+img(z.m,z.k)+'<b>'+z.m.name+'</b><span>'+stars(z.m.r)+'</span><i class="rtag r-'+(z.tag||"new")+'">'+(z.tag==="up"?z.tagT:(z.tag==="shard"?"かけら +"+z.m.r:"はじめまして"))+'</i></div>';});
-    h+='</div><button class="btn gold" data-g="back">つづける</button></div>';
+    var nN=0,nU=0,nS=0; res.forEach(function(z){if(z.tag==="up"){nU++;}else if(z.tag==="shard"){nS+=z.m.r;}else{nN++;}});
+    h+='</div><div class="pe-sum">'+(nN?'<span class="r-new">はじめまして <b>'+nN+'</b></span>':'')+(nU?'<span class="r-up">レベルアップ <b>'+nU+'</b></span>':'')+(nS?'<span class="r-shard">かけら <b>+'+nS+'</b></span>':'')+'</div><button class="btn gold" data-g="back">つづける</button></div>';
   }else if(mode==="info"){
     h+='<div class="pe-h"><b>確率・くわしく</b><span>ガチャ限定 '+GACHAS.length+'体</span></div>'+'<div class="g-odds"><b>出る確率</b>'+tb.map(function(t){return '<div><span>'+stars(t.r)+'（'+t.list.length+'体）</span><em>'+(t.p*100).toFixed(1)+'%</em></div>';}).join("")+
       '<p><b style="color:#fff">かぶっても むだに ならない:</b> 同じ子が また出ると Lv アップ（最大 Lv'+MAX_LV+'・1つごとに パワー +10%）。Lv最大の あとは「きずなのかけら」（★の数ぶん）に なり、ほかの子の レベルアップ か、'+GSHARD+'こで ガチャ 1回に 使える。<br>卵の色は えんしゅつ。とちゅうで 上の 卵に「昇格」する ことが ある（出る確率は この表の とおりで、えんしゅつでは 変わらない）。<br>同じレア度の中では どの子も同じ確率。色違いは '+(KIRA_RATE*100)+'%。'+GPITY+'回 ★5以上が出なければ 次は ★5以上（あと '+(GPITY-(S.gpity||0))+'回）。<br>メダルは デイリーミッション（+1）・ランクアップ（+2）で もらえる。<br>10連の10回目は ★4以上だけの中から、上の比で出る。'+GCEIL+'回 まわすごとに「えらべる交換チケット」が1まい もらえる（あと '+(GCEIL-((S.gcount||0)%GCEIL))+'回）。</p></div>'+'<button class="btn sec" data-g="back">もどる</button></div>';
@@ -3221,7 +3255,7 @@ function renderEnc(fx){
   var h='<div class="encin '+(e.revealed?rk(m):"rk0")+(fx==="hit"?" shake":"")+'"><div class="stagebg" style="background-image:url('+areaBg(area().id)+')"></div><div class="glow"></div>';
   if(fx==="intrude"){h+='<div class="cut rkl">乱入！！</div>';}
   if(fx==="pop"&&e.phase==="appear"&&(m.r>=4||e.kira)){
-    h+='<div class="cut">'+(e.kira?"✨ 色違い！！":(m.r>=8?"永劫級！！！！":(m.r>=7?"神話級！！！":(m.r>=6?"レジェンド！！":(m.r>=5?"でんせつ級！！":"すごいのが きた！")))))+'</div>';
+    h+='<div class="cut">'+(e.kira?"色違い！！":(m.r>=8?"永劫級！！！！":(m.r>=7?"神話級！！！":(m.r>=6?"レジェンド！！":(m.r>=5?"でんせつ級！！":"すごいのが きた！")))))+'</div>';
   }
   var pips='';
   for(var i=1;i<=MAX_TURN;i++){pips+='<i class="'+(i<e.turn||e.phase!=="battle"&&e.phase!=="appear"?"on":(i===e.turn&&e.phase==="battle"?"on":""))+'"></i>';}
@@ -3239,7 +3273,7 @@ function renderEnc(fx){
 
   if(e.revealed){
     var hd=HANDS[m.hand];
-    h+='<div class="plate"><div class="nm">'+ttl(m)+(e.kira?"✨ ":"")+m.name+'</div>'+
+    h+='<div class="plate"><div class="nm">'+ttl(m)+(e.kira?'<img class="icx" src="a/i_kira.webp" alt="">':"")+m.name+'</div>'+
        '<span class="hand" style="--hc:'+hd.c+'">とくいな手 '+hd.e+' '+hd.l+'</span></div>';
     if(e.phase==="battle"){
       var fh=HANDS[foeHand()];
@@ -3248,7 +3282,7 @@ function renderEnc(fx){
     }
     h+='<div class="hpw panel"><div class="barlab"><span>たいりょく</span><span id="hptxt">'+Math.max(0,hp-e.dmg)+' / '+hp+'</span></div>'+
        '<div class="bar"><b id="hptrail" style="width:'+(100*(1-ratio))+'%"></b><i id="hpfill" style="width:'+(100*(1-ratio))+'%"></i></div>'+
-       '<div class="chance"><div class="cl"><b>なかま率</b>けずるほど上がる'+(e.mod?"・"+e.mod.i+e.mod.n:"")+(e.perf?"・PERFECT +"+(e.perf*4)+"%":"")+(bond(m.id)?"・💗きずな +"+(bond(m.id)*8)+"%":"")+'</div>'+
+       '<div class="chance"><div class="cl"><b>なかま率</b>けずるほど上がる'+(e.mod?"・"+e.mod.i+e.mod.n:"")+(e.perf?"・PERFECT +"+(e.perf*4)+"%":"")+(bond(m.id)?"・<img class='icx' src='a/stone1.webp' alt=''>きずな +"+(bond(m.id)*8)+"%":"")+'</div>'+
        '<div class="cv goldtxt" id="chv">'+Math.round(ch*100)+'<small>%</small></div></div></div>';
     var ev=evoOf(m);
     if(ev&&e.phase!=="joined"){
@@ -3269,14 +3303,14 @@ function renderEnc(fx){
       var zw=zoneW(a), sko=skillOf(a);
       // いけ！の位置が動かないように、ゲージとボタンを先に置いて 説明は下にまとめる
       if(a.hand==="rock"){
-        c+='<div class="msg">✊ '+a.name+'：おして ためて、金のゾーンで はなせ</div>';
+        c+='<div class="msg"><img class="icx" src="a/i_gou.webp" alt="">'+a.name+'：おして ためて、金のゾーンで はなせ</div>';
         c+='<div class="gauge"><div class="zone" style="left:'+((ROCK_Z-zw/2)*100)+'%;width:'+(zw*100)+'%"></div><div class="mk" id="mk"></div></div>';
         c+='<button class="btn hitbig hold" data-hold="1" id="hit-btn">ためる！<small>おしっぱなし → はなす</small></button>';
       }else if(a.hand==="scissors"){
-        c+='<div class="msg">✌️ '+a.name+'：矢印の向きに スワイプで 斬れ</div>';
+        c+='<div class="msg"><img class="icx" src="a/i_zan.webp" alt="">'+a.name+'：矢印の向きに スワイプで 斬れ</div>';
         c+='<div class="slashpad" data-swipe="1" id="hit-btn"><div class="cone" style="--tol:'+Math.round(zw*90)+'deg"></div><div class="arw" id="mk"></div><span>スワイプ！</span></div>';
       }else{
-        c+='<div class="msg">🖐 '+a.name+'：まんなかで 止めろ</div>';
+        c+='<div class="msg"><img class="icx" src="a/i_jutsu.webp" alt="">'+a.name+'：まんなかで 止めろ</div>';
         c+='<div class="gauge" data-act="hit"><div class="zone" style="left:'+((0.5-zw/2)*100)+'%;width:'+(zw*100)+'%"></div><div class="mk" id="mk"></div></div>';
         c+='<button class="btn hitbig" data-act="hit" id="hit-btn">いけ！</button>';
       }
@@ -3306,7 +3340,7 @@ function renderEnc(fx){
   }else if(e.phase==="chance"){
     c+='<div class="msg gold">'+(e.hit||"&nbsp;")+'</div>';
     c+='<div class="msg big">'+(ratio>=1?"「まいった！」":"手合わせ おわり")+'</div>';
-    c+='<button class="btn gold shine" data-act="invite" id="invite-btn">🤝 なかまに さそう<small>成功率 '+Math.round(ch*100)+'%</small></button>';
+    c+='<button class="btn gold shine" data-act="invite" id="invite-btn">なかまに さそう<small>成功率 '+Math.round(ch*100)+'%</small></button>';
     if(!(S.seal>0)&&m.r<7&&!e.arena){c+='<button class="btn sec" data-act="buy" data-id="seal1" id="buyseal-btn" style="margin-top:8px">きずなの証で かならず なかまに<small>¥480・ショップと同じもの</small></button>';}
     if((S.seal||0)>0&&m.r<7){c+='<button class="btn" data-act="invite-sure" id="sure-btn" style="margin-top:8px">きずなの証を つかう<small>かならず なかまになる・のこり '+S.seal+'こ</small></button>';}
   }else if(e.phase==="thinking"){
@@ -3320,12 +3354,12 @@ function renderEnc(fx){
     if(evoOf(m)){
       c+='<div class="msg gold">'+(count(m.id)>=EVO_NEED?"進化できる！ 「なかま」で 進化させよう":"進化まで あと"+(EVO_NEED-count(m.id))+"体")+'</div>';
     }
-    if(e.kira){c+='<div class="msg gold">✨ 色違い！ パーティ編成で 通常色と 切りかえられる（強さは同じ）</div>';}
-    if((S.streak||0)>=2){c+='<div class="streak">🔥 '+S.streak+'連続 なかま！</div>';}
+    if(e.kira){c+='<div class="msg gold"><img class="icx" src="a/i_kira.webp" alt="">色違い！ パーティ編成で 通常色と 切りかえられる（強さは同じ）</div>';}
+    if((S.streak||0)>=2){c+='<div class="streak"><img class="icx" src="a/i_rank.webp" alt="">'+S.streak+'連続 なかま！</div>';}
     (function(){
       var rn=Math.floor(Math.sqrt(S.joined))+1, pv=(rn-1)*(rn-1), nx=rn*rn;
       var to=Math.round(100*(S.joined-pv)/(nx-pv)), fr=e.rankUp?0:Math.round(100*(S.joined-1-pv)/(nx-pv));
-      if(e.rankUp){c+='<div class="rankup goldtxt">RANK UP!  '+rn+'<small style="display:block;font-family:var(--body);font-weight:900;font-size:11px">ごほうび：色違い3倍ブースト +1回'+(S.premium?"／パス：★4以上確定チケット +1":"")+'</small>'+(S.premium?"":'<small style="display:block;font-family:var(--body);font-weight:900;font-size:10px;color:var(--mute)">🔒 パスなら チケットも（たまっている分 '+passOwed()+'枚）</small>')+'</div>';}
+      if(e.rankUp){c+='<div class="rankup goldtxt">RANK UP!  '+rn+'<small style="display:block;font-family:var(--body);font-weight:900;font-size:11px">ごほうび：色違い3倍ブースト +1回'+(S.premium?"／パス：★4以上確定チケット +1":"")+'</small>'+(S.premium?"":'<small style="display:block;font-family:var(--body);font-weight:900;font-size:10px;color:var(--mute)"><img class="icx" src="a/i_lock.webp" alt="">パスなら チケットも（たまっている分 '+passOwed()+'枚）</small>')+'</div>';}
       c+='<div class="expg"><span class="rk">RANK '+rn+'</span><div class="exp"><i id="expfill" data-to="'+to+'" style="width:'+fr+'%"></i></div><span>あと'+(nx-S.joined)+'体</span></div>';
     })();
     c+='<div class="omi">おみやげ <b>'+run.omi+'</b> こ<br><span style="font-size:10px;color:var(--mute)">持って帰ると 色違い3倍ブーストになる。奥で ことわられると 全部おとす</span></div>';
@@ -3335,12 +3369,12 @@ function renderEnc(fx){
       c+='<button class="path" data-act="deeper" data-id="'+k+'" id="'+(ix===0?"again-btn":"path-b")+'"><i>'+p.i+'</i><b>'+p.n+'</b><span>'+p.d+'</span></button>';
     });
     c+='</div>';
-    if(!e.rerolled){c+='<button class="backlink" data-act="reroll" id="reroll-btn">🔄 道を 引き直す（'+(S.premium?"パス：広告なし":"広告を1本")+'）</button>';}
+    if(!e.rerolled){c+='<button class="backlink" data-act="reroll" id="reroll-btn">道を 引き直す（'+(S.premium?"パス：広告なし":"広告を1本")+'）</button>';}
     c+='<button class="btn sec" data-act="home" id="home-btn">おみやげを持って 帰る</button>';
   }else if(e.phase==="refused"){
     c+='<div class="msg big">ことわられた…</div>';
     if(e.lost){c+='<div class="omi">おみやげ '+e.lost+' こ を おとした…</div>';}
-    if(bond(m.id)){c+='<div class="msg gold">💗 '+(e.bondUp?"でも きずなが 深まった":"きずな")+'（'+bond(m.id)+'/'+BOND_MAX+'）<br><span style="font-size:11px">つぎに '+m.name+' に会えたら なかま率 +'+(bond(m.id)*8)+'%</span></div>';}
+    if(bond(m.id)){c+='<div class="msg gold"><img class="icx" src="a/stone1.webp" alt="">'+(e.bondUp?"でも きずなが 深まった":"きずな")+'（'+bond(m.id)+'/'+BOND_MAX+'）<br><span style="font-size:11px">つぎに '+m.name+' に会えたら なかま率 +'+(bond(m.id)*8)+'%</span></div>';}
     if(!e.retry){
       c+='<button class="btn" data-act="retry" id="retry-btn">もういちど たのむ<small>'+(S.premium?"プレミアム：広告なし":"広告を1本見る")+'</small></button>';
     }
@@ -3395,7 +3429,7 @@ function dq(key,v,isMax){
 }
 function dtoast(msg){
   var host=enc.hidden?document.body:enc, el=document.createElement("div");
-  el.className="dtoast"; el.textContent="🏅 "+msg; host.appendChild(el);
+  el.className="dtoast"; el.innerHTML='<img class="icx" src="a/i_medal.webp" alt="">'+msg; host.appendChild(el);
   setTimeout(function(){if(el.parentNode){el.parentNode.removeChild(el);}},2600);
 }
 function showDaily(){
@@ -3502,19 +3536,19 @@ function renderArena(fx){
   var h='<div class="encin '+rk(m)+'"><div class="stagebg" style="background-image:url('+areaBg("tower")+')"></div><div class="glow"></div>'+
     '<div class="ehead"><div class="pips">'+(A.kind==="daily"?"きょうの挑戦":"ともだちバトル")+'　ROUND '+Math.min(e.turn,3)+' / 3</div><div>'+badge(m)+' <span class="estars">'+(m.lim?"":stars(m.r))+'</span></div></div>'+
     '<div class="stage" id="stage"><div class="rays"></div>'+fxBg(m)+'<div class="plat"></div><div class="foe'+(fx==="pop"?" pop":"")+'">'+img(m,f.kira,2)+'</div>'+fxBg(m,1)+'</div>'+
-    '<div class="plate"><div class="nm">'+ttl(m)+(f.kira?"✨":"")+m.name+'</div><span class="hand">Lv'+f.lv+'・パワー '+foePower(f)+'・'+HANDS[m.hand].e+' '+HANDS[m.hand].l+'</span></div>'+
+    '<div class="plate"><div class="nm">'+ttl(m)+(f.kira?'<img class="icx" src="a/i_kira.webp" alt="">':"")+m.name+'</div><span class="hand">Lv'+f.lv+'・パワー '+foePower(f)+'・'+HANDS[m.hand].e+' '+HANDS[m.hand].l+'</span></div>'+
     '<div class="panel hpw"><div class="ascore"><span>あなた</span><div class="ams">'+marks+'</div><span>2勝で 勝ち</span></div></div>';
   c+='<div class="msg gold">'+(e.hit||"相手より 大きい数字を 出せば そのラウンドは勝ち")+'</div>';
   if(e.phase==="battle"){
     if(e.atk){
       var a=byId(e.atk), zw=zoneW(a);
       if(a.hand==="rock"){
-        c+='<div class="msg">✊ '+a.name+'：おして ためて、金のゾーンで はなせ</div><div class="gauge"><div class="zone" style="left:'+((ROCK_Z-zw/2)*100)+'%;width:'+(zw*100)+'%"></div><div class="mk" id="mk"></div></div>'+
+        c+='<div class="msg"><img class="icx" src="a/i_gou.webp" alt="">'+a.name+'：おして ためて、金のゾーンで はなせ</div><div class="gauge"><div class="zone" style="left:'+((ROCK_Z-zw/2)*100)+'%;width:'+(zw*100)+'%"></div><div class="mk" id="mk"></div></div>'+
            '<button class="btn hitbig hold" data-hold="1" id="hit-btn">ためる！<small>おしっぱなし → はなす</small></button>';
       }else if(a.hand==="scissors"){
-        c+='<div class="msg">✌️ '+a.name+'：矢印の向きに スワイプで 斬れ</div><div class="slashpad" data-swipe="1" id="hit-btn"><div class="arw" id="mk"></div><span>スワイプ！</span></div>';
+        c+='<div class="msg"><img class="icx" src="a/i_zan.webp" alt="">'+a.name+'：矢印の向きに スワイプで 斬れ</div><div class="slashpad" data-swipe="1" id="hit-btn"><div class="arw" id="mk"></div><span>スワイプ！</span></div>';
       }else{
-        c+='<div class="msg">🖐 '+a.name+'：まんなかで 止めろ</div><div class="gauge" data-act="hit"><div class="zone" style="left:'+((0.5-zw/2)*100)+'%;width:'+(zw*100)+'%"></div><div class="mk" id="mk"></div></div>'+
+        c+='<div class="msg"><img class="icx" src="a/i_jutsu.webp" alt="">'+a.name+'：まんなかで 止めろ</div><div class="gauge" data-act="hit"><div class="zone" style="left:'+((0.5-zw/2)*100)+'%;width:'+(zw*100)+'%"></div><div class="mk" id="mk"></div></div>'+
            '<button class="btn hitbig" data-act="hit" id="hit-btn">いけ！</button>';
       }
       c+='<div class="under"><button class="backlink" data-act="back" id="back-btn">‹ えらびなおす</button></div>';
@@ -3532,7 +3566,7 @@ function renderArena(fx){
       '<div class="ascore big"><div class="ams">'+marks+'</div><b class="num">'+A.score+'</b><span>スコア</span></div>'+
       (A.reward?'<div class="msg gold">きょうの挑戦 クリア！ 色違い3倍ブースト +2</div>':'')+
       (A.kind==="daily"&&arenaBest()?'<div class="msg">きょうの ベスト：'+arenaBest().score+'</div>':'')+
-      '<button class="btn gold shine" data-act="ashare" id="ashare-btn">📤 けっかを シェア</button>'+
+      '<button class="btn gold shine" data-act="ashare" id="ashare-btn">けっかを シェア</button>'+
       '<div class="fork"><button class="btn sec" data-act="aretry" id="aretry-btn">もう一度</button><button class="btn sec" data-act="aexit" id="aexit-btn">もどる</button></div>';
   }
   enc.innerHTML=h+'<div class="panel ctl'+(e.busy?" busy":"")+'">'+c+'</div></div>';
