@@ -1040,6 +1040,19 @@ body section#gacha{z-index:3;height:calc(var(--vh,100dvh) - 62px - env(safe-area
 .snd.hq{padding:4px 6px}
 .p3 .slot img.hnd,.slot img.hnd,.pe-slot img.hnd,.pe-cell img.hnd,.cell img.hnd{width:1.25em!important;height:1.25em!important;position:static!important;flex:0 0 auto}
 img.hnd{width:1.25em;height:1.25em;object-fit:contain;vertical-align:-0.25em;display:inline-block}
+/* ---- リニューアル 3: ホーム(絵の 上に ボタンを 置かない)---- */
+.chip.cst{padding:4px 10px 4px 5px;color:#fff}.chip.cst img{width:20px;height:20px;object-fit:contain}
+.lobby .np{flex-direction:row;align-items:flex-end;justify-content:space-between;padding:26px 14px 10px;background:linear-gradient(180deg,transparent,rgba(5,4,20,.78) 70%)}
+.lobby .np .pw{font-family:var(--num);font-size:20px;color:var(--gold1);white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.6)}
+.lobby .np .pw small{font-family:var(--num);font-size:11px;color:#fff;margin-left:6px;opacity:.85}
+.qrow{display:flex;gap:8px;justify-content:center}
+.qb{position:relative;flex:1 1 0;max-width:84px;min-width:0;display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px 2px 4px;border-radius:14px;color:#fff;background:linear-gradient(180deg,rgba(74,59,184,.55),rgba(28,21,88,.75));border:1px solid rgba(255,255,255,.22)}
+.qb img{width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 2px 2px rgba(0,0,0,.4))}
+.qb span{font-size:9px;font-weight:900;white-space:nowrap;letter-spacing:0}
+.qb em{position:absolute;right:-4px;top:-6px;min-width:19px;height:19px;padding:0 5px;border-radius:999px;background:#ff3d5e;border:2px solid #fff;font-style:normal;font-family:var(--num);font-size:11px;display:flex;align-items:center;justify-content:center}
+.qb.hot{border-color:var(--gold2);box-shadow:0 0 12px -2px rgba(247,189,63,.8)}
+.qb:active{transform:translateY(2px)}
+html.short .qb img{width:24px;height:24px}
 .hs-h{white-space:nowrap;font-size:clamp(10px,3.1vw,12px);letter-spacing:0}
 #gacha{position:fixed;inset:0;z-index:9;background:rgba(5,4,20,.97);display:flex;justify-content:center;top:var(--vt,0px);height:var(--vh,100dvh)}
 #gacha[hidden]{display:none}
@@ -2019,7 +2032,7 @@ function renderHome(){
   h+='<header class="hud"><div class="rank"><b>RANK</b><i>'+rkN+'</i></div>'+
      '<div class="hudmid"><div class="pname">'+myTitle()+'<span>NEXT '+(next-S.joined)+'</span></div>'+
      '<div class="exp"><i style="width:'+pct+'%"></i></div></div>'+
-     '<div class="chip">'+ICON.star+owned+'/'+ALL.length+'</div>'+
+     '<button class="chip cst" data-act="tab" data-id="shop" id="hud-stone"><img src="a/stone1.webp" alt="石">'+(S.stone||0)+'</button>'+
      '<button class="snd'+(S.mute?"":" on")+'" data-act="mute" id="mute-btn">'+'<img src="a/i_sound.webp" alt="音">'+'</button><button class="snd hq'+(tab==="guide"?" on":"")+'" data-act="tab" data-id="guide" id="tab-guide" aria-label="あそびかた"><img src="a/i_help.webp" alt="？"></button></header>';
   h+='<div class="view">';
   if(tab==="gacha"){h+='';}
@@ -2090,23 +2103,20 @@ function homeTab(){
      '<div class="rays"></div>'+fxBg(fav)+'<div class="plat"></div>'+
      (S.aura&&AURAS[S.aura]?'<div class="aura a-'+S.aura+'" style="--a1:'+AURAS[S.aura][1]+';--a2:'+AURAS[S.aura][2]+'"><i></i><i></i><i></i><i></i><i></i></div>':'')+
      '<div class="hero" data-id="'+fav.id+'">'+img(fav,S.kira[fav.id],2)+'</div>'+fxBg(fav,1)+
-     ((S.bought&&S.bought.welcome)?'':'<button class="wpill shine" data-act="goshop" id="welcome-pill"><i>🎁</i><b>ウェルカムパック</b><span>1回だけ ¥980</span></button>')+
      
      '<div class="tl">'+badge(fav)+'<span class="stars">'+(fav.lim?"":stars(fav.r))+'</span></div>'+
-     '<div class="tr">POWER<b>'+power(fav)+'</b>Lv'+lv(fav.id)+'</div>'+
-     '<div class="side">'+
-       (S.boost>0?'<button class="sbtn" data-act="info" data-id="boost" id="boost-on"><i>✨</i>色違い3倍<em>'+S.boost+'</em></button>'
-                 :'<button class="sbtn hot" data-act="boost" id="boost-btn"><i>✨</i>'+(S.premium?"ブースト":"広告で3倍")+'</button>')+
-       ((S.utix||0)>0?'<button class="sbtn hot" data-act="uticket" id="uticket-btn"><i>👑</i>UR確定<em>'+S.utix+'</em></button>':'')+
-       (S.tix>0?'<button class="sbtn hot" data-act="ticket" id="ticket-btn"><i>🎫</i>★4確定<em>'+S.tix+'</em></button>':'')+
-       '<button class="sbtn'+(dailyLeft()?" hot":"")+'" data-act="daily" id="daily-btn"><i>📋</i>きょうの'+(dailyLeft()?'<em>'+dailyLeft()+'</em>':'')+'</button>'+
-       '<button class="sbtn'+(mileOpen()?" hot":"")+'" data-act="mile" id="mile-btn"><i>🎁</i>ごほうび'+(mileOpen()?'<em>'+mileOpen()+'</em>':'')+'</button>'+
-       (S.best?'<button class="sbtn" data-act="info" data-id="best"><i>🏔</i>最深 '+S.best+'</button>':'')+
-     '</div>'+
      (notice?'<div class="toast">'+notice+'</div>':'')+
-     '<div class="np"><div class="nm">'+ttl(fav)+(S.kira[fav.id]?"✨":"")+fav.name+'</div>'+
-     (gt?'<div class="mis"><span class="tag">MISSION</span><span>'+gt+'</span></div>':'')+'</div>'+
+     '<div class="np"><div class="nm">'+ttl(fav)+(S.kira[fav.id]?"✨":"")+fav.name+'</div><div class="pw">'+HANDS[fav.hand].e+' '+power(fav)+'<small>Lv'+lv(fav.id)+'</small></div></div>'+
      '</div></section>';
+  function qb(act,id,ic,label,n,hot,did){return '<button class="qb'+(hot?" hot":"")+'" data-act="'+act+'"'+(did?' data-id="'+did+'"':'')+' id="'+id+'"><img src="a/i_'+ic+'.webp" alt=""><span>'+label+'</span>'+(n?'<em>'+n+'</em>':'')+'</button>';}
+  h+='<div class="qrow">'+
+    qb("daily","daily-btn","mission","きょうの",dailyLeft(),dailyLeft()>0)+
+    qb("mile","mile-btn","trophy","ごほうび",mileOpen(),mileOpen()>0)+
+    (S.boost>0?qb("info","boost-on","kira","色違い3倍",S.boost,false,"boost"):qb("boost","boost-btn",S.premium?"kira":"ad",S.premium?"ブースト":"広告で3倍",0,false))+
+    ((S.utix||0)>0?qb("uticket","uticket-btn","rank","UR確定",S.utix,true):"")+
+    (S.tix>0?qb("ticket","ticket-btn","ticket","★4確定",S.tix,true):"")+
+    ((S.bought&&S.bought.welcome)?"":qb("goshop","welcome-pill","gift","パック",0,true))+
+    '</div>';
   h+='<div class="p3">';
   party().forEach(function(m){
     h+='<div class="slot '+rk(m)+'" data-act="pedit" data-id="'+m.id+'"><div class="si">'+img(m,S.kira[m.id])+
