@@ -3199,8 +3199,11 @@ function eggShow(res,done,quick){
   var N=res.length, uid=Date.now()%100000, force=window.__geForce||null;
   var plan=res.map(function(z,i){
     var T=geTier(z.m.r), x=Math.random(), A=T, big=false;
+    // 昇格は「たまに 起きる おどろき」に しぼる(Koshin: 多すぎ)。★4 の 6%・★5 の 25%・★6 の 35% だけ 下の 色で 出る → 卵 1こあたり 約4.5%、11連で 平均 0.5回
     if(T===3&&x<0.07){A=0;big=true;}                       // 大昇格: いちばん下の 卵から いきなり 最高へ(★6 の 7% = 全体の 約0.1%)
-    else if(T>0){A=x<0.45?T:(x<0.82?T-1:Math.max(0,T-2));}
+    else if(T===1){A=x<0.06?0:1;}
+    else if(T===2){A=x<0.25?(x<0.05?0:1):2;}
+    else if(T===3){A=x<0.35?(x<0.15?1:2):3;}
     if(force&&force[i]){A=Math.min(T,force[i].a);big=!!force[i].big&&T===3;}
     return {T:T,A:A,big:big};
   });
