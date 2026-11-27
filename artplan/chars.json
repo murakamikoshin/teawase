@@ -1,0 +1,1934 @@
+[
+{
+"id": 1,
+"n": "プチボー",
+"r": 1,
+"h": "rock",
+"fx": "fire",
+"t": "",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"ひよこ × 火の粉",
+"からを かぶったまま 火花をとばす。おこると ぽっぽと あつくなる。"
+]
+},
+{
+"id": 2,
+"n": "ケロシズク",
+"r": 1,
+"h": "scissors",
+"fx": "water",
+"t": "",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"あまがえる × 雨つぶ",
+"雨の日にだけ 歌う。なくと 水たまりが まるく ひろがる。"
+]
+},
+{
+"id": 3,
+"n": "ハッパムシ",
+"r": 1,
+"h": "paper",
+"fx": "leaf",
+"t": "",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"いもむし × 若葉",
+"葉っぱを たべた分だけ 体のもようが ふえる。"
+]
+},
+{
+"id": 4,
+"n": "コロネズ",
+"r": 1,
+"h": "rock",
+"fx": "leaf",
+"t": "",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"ねずみ × どんぐり",
+"ころがって にげる。ほっぺに いつも 3つ かくしている。"
+]
+},
+{
+"id": 5,
+"n": "ウキブク",
+"r": 1,
+"h": "scissors",
+"fx": "water",
+"t": "",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"ふぐ × うきぶくろ",
+"びっくりすると ふくらんで 水面に うく。"
+]
+},
+{
+"id": 16,
+"n": "ポテモグ",
+"r": 1,
+"h": "paper",
+"fx": "earth",
+"t": "",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"もぐら × じゃがいも",
+"土の中で ねむる。芽が 出たら 目をさます。"
+]
+},
+{
+"id": 41,
+"n": "モチマル",
+"r": 1,
+"h": "rock",
+"fx": "light",
+"t": "",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"かがみもち × おもちの精",
+"のびる。のびすぎて もどれなくなることがある。"
+]
+},
+{
+"id": 42,
+"n": "ヒトモシビ",
+"r": 1,
+"h": "scissors",
+"fx": "fire",
+"t": "",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"ろうそく × 火の子",
+"風がふくと あわてる。でも 消えたことは 一度もない。"
+]
+},
+{
+"id": 43,
+"n": "ドングリス",
+"r": 1,
+"h": "paper",
+"fx": "leaf",
+"t": "",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"りす × どんぐりの帽子",
+"帽子を なくすと その場で 泣く。"
+]
+},
+{
+"id": 44,
+"n": "ワタグモ",
+"r": 1,
+"h": "paper",
+"fx": "wind",
+"t": "",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"わた雲 × ひつじ",
+"さわると しめっている。ねむると 雨になる。"
+]
+},
+{
+"id": 6,
+"n": "モエイヌ",
+"r": 2,
+"h": "rock",
+"fx": "fire",
+"t": "",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"柴犬 × たき火",
+"しっぽが 火になっている。さむい夜は みんなが 集まる。"
+]
+},
+{
+"id": 7,
+"n": "コウラン",
+"r": 2,
+"h": "scissors",
+"fx": "earth",
+"t": "",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"かめ × 盾",
+"こうらは 岩より かたい。ねるときも はなさない。"
+]
+},
+{
+"id": 8,
+"n": "モリタケ",
+"r": 2,
+"h": "paper",
+"fx": "poison",
+"t": "",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"きのこ × 森の番人",
+"かさの下に 小さな生きものを 雨やどりさせる。"
+]
+},
+{
+"id": 9,
+"n": "ツノウサ",
+"r": 2,
+"h": "paper",
+"fx": "star",
+"t": "",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"うさぎ × 一角獣",
+"月の夜に つのが のびる。とぶと 3メートル。"
+]
+},
+{
+"id": 17,
+"n": "カゼイタチ",
+"r": 2,
+"h": "scissors",
+"fx": "wind",
+"t": "",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"いたち × つむじ風",
+"はしると 風がまく。だれも しっぽを つかめない。"
+]
+},
+{
+"id": 10,
+"n": "ホムラ",
+"r": 3,
+"h": "rock",
+"fx": "fire",
+"t": "炎剣士",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"火の剣 × 鍛冶の神",
+"剣を ふるたび 火花がちる。師匠は 山の火だった。"
+]
+},
+{
+"id": 11,
+"n": "シオン",
+"r": 3,
+"h": "scissors",
+"fx": "water",
+"t": "潮の魔導士",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"潮の満ち引き × 月",
+"杖を ふると 波が ひく。満月の夜が いちばん つよい。"
+]
+},
+{
+"id": 12,
+"n": "ロウェン",
+"r": 3,
+"h": "paper",
+"fx": "leaf",
+"t": "森の狩人",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"ロビン・フッド × 森の木々",
+"森の道を ぜんぶ おぼえている。矢より 先に 剣をぬく。"
+]
+},
+{
+"id": 18,
+"n": "ライカ",
+"r": 3,
+"h": "rock",
+"fx": "star",
+"t": "雷鳴の剣姫",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"雷神 × いなずま",
+"剣が おちるより はやく 雷が おちる。"
+]
+},
+{
+"id": 55,
+"n": "ハヤテ",
+"r": 3,
+"h": "scissors",
+"fx": "wind",
+"t": "疾風の忍",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"風 × 忍者",
+"足音が しない。うしろに いることに だれも 気づかない。"
+]
+},
+{
+"id": 56,
+"n": "ミコト",
+"r": 3,
+"h": "paper",
+"fx": "petal",
+"t": "鈴鳴りの巫女",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"神楽鈴 × 巫女",
+"鈴を ふると まわりの 気が しずまる。"
+]
+},
+{
+"id": 57,
+"n": "ガラン",
+"r": 3,
+"h": "rock",
+"fx": "earth",
+"t": "鉄拳の修行僧",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"少林の拳 × 修行僧",
+"岩を 千回 たたいて こぶしを きたえた。"
+]
+},
+{
+"id": 58,
+"n": "リリィ",
+"r": 3,
+"h": "paper",
+"fx": "petal",
+"t": "花の魔法使い",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"花畑 × 春の魔法",
+"杖を ふると 足もとに 花が さく。"
+]
+},
+{
+"id": 59,
+"n": "ジン",
+"r": 3,
+"h": "scissors",
+"fx": "earth",
+"t": "砂漠の盗賊",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"千夜一夜 × 砂漠の盗賊",
+"ぬすむのは 悪者の 宝だけ と決めている。"
+]
+},
+{
+"id": 60,
+"n": "コハク",
+"r": 3,
+"h": "rock",
+"fx": "ice",
+"t": "竜騎士見習い",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"竜の子 × 見習い騎士",
+"いつか 竜に 乗るのが 夢。いまは 槍の けいこ中。"
+]
+},
+{
+"id": 232,
+"n": "ポルカ",
+"r": 3,
+"h": "paper",
+"fx": "wind",
+"t": "旅の吟遊詩人",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"旅の吟遊詩人 × リュート",
+"歌で 相手の 次の一手を 聞きだす。"
+]
+},
+{
+"id": 233,
+"n": "マリン",
+"r": 3,
+"h": "scissors",
+"fx": "water",
+"t": "海賊の少女船長",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"海賊の 少女船長",
+"宝の地図は ぜんぶ 頭の中。船は まだ ない。"
+]
+},
+{
+"id": 234,
+"n": "ウシオ",
+"r": 3,
+"h": "rock",
+"fx": "water",
+"t": "素もぐりの銛使い",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"素もぐりの 銛使い",
+"息を 5分 止められる。魚より 先に およぐ。"
+]
+},
+{
+"id": 235,
+"n": "テッサ",
+"r": 3,
+"h": "rock",
+"fx": "fire",
+"t": "鍛冶の少女",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"鍛冶の少女 × 大づち",
+"火山の火で 剣を うつ。失敗作は ひとつも ない。"
+]
+},
+{
+"id": 236,
+"n": "グレン",
+"r": 3,
+"h": "paper",
+"fx": "fire",
+"t": "火消しの若頭",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"火消しの 若頭 × まとい",
+"どんな火も こわくない。火事と きけば 走る。"
+]
+},
+{
+"id": 237,
+"n": "ユキノ",
+"r": 3,
+"h": "paper",
+"fx": "ice",
+"t": "雪国のかんじき娘",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"雪国の かんじき娘",
+"ふぶきの中でも 道に まよわない。"
+]
+},
+{
+"id": 238,
+"n": "トウヤ",
+"r": 3,
+"h": "scissors",
+"fx": "ice",
+"t": "氷の彫刻家",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"氷の 彫刻家 × のみ",
+"ひとふりで 氷を 花に かえる。"
+]
+},
+{
+"id": 239,
+"n": "ニコラ",
+"r": 3,
+"h": "rock",
+"fx": "ice",
+"t": "そり引きの少年",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"そり引きの 少年",
+"だれよりも 先に 雪原を かけぬける。"
+]
+},
+{
+"id": 240,
+"n": "ナディア",
+"r": 3,
+"h": "scissors",
+"fx": "wind",
+"t": "砂漠の踊り子",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"砂漠の 踊り子 × 双剣",
+"おどりながら 斬る。見とれると 負ける。"
+]
+},
+{
+"id": 241,
+"n": "ラシード",
+"r": 3,
+"h": "rock",
+"fx": "earth",
+"t": "隊商の護衛",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"隊商の 護衛 × 槍",
+"砂嵐の中でも 荷を 守りぬく。"
+]
+},
+{
+"id": 242,
+"n": "イカロ",
+"r": 3,
+"h": "paper",
+"fx": "wind",
+"t": "空とぶ発明家",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"空とぶ 発明家 × つばさ",
+"自作の つばさで 塔を めざす。落ちても こりない。"
+]
+},
+{
+"id": 243,
+"n": "スピカ",
+"r": 3,
+"h": "scissors",
+"fx": "light",
+"t": "見習い天使",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"星の 見習い天使",
+"輪っかが まだ 小さい。おつかいで 地上に 来た。"
+]
+},
+{
+"id": 13,
+"n": "エンオウ",
+"r": 4,
+"h": "rock",
+"fx": "petal",
+"t": "紅蓮将軍",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"炎の王 × 戦国の武将",
+"かぶとの下の 顔を 見た者は いない。"
+]
+},
+{
+"id": 14,
+"n": "ヴォルグ",
+"r": 4,
+"h": "scissors",
+"fx": "ice",
+"t": "氷狼騎士",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"北欧の氷狼フェンリル",
+"氷の国から きた騎士。はく息で 剣が こおる。"
+]
+},
+{
+"id": 19,
+"n": "ツクヨ",
+"r": 4,
+"h": "paper",
+"fx": "dark",
+"t": "月影の魔女",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"月の神ツクヨミ",
+"新月の夜だけ すがたを 見せる。"
+]
+},
+{
+"id": 61,
+"n": "ハクロウ",
+"r": 4,
+"h": "scissors",
+"fx": "ice",
+"t": "白狼の侍",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"白い狼 × 居合の侍",
+"ぬいたと 思ったときには もう さやに 入っている。"
+]
+},
+{
+"id": 62,
+"n": "セレス",
+"r": 4,
+"h": "paper",
+"fx": "star",
+"t": "星読みの魔女",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"星座 × 占星術",
+"星を 読んで あしたを 知る。はずれたことは ない。"
+]
+},
+{
+"id": 63,
+"n": "バルド",
+"r": 4,
+"h": "rock",
+"fx": "earth",
+"t": "大盾の将軍",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"城壁 × 守りの将軍",
+"一歩も ひかない。うしろには なかまが いる。"
+]
+},
+{
+"id": 64,
+"n": "ミヅチ",
+"r": 4,
+"h": "scissors",
+"fx": "ice",
+"t": "水竜の巫子",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"水の竜ミヅチ × 巫子",
+"川の 流れを かえられる。おこると 渦が まく。"
+]
+},
+{
+"id": 244,
+"n": "レオン",
+"r": 4,
+"h": "rock",
+"fx": "light",
+"t": "獅子心の騎士団長",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"獅子心の 騎士団長",
+"最初の ひとたちで 勝負を きめる。"
+]
+},
+{
+"id": 245,
+"n": "エルナ",
+"r": 4,
+"h": "paper",
+"fx": "leaf",
+"t": "千年樹の精霊使い",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"千年樹の 精霊使い",
+"木々の こえを 聞いて 先を 読む。"
+]
+},
+{
+"id": 246,
+"n": "ドレーク",
+"r": 4,
+"h": "rock",
+"fx": "water",
+"t": "大海の提督",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"大海の 提督",
+"七つの海を わたった。さいごに 笑うのは いつも この人。"
+]
+},
+{
+"id": 247,
+"n": "イグニス",
+"r": 4,
+"h": "paper",
+"fx": "fire",
+"t": "火山の錬金術師",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"火山の 錬金術師",
+"溶岩から 金を つくる。まだ 成功は 3回だけ。"
+]
+},
+{
+"id": 248,
+"n": "アヌ",
+"r": 4,
+"h": "rock",
+"fx": "dark",
+"t": "王墓の守護者",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"王墓の 守護者",
+"千年 ねむらずに 墓を 守っている。"
+]
+},
+{
+"id": 249,
+"n": "シェラ",
+"r": 4,
+"h": "paper",
+"fx": "star",
+"t": "千夜の語り部",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"千夜の 語り部",
+"話を きいていると 時間が ゆっくりになる。"
+]
+},
+{
+"id": 250,
+"n": "ゼフィ",
+"r": 4,
+"h": "scissors",
+"fx": "wind",
+"t": "西風の剣聖",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"西風の 剣聖",
+"風より はやく ぬいて 風より しずかに おさめる。"
+]
+},
+{
+"id": 15,
+"n": "アーサー",
+"r": 5,
+"h": "paper",
+"fx": "light",
+"t": "聖騎士",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"アーサー王伝説 × 聖剣エクスカリバー",
+"岩から 剣を ぬいた者。円卓の なかまを さがしている。"
+]
+},
+{
+"id": 20,
+"n": "アカツキ",
+"r": 5,
+"h": "rock",
+"fx": "fire",
+"t": "暁の覇王",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"夜明けの太陽 × 覇王",
+"朝日が のぼるとき、だれよりも 先に 立っている。"
+]
+},
+{
+"id": 65,
+"n": "ヒミカ",
+"r": 5,
+"h": "paper",
+"fx": "light",
+"t": "日輪の女王",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"太陽の女神 × 古代の女王",
+"鏡に 日の光を あつめる。かくれると 世界が 暗くなる。"
+]
+},
+{
+"id": 66,
+"n": "ラグナ",
+"r": 5,
+"h": "rock",
+"fx": "dark",
+"t": "終焉の竜騎士",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"北欧の終末ラグナロク × 竜騎士",
+"世界の 終わりに あらわれる という。まだ その時では ない。"
+]
+},
+{
+"id": 251,
+"n": "ティタニア",
+"r": 5,
+"h": "paper",
+"fx": "petal",
+"t": "妖精の女王",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"妖精の女王 × 真夏の夜",
+"森の 花は みんな この人に おじぎする。"
+]
+},
+{
+"id": 252,
+"n": "ワダツミ",
+"r": 5,
+"h": "scissors",
+"fx": "water",
+"t": "竜宮の王",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"海の神ワダツミ × 竜宮",
+"潮の 満ち引きを 指一本で かえる。"
+]
+},
+{
+"id": 253,
+"n": "フリムニル",
+"r": 5,
+"h": "rock",
+"fx": "ice",
+"t": "氷河の巨人王",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"北欧の 霜の巨人",
+"一歩で 山を こえる。足あとが 湖になった。"
+]
+},
+{
+"id": 254,
+"n": "ソラリス",
+"r": 5,
+"h": "rock",
+"fx": "light",
+"t": "天空の機神",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"天空の 機神",
+"塔の てっぺんで 千年 止まっていた。いま 動きだす。"
+]
+},
+{
+"id": 101,
+"n": "ゴウボー",
+"r": 3,
+"h": "rock",
+"fx": "fire",
+"t": "",
+"from": 1,
+"lim": false,
+"gacha": false,
+"lore": null
+},
+{
+"id": 102,
+"n": "ケロタキオウ",
+"r": 3,
+"h": "scissors",
+"fx": "water",
+"t": "",
+"from": 2,
+"lim": false,
+"gacha": false,
+"lore": null
+},
+{
+"id": 103,
+"n": "オオバチョウ",
+"r": 3,
+"h": "paper",
+"fx": "leaf",
+"t": "",
+"from": 3,
+"lim": false,
+"gacha": false,
+"lore": null
+},
+{
+"id": 104,
+"n": "ドンネズ",
+"r": 3,
+"h": "rock",
+"fx": "leaf",
+"t": "",
+"from": 4,
+"lim": false,
+"gacha": false,
+"lore": null
+},
+{
+"id": 105,
+"n": "ハリセンブク",
+"r": 3,
+"h": "scissors",
+"fx": "water",
+"t": "",
+"from": 5,
+"lim": false,
+"gacha": false,
+"lore": null
+},
+{
+"id": 116,
+"n": "ガンテツモグ",
+"r": 3,
+"h": "paper",
+"fx": "earth",
+"t": "",
+"from": 16,
+"lim": false,
+"gacha": false,
+"lore": null
+},
+{
+"id": 141,
+"n": "カガミモチオウ",
+"r": 3,
+"h": "rock",
+"fx": "light",
+"t": "",
+"from": 41,
+"lim": false,
+"gacha": false,
+"lore": null
+},
+{
+"id": 142,
+"n": "カガリビト",
+"r": 3,
+"h": "scissors",
+"fx": "fire",
+"t": "",
+"from": 42,
+"lim": false,
+"gacha": false,
+"lore": null
+},
+{
+"id": 143,
+"n": "オオカシワリス",
+"r": 3,
+"h": "paper",
+"fx": "leaf",
+"t": "",
+"from": 43,
+"lim": false,
+"gacha": false,
+"lore": null
+},
+{
+"id": 144,
+"n": "ライウンモ",
+"r": 3,
+"h": "paper",
+"fx": "thunder",
+"t": "",
+"from": 44,
+"lim": false,
+"gacha": false,
+"lore": null
+},
+{
+"id": 106,
+"n": "ゴウカケン",
+"r": 4,
+"h": "rock",
+"fx": "fire",
+"t": "",
+"from": 6,
+"lim": false,
+"gacha": false,
+"lore": null
+},
+{
+"id": 107,
+"n": "ヨロイコウラ",
+"r": 4,
+"h": "scissors",
+"fx": "earth",
+"t": "",
+"from": 7,
+"lim": false,
+"gacha": false,
+"lore": null
+},
+{
+"id": 108,
+"n": "オオモリタケ",
+"r": 4,
+"h": "paper",
+"fx": "poison",
+"t": "",
+"from": 8,
+"lim": false,
+"gacha": false,
+"lore": null
+},
+{
+"id": 109,
+"n": "イッカクウサ",
+"r": 4,
+"h": "paper",
+"fx": "star",
+"t": "",
+"from": 9,
+"lim": false,
+"gacha": false,
+"lore": null
+},
+{
+"id": 117,
+"n": "センプウイタチ",
+"r": 4,
+"h": "scissors",
+"fx": "wind",
+"t": "",
+"from": 17,
+"lim": false,
+"gacha": false,
+"lore": null
+},
+{
+"id": 31,
+"n": "モルドレッド",
+"r": 5,
+"h": "scissors",
+"fx": "dark",
+"t": "黒騎士",
+"from": 0,
+"lim": true,
+"gacha": false,
+"lore": [
+"円卓の反逆者モルドレッド",
+"聖騎士に ただひとり 剣をむけた 黒い騎士。"
+]
+},
+{
+"id": 32,
+"n": "クロノス",
+"r": 5,
+"h": "paper",
+"fx": "star",
+"t": "時の賢者",
+"from": 0,
+"lim": true,
+"gacha": false,
+"lore": [
+"時の神クロノス × 砂時計",
+"杖の先で 時間が とまる。3秒だけ。"
+]
+},
+{
+"id": 33,
+"n": "ジークフリート",
+"r": 5,
+"h": "rock",
+"fx": "wind",
+"t": "竜騎士",
+"from": 0,
+"lim": true,
+"gacha": false,
+"lore": [
+"竜殺しの英雄ジークフリート",
+"竜を たおして よろいを 手に入れた。背中だけが 弱点。"
+]
+},
+{
+"id": 34,
+"n": "ロキ",
+"r": 5,
+"h": "scissors",
+"fx": "dark",
+"t": "道化の魔人",
+"from": 0,
+"lim": true,
+"gacha": false,
+"lore": [
+"北欧のいたずら神ロキ",
+"ほんとうの 顔は だれも 知らない。うそと 本当を まぜる。"
+]
+},
+{
+"id": 35,
+"n": "ヴァルキリア",
+"r": 5,
+"h": "paper",
+"fx": "wind",
+"t": "戦乙女",
+"from": 0,
+"lim": true,
+"gacha": false,
+"lore": [
+"北欧の戦乙女ヴァルキュリア",
+"つよい者だけを えらんで 空へ つれていく。"
+]
+},
+{
+"id": 36,
+"n": "ヤマタ",
+"r": 5,
+"h": "rock",
+"fx": "poison",
+"t": "八つ首の大蛇",
+"from": 0,
+"lim": true,
+"gacha": false,
+"lore": [
+"日本神話の 八つ首の大蛇",
+"八つの首が それぞれ ちがう ことを 考えている。"
+]
+},
+{
+"id": 37,
+"n": "カグヤ",
+"r": 5,
+"h": "paper",
+"fx": "light",
+"t": "月の姫",
+"from": 0,
+"lim": true,
+"gacha": false,
+"lore": [
+"竹取物語 × 月の姫",
+"月から 来て、月へ 帰る。その間だけ 会える。"
+]
+},
+{
+"id": 38,
+"n": "フェンリス",
+"r": 5,
+"h": "scissors",
+"fx": "ice",
+"t": "鎖を噛む狼",
+"from": 0,
+"lim": true,
+"gacha": false,
+"lore": [
+"北欧神話の 鎖の狼",
+"どんな 鎖も かみちぎる。まだ 本気では ない。"
+]
+},
+{
+"id": 67,
+"n": "セイリュウ",
+"r": 5,
+"h": "scissors",
+"fx": "thunder",
+"t": "蒼天の竜王",
+"from": 0,
+"lim": true,
+"gacha": false,
+"lore": [
+"四神の青龍 × 東の空",
+"東の空を まもる 竜の王。雲を きって あらわれる。"
+]
+},
+{
+"id": 70,
+"n": "ニヒル",
+"r": 6,
+"h": "rock",
+"fx": "dark",
+"t": "虚空の王",
+"from": 0,
+"lim": true,
+"gacha": false,
+"lore": [
+"虚空 × 目をもつ冠",
+"なにもない所から 来た王。まわりの かけらは、のみこんだ 星の のこり。"
+]
+},
+{
+"id": 84,
+"n": "オルレア",
+"r": 8,
+"h": "paper",
+"fx": "star",
+"t": "星葬の天球儀",
+"from": 0,
+"lim": true,
+"gacha": false,
+"lore": [
+"天球儀 × 星の葬列",
+"星が おわる時を はかる者。手のひらの 小さな銀河は、見送ってきた 星たちの 墓標。"
+]
+},
+{
+"id": 68,
+"n": "スザク",
+"r": 5,
+"h": "rock",
+"fx": "fire",
+"t": "紅蓮の朱雀",
+"from": 0,
+"lim": true,
+"gacha": false,
+"lore": [
+"四神の朱雀 × 南の空",
+"南の空を まもる 炎の鳥。羽は もえても へらない。"
+]
+},
+{
+"id": 69,
+"n": "ビャッコ",
+"r": 5,
+"h": "scissors",
+"fx": "wind",
+"t": "白金の白虎",
+"from": 0,
+"lim": true,
+"gacha": false,
+"lore": [
+"四神の白虎 × 西の空",
+"西の空を まもる 白い虎。ひとこえで 風が 止まる。"
+]
+},
+{
+"id": 71,
+"n": "ゼノン",
+"r": 6,
+"h": "paper",
+"fx": "light",
+"t": "はじまりの王",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"はじまりの王",
+"この世界で 最初に なかまを つくった と 言われる。"
+]
+},
+{
+"id": 72,
+"n": "アマツ",
+"r": 6,
+"h": "rock",
+"fx": "thunder",
+"t": "天を裂く雷帝",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"天を裂く 雷帝",
+"ひとたび 剣を ぬけば 空が 二つに われる。"
+]
+},
+{
+"id": 73,
+"n": "ノア",
+"r": 6,
+"h": "paper",
+"fx": "earth",
+"t": "方舟の守り人",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"方舟の 守り人",
+"すべての 生きものの 名前を おぼえている。"
+]
+},
+{
+"id": 74,
+"n": "クロガネ",
+"r": 6,
+"h": "scissors",
+"fx": "dark",
+"t": "千の刃の鬼神",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"千の刃の 鬼神",
+"千本の 刀を 同時に あやつる。本人は 一本も 持たない。"
+]
+},
+{
+"id": 75,
+"n": "ユグド",
+"r": 6,
+"h": "paper",
+"fx": "leaf",
+"t": "世界樹の化身",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"世界樹の 化身",
+"根は 地の底、枝は 星まで とどく。"
+]
+},
+{
+"id": 76,
+"n": "バハル",
+"r": 6,
+"h": "rock",
+"fx": "water",
+"t": "海を呑む竜",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"海を呑む 竜",
+"背中に 島が ひとつ のっている。"
+]
+},
+{
+"id": 77,
+"n": "エクリプス",
+"r": 6,
+"h": "scissors",
+"fx": "dark",
+"t": "日食の魔王",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"日食の 魔王",
+"あらわれると 昼が 夜になる。"
+]
+},
+{
+"id": 78,
+"n": "オーロラ",
+"r": 6,
+"h": "paper",
+"fx": "light",
+"t": "極光の女神",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"極光の 女神",
+"夜空の 光の カーテンは この人の 衣の すそ。"
+]
+},
+{
+"id": 80,
+"n": "ミライ",
+"r": 6,
+"h": "scissors",
+"fx": "star",
+"t": "まだ見ぬ者",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"まだ見ぬ者",
+"ほかの 全員と なかまになった者の 前にだけ あらわれる。"
+]
+},
+{
+"id": 81,
+"n": "アルテア",
+"r": 7,
+"h": "paper",
+"fx": "light",
+"t": "星冠の創世神",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"はじまりの光 × 星の冠",
+"さいしょの星を ともした者。聖なる騎士と 巫女の いのりにだけ こたえる。"
+]
+},
+{
+"id": 82,
+"n": "ノクス",
+"r": 7,
+"h": "rock",
+"fx": "dark",
+"t": "終夜の冥王",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"おわりの夜 × 冥府の王",
+"さいごの夜を つかさどる者。黒き騎士と 月の魔女の よぶ声にだけ こたえる。"
+]
+},
+{
+"id": 83,
+"n": "エイオン",
+"r": 8,
+"h": "scissors",
+"fx": "star",
+"t": "永劫の調停者",
+"from": 0,
+"lim": false,
+"gacha": false,
+"lore": [
+"光と夜の あいだ × 永遠",
+"はじまりと おわりが ならんだ時にだけ、そのあいだに 立つ者が すがたを見せる。"
+]
+},
+{
+"id": 401,
+"n": "アリエス",
+"r": 4,
+"h": "rock",
+"fx": "earth",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 402,
+"n": "タウロ",
+"r": 4,
+"h": "rock",
+"fx": "earth",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 403,
+"n": "ジェミナ",
+"r": 4,
+"h": "scissors",
+"fx": "wind",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 404,
+"n": "レオニス",
+"r": 5,
+"h": "rock",
+"fx": "fire",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 405,
+"n": "ヴィルゴ",
+"r": 4,
+"h": "scissors",
+"fx": "light",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 406,
+"n": "スコルピ",
+"r": 4,
+"h": "scissors",
+"fx": "poison",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 407,
+"n": "サジタ",
+"r": 4,
+"h": "scissors",
+"fx": "star",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 408,
+"n": "ピスケ",
+"r": 4,
+"h": "paper",
+"fx": "water",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 409,
+"n": "カラカサ",
+"r": 3,
+"h": "paper",
+"fx": "wind",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 410,
+"n": "ユキメ",
+"r": 4,
+"h": "paper",
+"fx": "ice",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 411,
+"n": "テング",
+"r": 4,
+"h": "scissors",
+"fx": "wind",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 412,
+"n": "オニマル",
+"r": 4,
+"h": "rock",
+"fx": "fire",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 413,
+"n": "キツネビ",
+"r": 5,
+"h": "paper",
+"fx": "fire",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 414,
+"n": "カッパジ",
+"r": 3,
+"h": "rock",
+"fx": "water",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 415,
+"n": "ヌエ",
+"r": 5,
+"h": "scissors",
+"fx": "dark",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 416,
+"n": "シュテン",
+"r": 6,
+"h": "rock",
+"fx": "dark",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 417,
+"n": "マスト",
+"r": 3,
+"h": "scissors",
+"fx": "wind",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 418,
+"n": "アンカ",
+"r": 4,
+"h": "rock",
+"fx": "water",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 419,
+"n": "コック",
+"r": 3,
+"h": "rock",
+"fx": "fire",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 420,
+"n": "パロット",
+"r": 3,
+"h": "paper",
+"fx": "wind",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 421,
+"n": "キャノ",
+"r": 4,
+"h": "rock",
+"fx": "fire",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 422,
+"n": "サーベ",
+"r": 4,
+"h": "scissors",
+"fx": "water",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 423,
+"n": "クラーケ",
+"r": 5,
+"h": "paper",
+"fx": "water",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 424,
+"n": "ドレイク",
+"r": 6,
+"h": "scissors",
+"fx": "water",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 425,
+"n": "マカロ",
+"r": 3,
+"h": "paper",
+"fx": "petal",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 426,
+"n": "プレツ",
+"r": 3,
+"h": "scissors",
+"fx": "earth",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 427,
+"n": "ショコラ",
+"r": 4,
+"h": "rock",
+"fx": "earth",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 428,
+"n": "ミント",
+"r": 3,
+"h": "paper",
+"fx": "ice",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 429,
+"n": "キャンディ",
+"r": 3,
+"h": "scissors",
+"fx": "petal",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 430,
+"n": "タルト",
+"r": 3,
+"h": "scissors",
+"fx": "leaf",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 431,
+"n": "ワッフ",
+"r": 3,
+"h": "rock",
+"fx": "earth",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 432,
+"n": "パティシエル",
+"r": 5,
+"h": "paper",
+"fx": "light",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 433,
+"n": "ネジ",
+"r": 3,
+"h": "rock",
+"fx": "thunder",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 434,
+"n": "ギア",
+"r": 3,
+"h": "paper",
+"fx": "earth",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 435,
+"n": "スチム",
+"r": 4,
+"h": "rock",
+"fx": "fire",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 436,
+"n": "コイル",
+"r": 4,
+"h": "paper",
+"fx": "thunder",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 437,
+"n": "オルゴ",
+"r": 4,
+"h": "paper",
+"fx": "star",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 438,
+"n": "ピストン",
+"r": 4,
+"h": "scissors",
+"fx": "earth",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 439,
+"n": "クロック",
+"r": 5,
+"h": "paper",
+"fx": "star",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 440,
+"n": "マキナ",
+"r": 6,
+"h": "rock",
+"fx": "thunder",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+},
+{
+"id": 441,
+"n": "リュト",
+"r": 3,
+"h": "paper",
+"fx": "wind",
+"t": "",
+"from": 0,
+"lim": true,
+"gacha": true,
+"lore": null
+}
+]

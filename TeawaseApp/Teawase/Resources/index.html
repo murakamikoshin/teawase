@@ -1787,6 +1787,8 @@ function genSkill(m){
   var r=m.r||1, h=(m.id*2654435761)>>>0, b=[1.15,1.2,1.25,1.3,1.4,1.5,1.6,1.7][Math.min(8,r)-1], pool=SKG_T.slice();
   if(r<3){pool=pool.filter(function(t){return t!=="peek"&&t!=="perf2";});}            // 強い ものは ★3 から
   var t=pool[h%pool.length], nm=GSKN[m.id]||SKG_N[t][(h>>>5)%3], x={}, d="";
+  // ★6 以上は「オルレアと 別の 方向」に とがらせる(Koshin): 条件が そろった 時だけ オルレア(いつでも 2.5倍)を こえる。いつでも 効く 強さは オルレアより 下
+  if(r>=6&&({t1:1,t2:1,last:1,full:1,low:1,perfK:1,vs:1})[t]){b=r>=7?2.5:2.1;}
   var f=function(v){return (Math.round(v*100)/100)+"倍";};
   if(t==="any"){var k=1+(b-1)*0.5; x.any=k; d="いつ出しても "+f(k);}
   else if(t==="t1"){x.turn=1;x.tk=b+0.1; d="1ターン目に出すと "+f(b+0.1);}
@@ -1803,6 +1805,7 @@ function genSkill(m){
   else if(t==="peek"){x.peek=1; d="次のターンの 相手の手が見える";}
   else if(t==="perf2"){x.perf2=1; d="PERFECT 1回が 2回ぶんに数えられる";}
   if(nm==="星葬"){nm="星読みの技";}
+  if(r>=6&&!x.any&&!({t1:1,t2:1,last:1,full:1,low:1,perfK:1,vs:1})[t]){x.any=1.3; d+="。いつでも 1.3倍";}      // ★6 の 守り型も 別の 方向で 強く
   if(m.from){d+="。進化した 子なので さらに いつでも 1.2倍";}                                                     // オルレアの 名前は つかわない
   return {n:[nm,d],x:x};
 }
@@ -3247,11 +3250,11 @@ function eggShow(res,done,quick){
   var N=res.length, uid=Date.now()%100000, force=window.__geForce||null;
   var plan=res.map(function(z,i){
     var T=geTier(z.m.r), x=Math.random(), A=T, big=false;
-    // 昇格は ★6(虹)だけ(Koshin: 昇格は かならず 虹へ・確率は ★6 の 1.5% の 中)。★6 の 60% が 下の 色の 卵で 出て 虹に 変わる
-    // → 11連で 平均 0.1回(10連 10回に 1回)。★5以下は いつも 本当の 色。
-    if(T===3&&x<0.15){A=0;big=true;}                        // 大昇格: 青から いきなり 虹へ
-    else if(T===3&&x<0.30){A=1;}                            // 紫 → 虹
-    else if(T===3&&x<0.60){A=2;}                            // 金 → 虹
+    // 昇格は ★6(虹)の 0.5% だけ(Koshin: めったに 出ない から 出た 時に SNS で 話題に なる)。半分は 青から いきなり 虹(大昇格)、のこりは 紫か 金から 虹へ
+    // → 卵 1こあたり 約0.0075%(★6 1.5% × 0.5%)。★5以下は いつも 本当の 色。確率表の ★6 の 中に ふくまれる。
+    if(T===3&&x<0.0025){A=0;big=true;}
+    else if(T===3&&x<0.00375){A=1;}
+    else if(T===3&&x<0.005){A=2;}
     if(force&&force[i]){A=Math.min(T,force[i].a);big=!!force[i].big&&T===3;}
     return {T:T,A:A,big:big};
   });
@@ -3368,6 +3371,7 @@ function eggShow(res,done,quick){
   step(200,function(){});
   run();
 }
+window.__chars=function(){return ALL.map(function(m){var l=(typeof LORE!=="undefined"&&LORE[m.id])||null;return {id:m.id,n:m.name,r:m.r,h:m.hand,fx:fxOf(m),t:m.title||"",from:m.from||0,lim:!!m.lim,gacha:!!m.gacha,lore:l};});};   // 確認用
 window.__skAudit=function(){return ALL.map(function(m){var k=skillOf(m),t=traitOf(m);return {id:m.id,n:m.name,r:m.r,sk:k?k[0]:null,skd:k?k[1]:null,tr:t?t.n:null,trd:t?t.d:null,only:!!(t&&t.only)};});};   // 確認用
 window.__spFill=function(){if(E){E.combo=2;E.spOn=true;renderEnc();}};   // 確認用: 必殺ゲージを 満たす
 window.__geRun=function(rs,force,cb){   // えんしゅつの 確認用(結果は 変えない: 見た目だけ 再生)
