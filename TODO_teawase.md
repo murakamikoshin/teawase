@@ -602,3 +602,5 @@
 - H11: 絵 生成済み media MAHcFFNeJSs(436-441)。layers は cooldown → 60分後に 再トライ(send_later 済)
 - リニューアル タイトル 済: 画面の 高さに 合わせて 影(81/82/83)と 前の 5人を 拡大・うしろの 子を 上げて 顔を 出す。ニヒルなし・エイオン静止の まま。backup index_pre_title.html。公開 最新: game 1795754498-97f8 / gallery 1795753502-706b。次: 9(はじめの体験)
 - リニューアル 9 済: 最初の 1体えらび(1/2/3)+ はじめての 10連(引き直し10回・★5確定)。backup index_pre_r9.html。テスト /tmp/r9.py。公開 最新: game 1795755140-af13 / gallery 1795753502-706b。次: 8(音)
+- リニューアル 8 済: 音(バス分け・ダッキング・UI音・3段ボタン S.bgmOff)。backup index_pre_r8.html。テスト /tmp/snd.py。次: 6b
+- 公開 最新: game 1795755660-78d2 / gallery 1795753502-706b
