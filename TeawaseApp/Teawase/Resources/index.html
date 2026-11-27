@@ -1138,6 +1138,17 @@ html.short .qb img{width:24px;height:24px}
 .pg:has(.hlpb){overflow-y:auto;scrollbar-width:none;display:block}.pg:has(.hlpb)>.panel{margin-bottom:10px}.pg:has(.hlpb) .acard2 .btn.gold{padding:10px 6px}.hlpb{margin-top:8px;font-size:12px;padding:9px 6px 8px;min-height:38px;flex:0 0 auto;white-space:nowrap}.acard2:has(.hlpb) .codebox{margin-top:6px}.pg:has(.hlpb) .acard2{padding-top:10px;padding-bottom:10px}.pg:has(.hlpb) .afoes .spr{height:54px!important}
 .hlps{display:flex;align-items:center;gap:8px;margin-top:8px;padding:6px 10px;border-radius:12px;background:rgba(122,215,255,.12);border:1px solid rgba(122,215,255,.5);font-size:11px}
 .hlps .spr{width:40px!important;height:40px!important;margin:0}.hlps b{display:block;font-size:12px;color:#fff}
+/* ---- リニューアル 5: 見直しで 直した もの ---- */
+.snack{position:fixed;left:14px;right:14px;bottom:calc(172px + env(safe-area-inset-bottom,0px));z-index:6;max-width:432px;margin:0 auto;text-align:center;font-size:12px;font-weight:900;line-height:1.5;color:#15123a;background:linear-gradient(180deg,var(--gold1),var(--gold2));border-radius:12px;padding:8px 10px;box-shadow:0 6px 18px rgba(0,0,0,.5),0 0 22px -2px var(--gold2);pointer-events:none;animation:stamp .35s ease-out,snackout .5s ease-in 4s forwards}
+@keyframes snackout{to{opacity:0;transform:translateY(8px)}}
+.encin .ctl{min-height:0;overflow-y:auto;scrollbar-width:none;flex-shrink:1}.encin .ctl::-webkit-scrollbar{display:none}
+.encin .stage{flex-shrink:0}
+.stage .foe{height:calc(100% - 20px)!important;max-height:300px;width:auto!important;display:flex;align-items:flex-end;justify-content:center}
+.stage .foe .spr,.stage .foe .ill,.stage .foe img{height:100%!important;width:auto!important;max-width:88vw;object-fit:contain}
+.pg>.acard2:only-child{flex:0 0 auto}
+/* ---- 変な 所で 改行しない: 文は 分かち書き(空白 区切り)なので、空白と 句読点の 所だけで 折る。入りきらない 長い 語だけ 途中で 折る ---- */
+body,button,input{word-break:keep-all;overflow-wrap:break-word;line-break:strict}
+.msg,.snack,.notice,.toast,.gx-msg,.btn,.btn small,.st0 p,.st0c small,.pe-h,.sth,.bc-flav,.how,p,h2,.ah,.coach,.cut,.rankup,.lg-get{text-wrap:balance}
 /* ---- リニューアル 4b: ショップ(縦に 1本)---- */
 .shopx{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:10px;padding:2px 2px calc(84px + env(safe-area-inset-bottom,0px));scrollbar-width:none}
 .shopx::-webkit-scrollbar{display:none}
@@ -2237,9 +2248,8 @@ function homeTab(){
      '<div class="hero" data-id="'+fav.id+'">'+img(fav,S.kira[fav.id],2)+'</div>'+fxBg(fav,1)+
      
      '<div class="tl">'+badge(fav)+'<span class="stars">'+(fav.lim?"":stars(fav.r))+'</span></div>'+
-     (notice?'<div class="toast">'+notice+'</div>':'')+
      '<div class="np"><div class="nm">'+ttl(fav)+(S.kira[fav.id]?'<img class="icx" src="a/i_kira.webp" alt="">':"")+fav.name+'</div><div class="pw">'+HANDS[fav.hand].e+' '+power(fav)+'<small>Lv'+lv(fav.id)+'</small></div></div>'+
-     '</div></section>';
+     '</div></section>'+(notice?'<div class="snack">'+notice+'</div>':'');
   function qb(act,id,ic,label,n,hot,did){return '<button class="qb'+(hot?" hot":"")+'" data-act="'+act+'"'+(did?' data-id="'+did+'"':'')+' id="'+id+'"><img src="a/i_'+ic+'.webp" alt=""><span>'+label+'</span>'+(n?'<em>'+n+'</em>':'')+'</button>';}
   h+='<div class="qrow">'+
     (tgOpen()?qb("tgacha","tg-btn","gift","無料10連",0,true):"")+
@@ -2303,8 +2313,8 @@ function shopTab(){
   });
   return '<h2>ショップ <em>テスト版。請求は発生しない</em></h2><div class="shopx">'+
     (GACHAS.length>=6?'<div class="sth"><b>きずな石</b><span>いま '+(S.stone||0)+'こ・ガチャ 1回 '+GSTONE+'こ</span></div><div class="strow">'+stones+'</div>':'')+
-    (heroes.length?'<div class="sth"><b>限定の なかま</b><span>ここでしか 会えない</span></div>'+heroes.join(""):'')+
-    '<div class="sth"><b>パック・パス</b><span>1回だけ 買える もの が 多い</span></div>'+rest.join("")+info+'</div>';
+    '<div class="sth"><b>パック・パス</b><span>1回だけ 買える もの が 多い</span></div>'+rest.join("")+
+    (heroes.length?'<div class="sth"><b>限定の なかま</b><span>ここでしか 会えない</span></div>'+heroes.join(""):'')+info+'</div>';
 }
 
 function guideTab(){
@@ -2757,7 +2767,7 @@ function tgKeep(){
 }
 // ===== はじめての人むけの 4まいの説明 =====
 var TUT=[
- ['<img class="icx" src="a/i_bell.webp" alt="">',"でかけて 出会う","「でかける」を押すと だれかが あらわれる。<br>だれが来るかは 毎回ちがう。"],
+ ['<img class="icx" src="a/i_bell.webp" alt="">',"でかけて 出会う","「でかける」で だれかが あらわれる。<br>だれが来るかは 毎回ちがう。"],
  ['<img class="icx" src="a/i_gou.webp" alt=""><img class="icx" src="a/i_zan.webp" alt=""><img class="icx" src="a/i_jutsu.webp" alt="">',"相性で 読む","相手の手は ターンごとに変わる。<br><b>勝てる手の なかまを出すと 1.5倍。</b><br>3ターンで どれだけ けずれるか。"],
  ['<img class="icx" src="a/i_mission.webp" alt="">',"手ごとに 操作がちがう","<img class='icx' src='a/i_gou.webp' alt=''>おして ためて、ゾーンで はなす<br><img class='icx' src='a/i_zan.webp' alt=''>矢印の向きに スワイプ<br><img class='icx' src='a/i_jutsu.webp' alt=''>動く線を まんなかで 止める"],
  ['<img class="icx" src="a/stone1.webp" alt="">',"なかまに さそう","けずった分だけ なかま率が上がる。<br>ことわられても きずなが深まって、<br>つぎは さそいやすくなる。"]
@@ -3466,7 +3476,7 @@ function renderEnc(fx){
     c+='<div class="msg gold">'+(e.hit||"&nbsp;")+'</div>';
     c+='<div class="msg big">'+(ratio>=1?"「まいった！」":"手合わせ おわり")+'</div>';
     c+='<button class="btn gold shine" data-act="invite" id="invite-btn">なかまに さそう<small>成功率 '+Math.round(ch*100)+'%</small></button>';
-    if(!(S.seal>0)&&m.r<7&&!e.arena){c+='<button class="btn sec" data-act="buy" data-id="seal1" id="buyseal-btn" style="margin-top:8px">きずなの証で かならず なかまに<small>¥480・ショップと同じもの</small></button>';}
+    if(!(S.seal>0)&&m.r<7&&m.r>=4&&S.joined>=5&&!e.arena){c+='<button class="btn sec" data-act="buy" data-id="seal1" id="buyseal-btn" style="margin-top:8px">きずなの証で かならず なかまに<small>¥480・ショップと同じもの</small></button>';}
     if((S.seal||0)>0&&m.r<7){c+='<button class="btn" data-act="invite-sure" id="sure-btn" style="margin-top:8px">きずなの証を つかう<small>かならず なかまになる・のこり '+S.seal+'こ</small></button>';}
   }else if(e.phase==="thinking"){
     c+='<div class="msg big dots">かんがえ中</div>';
