@@ -35,6 +35,7 @@ XLOOK={
 ids=[c['id'] for c in chars if c['id'] not in SKIP]
 def look(i):
     c=C[i]
+    if c.get('look'): return c['look'].replace('、すすのついた顔','')
     if i in XLOOK: return XLOOK[i]
     if i in LOOK: return LOOK[i].replace('すすのついた頬、','').replace('、すすのついた顔','')
     if i in EVOLOOK: return EVOLOOK[i]
@@ -52,7 +53,8 @@ TIER={1:"【★1 素朴】まるい シンプルな 形・色 2〜3色",2:"【�
  7:"【★7 最上級】★6より さらに 上。後光・光の 輪・神々しい オーラ。ひと目で 別格と わかる"}
 def line(k,i):
     c=C[i]; t=c['t'] or (TITLES.get(i) if isinstance(TITLES,dict) else "") or ""
-    return "%d. %s%s(%s・%s属性・★%d)— %s。%s"%(k,c['n'],"「"+t+"」" if t else "",HAND[c['h']],EL.get(c['fx'],c['fx']),c['r'],look(i),TIER.get(c['r'],""))
+    at=("・%s属性"%EL.get(c['fx'],c['fx'])) if c.get('fx') else ""
+    return "%d. %s%s(%s%s・★%d)— %s。%s"%(k,c['n'],"「"+t+"」" if t else "",HAND[c['h']],at,c['r'],look(i),TIER.get(c['r'],""))
 mon=[i for i in ids if not is_human(i)]
 hum=sorted([i for i in ids if is_human(i)],key=lambda i:(C[i]['r'],i))
 # モンスター: 進化前と 進化後を 同じ 列(上と 下)に
@@ -96,7 +98,52 @@ while pp or ss:
     body="\n".join(line(j+1,i) for j,i in enumerate(ch))
     md.append("\n## %s(モンスター・%d体・横4×縦2)\n```\n添付画像と 同じ 絵柄で 描いて ください。添付画像の キャラ自体は 描かない。人間では なく モンスター(指定した モチーフの 形に する)。\n%s\n横長(3:2)の 画像に、%d体を 横4×縦2の マス目に 等間隔で 並べる。%s左上から 右へ、上の 段 → 下の 段の 順:\n%s\n%s\n```\n中身: %s\n"%(
         key,len(ch),STYLE,len(ch),note,body,TECH," / ".join(C[i]['n'] for i in ch)))
-md[1]="エイオン・オルレア・ニヒルは のぞく。全部で **%d体 / %dまい**(人 %d体・モンスター %d体)。\n"%(len(ids),n,len(hum),len(mon))
+# ===== 追加分: まだ 絵の ない 子(ガチャ限定 442〜500・モンスター 45〜54/201〜231 と 進化・ハジマリ) =====
+import re
+h=open('/home/claude/teawase/index.html',encoding='utf-8').read()
+MR={int(a):(b,int(r),hd) for a,b,r,hd in re.findall(r'\[(\d+),"([^"]+)",(\d),"(rock|scissors|paper)"\]',h)}
+EVN={int(a):b for a,b in re.findall(r'(\d+):"([^"]+)"',h[h.find('var EVO_NAMES'):h.find('}',h.find('var EVO_NAMES'))])}
+import gacha80
+X=[]
+for g in gacha80.G:
+    if g[0]>=442: C[g[0]]={'id':g[0],'n':g[1],'r':g[2],'h':g[3],'fx':g[4],'t':g[5],'look':g[6]}; X.append(g[0])
+xh=sorted(X,key=lambda i:(C[i]['r'],i))
+xm=[i for i in list(range(45,55))+list(range(201,232))+[79]]
+for i in xm:
+    nm,r,hd=MR[i]; lk=MLOOK.get(i) or names[i][1]
+    if i==79: lk="さいしょの ひとしずく。きらきら 光る 水の しずくの 精(★6 レジェンド)"
+    else: lk=lk+"(人間では なく この モチーフの 生きもの)"
+    C[i]={'id':i,'n':nm,'r':r,'h':hd,'fx':None,'t':'','look':lk}
+xpairs=[]
+for i in xm:
+    if i in EVN and (i+100) in names:
+        e=i+100; b=C[i]; C[e]={'id':e,'n':EVN[i],'r':min(b['r']+1,3),'h':b['h'],'fx':None,'t':'','from':i,
+          'look':EVOLOOK.get(e) or ("%sが 成長して 大きく 強そうに なった 姿(同じ 色合い)"%b['n'])}
+        xpairs.append((i,e))
+xs=[i for i in xm if i not in {a for a,b in xpairs}]
+md.append("\n---\n# 追加分(まだ 絵が ない 子 %d体)\nここからも 同じ やり方。G01 の 絵を 添付して。\n"%(len(xh)+len(xm)+len(xpairs)))
+first=n
+for ch in chunks(xh,6):
+    n+=1; key="G%02d"%n; sheets[key]={"cols":3,"rows":2,"ids":ch}
+    body="\n".join(line(j+1,i) for j,i in enumerate(ch))
+    md.append("\n## %s(人・%d体・横3×縦2)\n```\n添付画像と 同じ 絵柄で 描いて ください。添付画像の キャラ自体は 描かない。\n%s\n横長(3:2)の 画像に、%d体を 横3×縦2の マス目に 等間隔で 並べる。左上から 右へ、上の 段 → 下の 段の 順:\n%s\n%s\n```\n中身: %s\n"%(
+        key,len(ch),STYLE,len(ch),body,TECH," / ".join(C[i]['n'] for i in ch)))
+pp=xpairs[:]; ss=xs[:]
+while pp or ss:
+    top=[];bot=[]
+    while pp and len(top)<4:
+        a,b=pp.pop(0); top.append(a); bot.append(b)
+    if not bot:
+        top=ss[:4]; bot=ss[4:8]; ss=ss[8:]
+    ch=top+bot; n+=1; key="G%02d"%n
+    cw,rw=(4,2) if len(ch)>4 else (len(ch),1)
+    sheets[key]={"cols":cw,"rows":rw,"ids":ch}
+    note="上の 段の 子の 真下は その子が 進化した 姿(同じ 生きもの・同じ 色合いで、大きく 強そうに)。" if any(C[i].get('from') for i in bot) else ""
+    body="\n".join(line(j+1,i) for j,i in enumerate(ch))
+    md.append("\n## %s(モンスター・%d体・横%d×縦%d)\n```\n添付画像と 同じ 絵柄で 描いて ください。添付画像の キャラ自体は 描かない。人間では なく モンスター(指定した モチーフの 形に する)。\n%s\n横長の 画像に、%d体を 横%d×縦%dの マス目に 等間隔で 並べる。%s左から 右へ%s:\n%s\n%s\n```\n中身: %s\n"%(
+        key,len(ch),cw,rw,STYLE,len(ch),cw,rw,note,"、上の 段 → 下の 段の 順" if rw>1 else "",body,TECH," / ".join(C[i]['n'] for i in ch)))
+xn=len(xh)+len(xm)+len(xpairs)
+md[1]="エイオン・オルレア・ニヒルは のぞく。全部で **%d体 / %dまい**(G01〜G%02d: 今 絵が ある %d体 / G%02d〜G%02d: まだ 絵が ない %d体)。\n"%(len(ids)+xn,n,first,len(ids),first+1,n,xn)
 open('/home/claude/artplan/ChatGPT発注.md','w',encoding='utf-8').write("".join(md))
 json.dump(sheets,open('/home/claude/artplan/sheets.json','w',encoding='utf-8'),ensure_ascii=False)
 print(len(ids),n,len(hum),len(mon),len(pairs))
