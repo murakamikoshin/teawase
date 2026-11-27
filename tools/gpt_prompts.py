@@ -51,10 +51,14 @@ TIER={1:"【★1 素朴】まるい シンプルな 形・色 2〜3色",2:"【�
  5:"【★5 豪華】金の ふち・宝石・なびく マントや 布。かっこいい 決めポーズ",
  6:"【★6 超豪華】金銀の 細かい 装飾、大きな マント・翼・武器。服や 武器の 作りこみを ★5より 一段 上に。堂々とした 主役級の ポーズと 表情",
  7:"【★7 最上級】★6より さらに 上。冠・翼・衣装の 作りこみで ひと目で 別格と わかる"}
-def line(k,i):
+def line(k,i,tier=True):
     c=C[i]; t=c['t'] or (TITLES.get(i) if isinstance(TITLES,dict) else "") or ""
-    at=("・%s属性"%EL.get(c['fx'],c['fx'])) if c.get('fx') else ""
-    return "%d. %s%s(%s%s・★%d)— %s。%s"%(k,c['n'],"「"+t+"」" if t else "",HAND[c['h']],at,c['r'],look(i),TIER.get(c['r'],""))
+    return "%d. %s%s(★%d)— %s%s"%(k,c['n'],"「"+t+"」" if t else "",c['r'],look(i),("。"+TIER.get(c['r'],"")) if tier else "")
+def mkbody(ch):
+    rs={C[i]['r'] for i in ch}
+    if len(rs)==1:
+        r=rs.pop(); return "\n".join(line(j+1,i,False) for j,i in enumerate(ch))+"\n全員 ★%d: %s。"%(r,TIER.get(r,"").split("】")[-1])
+    return "\n".join(line(j+1,i) for j,i in enumerate(ch))
 mon=[i for i in ids if not is_human(i)]
 hum=sorted([i for i in ids if is_human(i)],key=lambda i:(C[i]['r'],i))
 # モンスター: 進化前と 進化後を 同じ 列(上と 下)に
@@ -64,14 +68,15 @@ for i in mon:
     e=i+100 if (i+100) in C and (i+100) not in SKIP and C[i+100].get('from')==i else None
     if e: pairs.append((i,e)); used|={i,e}
 singles=[i for i in mon if i not in used]
-STYLE=("日本の スマホRPGの キャラクター表。2〜2.5頭身の ちびキャラ。太めの 濃い 輪郭線、セル塗り(影は 1〜2段)、色は あざやかで 少なめ、★3〜4は 細部を 描きこみすぎない。"
+STYLE0=("日本の スマホRPGの キャラクター表。2〜2.5頭身の ちびキャラ。太めの 濃い 輪郭線、セル塗り(影は 1〜2段)、色は あざやかで 少なめ、★3〜4は 細部を 描きこみすぎない。"
  "目は キャラごとに 色と 形を 変える(つり目・たれ目・丸い目・半目など 性格に 合わせる)。瞳は 濃い 色で はっきり、小さな 白い ハイライトを 1つ。両目は 同じ 形・同じ 色・まつ毛も 左右 同じ。"
  "顔に 汚れ・しみ・すす・傷・ほくろを 描かない。ポーズは 1体ずつ はっきり 変える(ふりかぶる・走る・とぶ・しゃがむ・ふり返る・両手を 広げる など)。全身を 入れて、どの 子も 切れない。"
  "**レア度(★)が 高いほど 衣装・装飾・武器・ポーズを 豪華に**。同じ シートの 中でも ★の ちがいが ひと目で わかる ように。**体から はなれた エフェクト(オーラ・光の 粒・炎・後光・光の 輪)は 描かない**(ゲーム側で つける)。")
 TECH=("**背景は 完全に 透明(透過 PNG)**。影の 楕円・床・背景色・枠・文字・名前・番号は 入れない。キャラ どうしは 十分に はなして、重ならない・はみ出さない。")
+STYLE=STYLE0.replace("**","").replace("(ゲーム側で つける)",""); TECH=TECH.replace("**","")
 md=["# テアワセ！ ChatGPT 発注文(全キャラ 描き直し・透過素材)\n",
 "エイオン・オルレア・ニヒルは のぞく。全部で **%d体 / %dまい**。\n"%(len(ids),0),
-"## つかい方\n- 1まい目(G01)を 作って 絵柄が 気に入るまで 作り直す → **その 絵を 2まい目以降に 毎回 添付**して「添付画像と 同じ 絵柄で」と 言う(絵柄が そろう)。\n"
+"## つかい方\n- コードブロックの 中を そのまま 貼る。\n- **G01 だけ ニヒルの 絵を 添付**(絵柄の 参考。添付なしで 試す ときは G01 の 1段落目を 消す)。\n- G01 が 決まったら 次は **G18(★6〜7)** で ★の 差を 確かめる → よければ 残りを 順に。\n- 2まい目以降は **気に入った G01 の 絵を 毎回 添付**(絵柄が そろう)。\n"
 "- 出力は **透過 PNG**。背景が 白や 市松模様で 出たら「背景を 透明に して 出し直して」と 1回 言う。\n"
 "- できた 画像は シート名(G01 など)を そえて 貼って くれれば、こちらで 切り分けて ゲームに 入れる。並び順が くずれたら その シートだけ 作り直し。\n"
 "- 1まいに 入れる 数が 多くて 崩れる なら、言って くれれば 4体ずつに 分け直す。\n"]
@@ -82,9 +87,9 @@ def chunks(a,k): return [a[j:j+k] for j in range(0,len(a),k)]
 # 人: 6体(横3×縦2)
 for ch in chunks(hum,6):
     n+=1; key="G%02d"%n; sheets[key]={"cols":3,"rows":2,"ids":ch}
-    body="\n".join(line(j+1,i) for j,i in enumerate(ch))
+    body=mkbody(ch)
     md.append("\n## %s(人・%d体・横3×縦2)\n```\n%s%s\n横長(3:2)の 画像に、%d体を 横3×縦2の マス目に 等間隔で 並べる。左上から 右へ、上の 段 → 下の 段の 順:\n%s\n%s\n```\n中身: %s\n"%(
-        key,len(ch),"" if n==1 else "添付画像と 同じ 絵柄で 描いて ください。添付画像の キャラ自体は 描かない。\n",STYLE,len(ch),body,TECH," / ".join(C[i]['n'] for i in ch)))
+        key,len(ch),"添付画像は 絵柄(線の太さ・塗り方・顔と目の描き方・頭身)だけ 参考に して。服・色・装飾の 量・ポーズ・オーラは まねない。今回は ★3 なので 添付画像より ずっと 素朴に。添付画像の キャラ自体は 描かない。\n" if n==1 else "添付画像と 同じ 絵柄で 描いて ください。添付画像の キャラ自体は 描かない。\n",STYLE,len(ch),body,TECH," / ".join(C[i]['n'] for i in ch)))
 # モンスター: 進化 ペアは 上下(横4×縦2)
 pp=pairs[:]; ss=singles[:]
 while pp or ss:
@@ -95,7 +100,7 @@ while pp or ss:
     while len(bot)<4 and ss: bot.append(ss.pop(0))
     ch=top+bot; n+=1; key="G%02d"%n; sheets[key]={"cols":4,"rows":2,"ids":ch}
     note="上の 段の 子の 真下は その子が 進化した 姿(同じ 生きもの・同じ 色合いで、大きく 強そうに)。" if any(C[i].get('from') for i in bot) else ""
-    body="\n".join(line(j+1,i) for j,i in enumerate(ch))
+    body=mkbody(ch)
     md.append("\n## %s(モンスター・%d体・横4×縦2)\n```\n添付画像と 同じ 絵柄で 描いて ください。添付画像の キャラ自体は 描かない。人間では なく モンスター(指定した モチーフの 形に する)。\n%s\n横長(3:2)の 画像に、%d体を 横4×縦2の マス目に 等間隔で 並べる。%s左上から 右へ、上の 段 → 下の 段の 順:\n%s\n%s\n```\n中身: %s\n"%(
         key,len(ch),STYLE,len(ch),note,body,TECH," / ".join(C[i]['n'] for i in ch)))
 # ===== 追加分: まだ 絵の ない 子(ガチャ限定 442〜500・モンスター 45〜54/201〜231 と 進化・ハジマリ) =====
@@ -125,7 +130,7 @@ md.append("\n---\n# 追加分(まだ 絵が ない 子 %d体)\nここからも �
 first=n
 for ch in chunks(xh,6):
     n+=1; key="G%02d"%n; sheets[key]={"cols":3,"rows":2,"ids":ch}
-    body="\n".join(line(j+1,i) for j,i in enumerate(ch))
+    body=mkbody(ch)
     md.append("\n## %s(人・%d体・横3×縦2)\n```\n添付画像と 同じ 絵柄で 描いて ください。添付画像の キャラ自体は 描かない。\n%s\n横長(3:2)の 画像に、%d体を 横3×縦2の マス目に 等間隔で 並べる。左上から 右へ、上の 段 → 下の 段の 順:\n%s\n%s\n```\n中身: %s\n"%(
         key,len(ch),STYLE,len(ch),body,TECH," / ".join(C[i]['n'] for i in ch)))
 pp=xpairs[:]; ss=xs[:]
@@ -139,7 +144,7 @@ while pp or ss:
     cw,rw=(4,2) if len(ch)>4 else (len(ch),1)
     sheets[key]={"cols":cw,"rows":rw,"ids":ch}
     note="上の 段の 子の 真下は その子が 進化した 姿(同じ 生きもの・同じ 色合いで、大きく 強そうに)。" if any(C[i].get('from') for i in bot) else ""
-    body="\n".join(line(j+1,i) for j,i in enumerate(ch))
+    body=mkbody(ch)
     md.append("\n## %s(モンスター・%d体・横%d×縦%d)\n```\n添付画像と 同じ 絵柄で 描いて ください。添付画像の キャラ自体は 描かない。人間では なく モンスター(指定した モチーフの 形に する)。\n%s\n横長の 画像に、%d体を 横%d×縦%dの マス目に 等間隔で 並べる。%s左から 右へ%s:\n%s\n%s\n```\n中身: %s\n"%(
         key,len(ch),cw,rw,STYLE,len(ch),cw,rw,note,"、上の 段 → 下の 段の 順" if rw>1 else "",body,TECH," / ".join(C[i]['n'] for i in ch)))
 # ===== ポーズ分(★5以上: 1体 4ポーズ。モーション・ムービー用) =====
