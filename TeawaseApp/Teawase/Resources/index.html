@@ -1112,6 +1112,11 @@ html.short .qb img{width:24px;height:24px}
 .bc-acts .btn{width:100%;max-width:none;margin:0;min-height:0;padding:11px 4px 10px;font-size:14px;white-space:nowrap}
 .bca3 .btn{font-size:12px;padding:10px 2px 9px}
 .bc-acts .bcup{display:flex;align-items:center;justify-content:center;gap:10px;padding:9px 6px 8px}.bc-acts .bcup small{display:inline;margin:0;font-size:10px;opacity:.85}
+/* ---- リニューアル: タイトル(空きを うめる・うしろの 子の 顔を 出す)---- */
+#title .tgi{bottom:calc(var(--up,0px)*var(--tf,1))}
+#title .tgi .spr{height:calc(var(--h)*var(--tf,1))!important}
+#title .tgi.sil{bottom:calc(64px*var(--tf,1))}
+#title .tgi.sil .spr{height:calc(var(--h)*var(--ts,1)*1.12)!important}
 /* ---- リニューアル 4b: ショップ(縦に 1本)---- */
 .shopx{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:10px;padding:2px 2px calc(84px + env(safe-area-inset-bottom,0px));scrollbar-width:none}
 .shopx::-webkit-scrollbar{display:none}
@@ -3958,20 +3963,22 @@ function showTitle(played){
   }
   if(!S.mute){playBgm("title");}
   var feat=[], T=0.15;   // 登場ムービーは なし。最初から 集合の画面(Koshin 指定)
-  var grp=[[81,20,150,1,1],[82,80,150,1,1],[83,50,190,1,1],[11,15,135,2,0],[14,85,135,2,0],[20,33,165,3,0],[68,68,165,3,0],[15,50,205,4,0]];   // [id, まん中の位置%, 高さ, 重なり, 影]
+  var grp=[[81,17,150,1,1,0],[82,83,150,1,1,0],[83,50,200,1,1,0],[11,15,128,2,0,38],[14,85,128,2,0,38],[20,30,160,3,0,8],[68,70,160,3,0,8],[15,50,200,4,0,0]];   // 6つ目: 下から 何px 上げるか(うしろの 子の 顔が かくれない ように)   // [id, まん中の位置%, 高さ, 重なり, 影]
   var h='<div class="t-streak"></div><div class="t-rays"></div><video class="t-bgv" src="v/title.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>';
   feat.forEach(function(m,i){
     h+='<div class="tp" style="--i:'+i+';--pc:'+FXC[fxOf(m)]+';--d:'+(i%2?-1:1)+'"><span>'+m.name+m.name+m.name+'</span></div><div class="tf" style="--i:'+i+'"></div><div class="tc" style="--i:'+i+';--from:'+(i%2?"-":"")+'110vw;--pc:'+FXC[fxOf(m)]+'">'+timg(m,3)+
        '<div class="tn"><small>'+(m.title||"")+'</small><b>'+m.name+'</b></div></div>';
   });
   h+='<div class="tf last" style="--t:'+T+'s"></div><div class="tg" style="--t:'+T+'s">';
-  grp.forEach(function(g,j){var m=byId(g[0]);h+='<div class="tgi'+(g[4]?" sil":"")+'" style="left:'+g[1]+'%;--h:'+g[2]+'px;z-index:'+g[3]+';--j:'+j+'">'+timg(m,2)+'</div>';});
+  grp.forEach(function(g,j){var m=byId(g[0]);h+='<div class="tgi'+(g[4]?" sil":"")+'" style="left:'+g[1]+'%;--h:'+g[2]+'px;--up:'+(g[5]||0)+'px;z-index:'+g[3]+';--j:'+j+'">'+timg(m,2)+'</div>';});
   h+='</div><div class="tring" style="--t:'+T+'s"></div><div class="t-bar tb1"></div><div class="t-bar tb2"></div>'+
     '<div class="t-top" style="--t:'+T+'s"><div class="t-orn"><i></i><b></b><i></i></div>'+
     '<div class="t-logo goldtxt">テアワセ！<span class="t-sheen" aria-hidden="true">テアワセ！</span></div><div class="t-line"></div>'+
     '<div class="t-sub"><span>出会って、認めさせて、なかまにしろ</span></div></div>'+
     '<div class="t-tap" style="--t:'+T+'s">TAP TO START</div><div class="t-foot">'+(NATIVE?"":"TEST BUILD ・ ")+'v'+VERSION+'</div>';
   titleEl.innerHTML=h;
+  (function(){var vh=window.innerHeight||800, vw=Math.min(window.innerWidth||390,460), free=vh*0.85-(vh*0.095+190)-vh*0.15;   // ロゴの 下から TAP の 上までの 空き
+    var ts=Math.max(0.8,Math.min(1.5,free/300)); titleEl.style.setProperty("--ts",ts.toFixed(3)); titleEl.style.setProperty("--tf",Math.max(0.8,Math.min(ts,vw/390*0.98)).toFixed(3));})();
   var bgv=titleEl.querySelector(".t-bgv"); if(bgv){try{bgv.muted=true;var bpp=bgv.play();if(bpp&&bpp.catch){bpp.catch(function(){});}}catch(err){}}
   // 絵を先に全部ひらいてから 動かす(途中で絵を開くと カクッとなる)
   titleEl.classList.add("wait");
