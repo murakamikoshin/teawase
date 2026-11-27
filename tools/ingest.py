@@ -4,7 +4,7 @@ import sys,json,subprocess,os
 sh=json.load(open('/home/claude/artplan/sheets.json'))[sys.argv[1]]
 ids=[str(i) for i in sh["ids"]]
 os.makedirs('/home/claude/newsrc',exist_ok=True)
-subprocess.check_call(['python3','/home/claude/tools/slice.py',sys.argv[2],str(sh["cols"]),str(sh["rows"]),'/home/claude/newsrc',','.join(ids)])
+subprocess.check_call(['python3','/home/claude/tools/slice_grid.py' if '--grid' in sys.argv else '/home/claude/tools/slice.py',sys.argv[2],str(sh["cols"]),str(sh["rows"]),'/home/claude/newsrc',','.join(ids)])
 ok=[]
 for i in ids:
     if os.path.exists('/home/claude/newsrc/%s.png'%i):
