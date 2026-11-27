@@ -2833,7 +2833,7 @@ function shareCard(id){
 function tutOn(){return !S.tut2&&!!E&&!E.arena&&!E.raid&&!E.mp&&S.enc<=1;}
 function tutB(n,t){return '<div class="tutb"><i>'+n+'</i><span>'+t+'</span><button data-act="tutskip" id="tut2-skip">とばす</button></div>';}
 // ===== はじめの 体験: 最初の 1体を えらぶ(手が ちがう 3体) + はじめての 10連(引き直し 10回まで) =====
-var ST0=[1,2,3], TG_MAX=10;
+var ST0=[1,2,3];      // はじめての 10連の 引き直しは 何回でも(Koshin)
 function needStarter(){return !S.st0&&S.enc===0&&!(S.joined>0)&&Object.keys(S.owned).length<=1;}
 function showStarter(){
   var why={rock:"ためて ドカン。<br>ザンに 強い",scissors:"スワイプで 斬る。<br>ジュツに 強い",paper:"ピタッと 止める。<br>ゴウに 強い"};
@@ -2852,7 +2852,7 @@ function tgRoll(){     // ★5 を 1体 確定、ほかは ★3〜5 を いつ�
 function tgRes(){var seen={};return (S.tgRes||[]).map(function(id){var m=byId(id),h0=count(id)+(seen[id]||0);seen[id]=(seen[id]||0)+1;
   return {m:m,k:false,isNew:h0===0,had:h0,tag:h0===0?"new":(h0<MAX_LV?"up":"shard"),tagT:h0===0?"NEW":(h0<MAX_LV?"Lv"+h0+" → Lv"+(h0+1):"きずなのかけら +"+m.r)};});}
 function tgPull(){
-  if(!tgOpen()||(S.tgN||0)>TG_MAX){return;}
+  if(!tgOpen()){return;}
   var first=!S.tgN; S.tgRes=tgRoll(); S.tgN=(S.tgN||0)+1; save();
   var el=document.getElementById("gacha");
   if(first){if(el){el.hidden=true;} eggShow(tgRes(),function(){showGacha("tres");});}
@@ -3217,11 +3217,11 @@ function eggShow(res,done,quick){
   var N=res.length, uid=Date.now()%100000, force=window.__geForce||null;
   var plan=res.map(function(z,i){
     var T=geTier(z.m.r), x=Math.random(), A=T, big=false;
-    // 昇格は「たまに 起きる おどろき」に しぼる(Koshin: 多すぎ)。★4 の 6%・★5 の 25%・★6 の 35% だけ 下の 色で 出る → 卵 1こあたり 約4.5%、11連で 平均 0.5回
-    if(T===3&&x<0.07){A=0;big=true;}                       // 大昇格: いちばん下の 卵から いきなり 最高へ(★6 の 7% = 全体の 約0.1%)
-    else if(T===1){A=x<0.06?0:1;}
-    else if(T===2){A=x<0.25?(x<0.05?0:1):2;}
-    else if(T===3){A=x<0.35?(x<0.15?1:2):3;}
+    // 昇格は ★6(虹)だけ(Koshin: 昇格は かならず 虹へ・確率は ★6 の 1.5% の 中)。★6 の 60% が 下の 色の 卵で 出て 虹に 変わる
+    // → 11連で 平均 0.1回(10連 10回に 1回)。★5以下は いつも 本当の 色。
+    if(T===3&&x<0.15){A=0;big=true;}                        // 大昇格: 青から いきなり 虹へ
+    else if(T===3&&x<0.30){A=1;}                            // 紫 → 虹
+    else if(T===3&&x<0.60){A=2;}                            // 金 → 虹
     if(force&&force[i]){A=Math.min(T,force[i].a);big=!!force[i].big&&T===3;}
     return {T:T,A:A,big:big};
   });
@@ -3308,7 +3308,7 @@ function eggShow(res,done,quick){
       st(700,function(){t=3;el.classList.remove("omen");setCol(3);doFlash(true);jolt();main.innerHTML=geEgg(3,uid+"b"+i);main.className="ge-main pulse";showUp("大昇格!!",true);geSnd("big");buzz([60,40,60,40,200]);burst(160,cols(3),11,2);rain(120,cols(3));cells[i].innerHTML=geEgg(3,uid+"cb"+i);});
       st(1900,function(){main.className="ge-main wob";});
     }else{
-      for(var q=p.A+1;q<=p.T;q++){(function(q){
+      for(var q=p.T;q<=p.T&&p.A<p.T;q++){(function(q){         // 昇格は いっきに 虹へ(とちゅうの 色は とばす)
         st(q===p.A+1?700:500,function(){main.className="ge-main shake";geSnd("tick",q);buzz(15);});
         st(520,function(){t=q;setCol(q);doFlash(false);jolt();main.innerHTML=geEgg(q,uid+"p"+q+"_"+i);main.className="ge-main pulse";showUp("昇格!",false);geSnd("up",q);buzz([20,30,40]);burst(40+q*25,cols(q),6+q*1.5,1);cells[i].innerHTML=geEgg(q,uid+"cp"+q+"_"+i);});
         st(650,function(){main.className="ge-main wob";});
@@ -3408,13 +3408,13 @@ function showGacha(mode,res){
     var nN=0,nU=0,nS=0; res.forEach(function(z){if(z.tag==="up"){nU++;}else if(z.tag==="shard"){nS+=z.m.r;}else{nN++;}});
     h+='</div><div class="pe-sum">'+(nN?'<span class="r-new">はじめまして <b>'+nN+'</b></span>':'')+(nU?'<span class="r-up">レベルアップ <b>'+nU+'</b></span>':'')+(nS?'<span class="r-shard">かけら <b>+'+nS+'</b></span>':'')+'</div><button class="btn gold" data-g="back">つづける</button></div>';
   }else if(mode==="tres"){
-    var tr=tgRes(), left=TG_MAX+1-(S.tgN||0);
+    var tr=tgRes();
     h+='<div class="pe-h"><b>はじめての 10連 +1</b><span>★5 1体 確定</span></div><div class="pe-grid">';
     tr.forEach(function(z){h+='<div class="pe-cell rk'+z.m.r+(z.m.r>=5?" in":"")+'">'+img(z.m,0)+'<b>'+z.m.name+'</b><span>'+stars(z.m.r)+'</span><i class="rtag" style="background:rgba(255,255,255,.14);color:#fff">'+HANDS[z.m.hand].l+'</i></div>';});
-    h+='</div><div class="pe-sum"><span>引き直し あと <b>'+left+'</b>回</span></div><div class="tgb"><button class="btn sec" data-g="tgre" id="tg-re"'+(left>0?'':' disabled')+'>引き直す</button><button class="btn gold" data-g="tgkeep" id="tg-keep">これに 決める</button></div></div>';
+    h+='</div><div class="pe-sum"><span>気に入るまで <b>何回でも</b> 引き直せる</span></div><div class="tgb"><button class="btn sec" data-g="tgre" id="tg-re"'+''+'>引き直す</button><button class="btn gold" data-g="tgkeep" id="tg-keep">これに 決める</button></div></div>';
   }else if(mode==="info"){
     h+='<div class="pe-h"><b>確率・くわしく</b><span>ガチャ限定 '+GACHAS.length+'体</span></div>'+'<div class="g-odds"><b>出る確率</b>'+tb.map(function(t){return '<div><span>'+stars(t.r)+'（'+t.list.length+'体）</span><em>'+(t.p*100).toFixed(1)+'%</em></div>';}).join("")+
-      '<p><b style="color:#fff">かぶっても むだに ならない:</b> 同じ子が また出ると Lv アップ（最大 Lv'+MAX_LV+'・1つごとに パワー +10%）。Lv最大の あとは「きずなのかけら」（★の数ぶん）に なり、ほかの子の レベルアップ か、'+GSHARD+'こで ガチャ 1回に 使える。<br>卵の色は えんしゅつ。とちゅうで 上の 卵に「昇格」する ことが ある（出る確率は この表の とおりで、えんしゅつでは 変わらない）。<br>同じレア度の中では どの子も同じ確率。色違いは '+(KIRA_RATE*100)+'%。'+GPITY+'回 ★5以上が出なければ 次は ★5以上（あと '+(GPITY-(S.gpity||0))+'回）。<br>メダルは デイリーミッション（+1）・ランクアップ（+2）で もらえる。<br>10連は 10回ぶんの 石で 11回 引ける。11回目は ★4以上だけの中から、上の比で出る。'+GCEIL+'回 まわすごとに「えらべる交換チケット」が1まい もらえる（あと '+(GCEIL-((S.gcount||0)%GCEIL))+'回）。</p></div>'+'<button class="btn sec" data-g="back">もどる</button></div>';
+      '<p><b style="color:#fff">かぶっても むだに ならない:</b> 同じ子が また出ると Lv アップ（最大 Lv'+MAX_LV+'・1つごとに パワー +10%）。Lv最大の あとは「きずなのかけら」（★の数ぶん）に なり、ほかの子の レベルアップ か、'+GSHARD+'こで ガチャ 1回に 使える。<br>卵の色は レア度を あらわす。ただし ★6 の 子だけ、ほかの 色の 卵で 出て とちゅうで 虹の 卵に「昇格」する ことが ある（★6 が 出る 確率は この表の とおりで、昇格は その 中に ふくまれる。えんしゅつで 確率は 変わらない）。<br>同じレア度の中では どの子も同じ確率。色違いは '+(KIRA_RATE*100)+'%。'+GPITY+'回 ★5以上が出なければ 次は ★5以上（あと '+(GPITY-(S.gpity||0))+'回）。<br>メダルは デイリーミッション（+1）・ランクアップ（+2）で もらえる。<br>10連は 10回ぶんの 石で 11回 引ける。11回目は ★4以上だけの中から、上の比で出る。'+GCEIL+'回 まわすごとに「えらべる交換チケット」が1まい もらえる（あと '+(GCEIL-((S.gcount||0)%GCEIL))+'回）。</p></div>'+'<button class="btn sec" data-g="back">もどる</button></div>';
   }else if(mode==="list"){
     h+='<div class="pe-h"><b>えらんで こうかん</b><span>チケット '+(S.gpick||0)+'まい・★5まで</span></div><div class="pe-grid">';
     GACHAS.filter(function(m){return m.r<=5;}).sort(function(a,c){return c.r-a.r;}).forEach(function(m){
@@ -3427,7 +3427,7 @@ function showGacha(mode,res){
       '<div class="gx-feat"><em>いま 出る</em>'+feat.map(function(m){return '<span class="rk'+m.r+'">'+img(m,0)+'</span>';}).join("")+'<b>'+stars(feat[0].r)+' '+feat[0].name+' ほか '+(GACHAS.length-1)+'体</b></div>'+
       '<div class="gx-stage"><img class="e l" src="a/egg1.webp" alt=""><img class="e r" src="a/egg2.webp" alt=""><img class="e c" src="a/egg3.webp" alt=""></div>'+
       (notice?'<div class="gx-msg">'+notice+'</div>':'')+
-      (tgOpen()?'<button class="tgban" data-g="tg" id="tg-pull"><b>はじめての 10連 <i class="plus1">+1</i></b><span>無料・11回・★5 1体 確定・気に入るまで '+TG_MAX+'回 引き直せる</span></button>':'')+
+      (tgOpen()?'<button class="tgban" data-g="tg" id="tg-pull"><b>はじめての 10連 <i class="plus1">+1</i></b><span>無料・11回・★5 1体 確定・気に入るまで 何回でも 引き直せる</span></button>':'')+
       '<div class="gx-pity">★5以上 確定まで あと <b>'+(GPITY-(S.gpity||0))+'</b>回</div>'+
       '<div class="gx-btns"><button class="gx-b one'+(free?" free":"")+'" data-g="'+k1+'" id="g-pull"><b>'+(free?"無料で 1回":"1回")+'</b><small>'+(free?"きょうの ぶん":(hasM?"メダル "+GCOST+"まい":(st>=GSTONE?'<img src="a/stone1.webp" alt="">'+GSTONE:"石が たりない"))) +'</small></button>'+
       '<button class="gx-b ten" data-g="'+k10+'" id="g-pull10"><b>10連<i class="plus1">+1</i></b><small>'+(st>=GSTONE*10?'<img src="a/stone1.webp" alt="">'+(GSTONE*10)+'・11回・★4以上 1体':"石が たりない")+'</small></button></div>'+
@@ -3809,7 +3809,7 @@ function startArena(kind,foes){
 }
 function arenaHit(a,dealt,perfect,special,mu,st,encin){
   var A=E.arena, f=A.foes[E.turn-1], fm=byId(f.id);
-  var opp=Math.round(foePower(f)*mult(fm.hand,a.hand)*1.2), win=dealt>=opp;
+  var opp=Math.round(foePower(f)*mult(fm.hand,a.hand)*1.3), win=dealt>=opp;   // 1.2 → 1.3: 必殺ゲージ制で 楽に なった ぶん(tools/sim_arena.py で 前と 同じ 勝率に なる 値)
   A.res.push({win:win,my:dealt,opp:opp,who:a.id}); A.score+=dealt;
   E.used.push(a.id); E.atk=null; E.slowNext=false; E.peek=false;
   if(special){E.combo=0;}else{E.combo=Math.min(2,(E.combo||0)+(perfect?1:0)+(mu>1?1:0));} E.spOn=true;

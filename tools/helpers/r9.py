@@ -23,7 +23,11 @@ async def main():
             if await pg.evaluate("!!document.querySelector('#tg-keep')"): break
         await pg.wait_for_timeout(800); await pg.screenshot(path='/tmp/n_6.png')
         a=await pg.evaluate("JSON.parse(localStorage.getItem('teawase_v1')).tgRes.join()")
-        await pg.click('#tg-re'); await pg.wait_for_timeout(600); await pg.screenshot(path='/tmp/n_7.png')
+        await pg.click('#tg-re')
+        for _ in range(30):
+            await pg.wait_for_timeout(300)
+            if await pg.query_selector('#tg-keep'): break
+        await pg.wait_for_timeout(300); await pg.screenshot(path='/tmp/n_7.png'); print('sum:', await pg.evaluate("(document.querySelector('.pe-sum')||{}).textContent"), 'disabled:', await pg.evaluate("document.querySelector('#tg-re').disabled"))
         print(a, await pg.evaluate("JSON.parse(localStorage.getItem('teawase_v1')).tgRes.join()"))
         await pg.click('#tg-keep'); 
         for i in range(40):
