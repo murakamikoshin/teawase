@@ -10,5 +10,5 @@ for i in ids:
     if os.path.exists('/home/claude/newsrc/%s.png'%i):
         subprocess.check_call(['python3','/home/claude/tools/dot5.py','/home/claude/newsrc/%s.png'%i,'/home/claude/dots5/%s.png'%i,'108','20']); ok.append(i)
 subprocess.check_call(['python3','/home/claude/tools/addart.py',','.join(ok)])
-subprocess.check_call(['python3','/home/claude/tools/hiart.py'])   # 元の絵(イラスト表示用)も入れなおす
+if '--nohi' not in sys.argv: subprocess.check_call(['python3','/home/claude/tools/hiart.py'])   # 元の絵(イラスト表示用)も入れなおす
 print('added',ok)
