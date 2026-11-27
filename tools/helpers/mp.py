@@ -52,7 +52,7 @@ async def run(b,drop):
                 await A.screenshot(path='/tmp/mp_a.png'); await B.screenshot(path='/tmp/mp_b.png')
         else: await A.wait_for_timeout(400)
         if drop and moves==2 and not B.is_closed():
-            await B.evaluate("window.__mp.leave()"); await B.close(); print('B left')
+            await B.evaluate("window.__mp.leave()"); await B.wait_for_timeout(400); await B.close(); print('B left')
     sa=await state(A); sb=None if B.is_closed() else await state(B)
     print('drop' if drop else 'full','moves',moves,'A',sa,'B',sb,errs)
     await A.screenshot(path='/tmp/mp_end_a.png')
