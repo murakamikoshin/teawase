@@ -1,6 +1,11 @@
 import asyncio,json,sys
 from playwright.async_api import async_playwright
 JS="""()=>{var o=[];document.querySelectorAll('body,#home,#enc,#card,#anime,.encin,.page,main,section').forEach(function(e){if(!e.getClientRects().length)return;var s=e.scrollHeight-e.clientHeight;if(s>2&&getComputedStyle(e).overflowY!=='visible'&&getComputedStyle(e).overflowY!=='hidden')o.push((e.id||e.className||e.tagName)+':+'+s);});var c=document.querySelector('#enc:not([hidden]) .ctl');if(c){var bt=c.getBoundingClientRect().bottom;if(bt>innerHeight+1)o.push('CTL-CUT:'+Math.round(bt-innerHeight));var st=document.querySelector('#enc .stage');o.push('stage='+Math.round(st.getBoundingClientRect().height));}var v=document.querySelector('#app .view');if(v&&v.scrollHeight>v.clientHeight+1)o.push('VIEW-CUT:'+(v.scrollHeight-v.clientHeight));document.querySelectorAll('#app .pg,#app .grid9 .ci').forEach(function(e){if(e.scrollHeight>e.clientHeight+2)o.push('CLIP:'+e.className+(e.scrollHeight-e.clientHeight));});var d=document.scrollingElement;if(d.scrollHeight-d.clientHeight>2)o.push('DOC:+'+(d.scrollHeight-d.clientHeight));return o.join(' ');}"""
+async def _safe(pg,sel,**kw):
+    try:
+        await pg.click(sel,force=True,timeout=2500,**kw); return True
+    except Exception:
+        return False
 async def hit(pg):
     el=await pg.wait_for_selector('#hit-btn'); bx=await el.bounding_box()
     x=bx['x']+bx['width']/2-40; y=bx['y']+bx['height']/2
@@ -23,7 +28,7 @@ async def run(p,w,h):
     await pg.click('#go-btn')
     async def clear():
         for _ in range(40):
-            if await pg.query_selector('#anime:not([hidden])'): await pg.click('#anime')
+            if await pg.query_selector('#anime:not([hidden])'): await _safe(pg,'#anime')
             if await pg.query_selector('.pick:visible') or await pg.query_selector('#invite-btn'): return
             await pg.wait_for_timeout(250)
     await clear(); await rep('pick')

@@ -1133,8 +1133,8 @@ html.short .qb img{width:24px;height:24px}
 .tgb{display:grid;grid-template-columns:1fr 1.4fr;gap:8px}.tgb .btn{width:100%;margin:0}
 .snd{position:relative}.snd.se i{position:absolute;right:-3px;bottom:-4px;font-style:normal;font-family:var(--num);font-size:8px;line-height:1;padding:2px 4px;border-radius:999px;background:#ff3d6e;color:#fff;border:1px solid #fff}
 /* ---- リニューアル 10: たすけっと ---- */
-.picks.p6x{grid-template-columns:repeat(6,1fr)!important;gap:3px}
-.picks.p6x .pick .spr{height:38px!important}.picks.p6x .pick .pw{font-size:9px}.picks.p6x .pick .mt{font-size:7.5px;padding:1px 2px}.picks.p6x .pick .sk{display:none}
+.picks.p6x{grid-template-columns:repeat(3,1fr)!important;gap:5px}
+.picks.p6x .pick .ci{display:grid;grid-template-columns:40px 1fr;grid-template-rows:auto auto auto;column-gap:4px;align-items:center;padding:10px 4px 4px;text-align:left}.picks.p6x .pick .spr{grid-row:1/4;height:40px!important;width:40px!important}.picks.p6x .pick .nm{font-size:10px;max-width:100%}.picks.p6x .pick .pw{font-size:10px}.picks.p6x .pick .mt{font-size:8px;padding:1px 3px;justify-self:start}.picks.p6x .pick .sk{display:none}.picks.p6x .pick .bdg,.picks.p6x .pick .hlpt{top:1px}
 .pick.hlp{outline:2px dashed #7ad7ff;outline-offset:-3px}
 .hlpt{position:absolute;left:50%;top:2px;transform:translateX(-50%);white-space:nowrap;font-size:7.5px;font-weight:900;padding:1px 5px;border-radius:999px;background:#7ad7ff;color:#0a0828}
 .pg:has(.hlpb){overflow-y:auto;scrollbar-width:none;display:block}.pg:has(.hlpb)>.panel{margin-bottom:10px}.pg:has(.hlpb) .acard2 .btn.gold{padding:10px 6px}.hlpb{margin-top:8px;font-size:12px;padding:9px 6px 8px;min-height:38px;flex:0 0 auto;white-space:nowrap}.acard2:has(.hlpb) .codebox{margin-top:6px}.pg:has(.hlpb) .acard2{padding-top:10px;padding-bottom:10px}.pg:has(.hlpb) .afoes .spr{height:54px!important}
@@ -1213,6 +1213,8 @@ body,button,input{word-break:keep-all;overflow-wrap:break-word;line-break:strict
 #gacha.busy .gx-btns,#gacha.busy .gx-links,#gacha.busy .gx-pity,#gacha.busy .tgban,#gacha.busy .gx-sh{opacity:.25;transition:opacity .2s}
 @keyframes gxbusy{0%{transform:translateY(0)}100%{transform:translateY(8px) scale(.9);opacity:.5}}
 @keyframes gxbusyc{0%{transform:translateY(0) scale(1)}30%{transform:translateY(-6px) rotate(-4deg)}50%{transform:translateY(-14px) rotate(4deg)}70%{transform:translateY(-26px) rotate(-5deg) scale(1.06)}100%{transform:translateY(-52px) scale(1.18);filter:drop-shadow(0 0 40px #fff) brightness(2.2)}}
+.mpatk .spr{filter:drop-shadow(0 0 10px #7ad7ff)}.float.mpf{-webkit-text-stroke:2px #0b5fa8;text-shadow:0 4px 0 #063a68,0 0 18px #7ad7ff;left:62%}
+.mptg{position:absolute;left:62%;top:6px;transform:translateX(-50%);font-size:11px;font-weight:900;padding:2px 8px;border-radius:999px;background:#7ad7ff;color:#0a0828;animation:floatup .9s ease-out forwards;pointer-events:none;z-index:4}
 /* ---- リニューアル 4b: ショップ(縦に 1本)---- */
 .shopx{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:10px;padding:2px 2px calc(84px + env(safe-area-inset-bottom,0px));scrollbar-width:none}
 .shopx::-webkit-scrollbar{display:none}
@@ -1816,7 +1818,7 @@ function skillMult(a,perfect,m){
 var AREA_HP={field:1,forest:1.25,sea:1.4,volcano:1.5,snow:1.6,desert:1.7,tower:1.8};   // 先のエリアほど相手がタフ
 var HP5=1.35;   // 5体から えらべる+必殺ゲージ制で 楽に なった ぶん(tools/sim5.py: 3体・コンボ制の ころと けずれる 割合が ほぼ 同じに なる 倍率)
 function ehp(){if(E&&E.raid){return 99999;}
-  if(E&&E.mp){return Math.round(2*HP5*HP[byId(E.mid).r-1]*(AREA_HP[E.area]||1));}       // いっしょに: 2人ぶん。2人で 同じ 値に なる ように 自分だけの 補正は 入れない
+  if(E&&E.mp){return Math.round((E.mp.solo?1:2)*HP5*HP[byId(E.mid).r-1]*(AREA_HP[E.area]||1));}       // いっしょに: 2人ぶん。2人で 同じ 値に なる ように 自分だけの 補正は 入れない
   return Math.round(HP5*HP[byId(E.mid).r-1]*(AREA_HP[E.area||area().id]||1)*(1+0.22*(E.depth||0))*(emod().hp||1)*(1-(PT().hp||0)));}
 var resetArmed=false;
 var token=0;         // 古いタイマーを無効にする番号
@@ -4327,13 +4329,28 @@ function mpOnData(d){
     var hp=ehp(), dm=Math.max(0,Math.min(3000,Number(d.dmg)||0)), pm=byId(d.id);
     E.dmg+=dm; E.mp.peer=(E.mp.peer||0)+dm;
     E.hit=dm>0?("あいての "+(d.id&&pm?pm.name:"なかま")+" が "+dm+" けずった"+(d.pf?"（PERFECT）":"")):"あいては 手を 出せなかった";
-    mpNext(hp); sfx(d.pf?"perfect":"hit"); buzz(18);
-    if(!E.busy){renderEnc();}
+    mpNext(hp); buzz(18);
+    var st=document.getElementById("stage");
+    if(st&&!E.busy&&dm>0&&pm&&d.id){
+      E.busy=true; sfx("whoosh");
+      var ak=document.createElement("div"); ak.className="atker mpatk"; ak.innerHTML=img(pm,0,1); st.appendChild(ak);
+      setTimeout(function(){
+        if(!E){return;} sfx(d.pf?"perfect":"hit");
+        var foe=st.querySelector(".foe"); if(foe){foe.classList.remove("hit");void foe.offsetWidth;foe.classList.add("hit");}
+        var fl=document.createElement("div"); fl.className="impact"+(d.pf?" big":""); st.appendChild(fl);
+        var ft=document.createElement("span"); ft.className="float mpf"; ft.textContent="-"+dm; st.appendChild(ft);
+        var tg=document.createElement("span"); tg.className="mptg"; tg.textContent="あいて"; st.appendChild(tg);
+        var hf=document.getElementById("hpfill"), ht=document.getElementById("hptrail"), tx=document.getElementById("hptxt"), r=Math.min(1,E.dmg/ehp());
+        if(hf){hf.style.width=(100*(1-r))+"%";} if(ht){ht.style.width=(100*(1-r))+"%";} if(tx){tx.textContent=Math.max(0,ehp()-E.dmg)+" / "+ehp();}
+      },330);
+      setTimeout(function(){if(!E){return;}E.busy=false;renderEnc();},1150);
+    }else{sfx(d.pf?"perfect":"hit"); if(!E.busy){renderEnc();}}
   }
 }
 function mpLeft(){
   MPon=false; MPwait=false;
   if(E&&E.mp&&!E.mp.solo){
+    E.dmg=Math.round(E.dmg/2);                  // 体力が 1人ぶんに なる ので、けずった 量も 半分に して のこりの 割合を 保つ
     E.mp.solo=true;
     if(E.phase!=="chance"&&E.phase!=="appear"&&!mpMine()){E.hit="あいてが はなれた。ここからは 1人で";mpNext(ehp());}
     else if(E.phase!=="chance"){E.hit="あいてが はなれた。ここからは 1人で";}

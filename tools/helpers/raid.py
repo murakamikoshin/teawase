@@ -1,5 +1,10 @@
 import asyncio,json
 from playwright.async_api import async_playwright
+async def _safe(pg,sel,**kw):
+    try:
+        await pg.click(sel,force=True,timeout=2500,**kw); return True
+    except Exception:
+        return False
 async def play(pg):
     for turn in range(3):
         await pg.wait_for_selector('.pick:visible',timeout=15000); await pg.click('.pick:visible'); await pg.wait_for_timeout(500)
@@ -10,7 +15,7 @@ async def play(pg):
             g=await pg.query_selector('.gauge[data-act=hit]:visible')
             if g: await g.click()
             await pg.wait_for_timeout(350)
-            if await pg.query_selector('#anime:not([hidden])'): await pg.click('#anime')
+            if await pg.query_selector('#anime:not([hidden])'): await _safe(pg,'#anime')
             v=await pg.query_selector('video'); 
             if await pg.query_selector('.pick:visible') or await pg.query_selector('#raidexit-btn:visible'): break
 async def main():

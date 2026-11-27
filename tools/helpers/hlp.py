@@ -1,5 +1,10 @@
 import asyncio,json
 from playwright.async_api import async_playwright
+async def _safe(pg,sel,**kw):
+    try:
+        await pg.click(sel,force=True,timeout=2500,**kw); return True
+    except Exception:
+        return False
 async def main():
     async with async_playwright() as p:
         b=await p.chromium.launch(); pg=await b.new_page(viewport={'width':390,'height':844}); errs=[]
@@ -17,7 +22,7 @@ async def main():
         print(await pg.evaluate("JSON.stringify(JSON.parse(localStorage.getItem('teawase_v1')).hlp)"))
         await pg.click('#tab-home'); await pg.wait_for_timeout(200); await pg.click('#go-btn')
         for _ in range(40):
-            if await pg.query_selector('#anime:not([hidden])'): await pg.click('#anime')
+            if await pg.query_selector('#anime:not([hidden])'): await _safe(pg,'#anime')
             if await pg.query_selector('.pick:visible'): break
             await pg.wait_for_timeout(250)
         await pg.wait_for_timeout(300); await pg.screenshot(path='/tmp/h_2.png')

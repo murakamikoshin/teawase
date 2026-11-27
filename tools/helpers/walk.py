@@ -1,5 +1,10 @@
 import asyncio,json,sys
 from playwright.async_api import async_playwright
+async def _safe(pg,sel,**kw):
+    try:
+        await pg.click(sel,force=True,timeout=2500,**kw); return True
+    except Exception:
+        return False
 async def run(b,w,h,tag):
     pg=await b.new_page(viewport={'width':w,'height':h}); errs=[]; n=[0]
     pg.on('pageerror',lambda e:errs.append(str(e)))
@@ -28,7 +33,7 @@ async def run(b,w,h,tag):
     await pg.wait_for_timeout(500); await shot('home')
     await pg.click('#go-btn'); await pg.wait_for_timeout(400); await shot('go')
     for _ in range(40):
-        if await pg.query_selector('#anime:not([hidden])'): await pg.click('#anime')
+        if await pg.query_selector('#anime:not([hidden])'): await _safe(pg,'#anime')
         if await pg.query_selector('.pick:visible'): break
         await pg.wait_for_timeout(250)
     await shot('pick')
@@ -44,13 +49,13 @@ async def run(b,w,h,tag):
             g=await pg.query_selector('.gauge[data-act=hit]:visible')
             if g: await g.click()
             await pg.wait_for_timeout(350)
-            if await pg.query_selector('#anime:not([hidden])'): await pg.click('#anime')
+            if await pg.query_selector('#anime:not([hidden])'): await _safe(pg,'#anime')
             if await pg.query_selector('.pick:visible') or await pg.query_selector('#invite-btn:visible'): break
     await pg.wait_for_timeout(600); await shot('chance')
     if await pg.query_selector('#invite-btn:visible'):
         await pg.click('#invite-btn',force=True)
         for _ in range(40):
-            if await pg.query_selector('#anime:not([hidden])'): await pg.click('#anime')
+            if await pg.query_selector('#anime:not([hidden])'): await _safe(pg,'#anime')
             if await pg.query_selector('#home-btn:visible') or await pg.query_selector('#again-btn:visible') or await pg.query_selector('[data-act=home]:visible'): break
             await pg.wait_for_timeout(300)
         await pg.wait_for_timeout(800); await shot('result')

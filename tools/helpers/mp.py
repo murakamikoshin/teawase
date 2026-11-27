@@ -39,6 +39,8 @@ async def run(b,drop):
                 await A.screenshot(path='/tmp/mp_a.png'); await B.screenshot(path='/tmp/mp_b.png')
         elif sb and sb['pick'] and not sb['inv']:
             await move(B); moves+=1
+            if moves==2 and not drop:
+                await A.wait_for_timeout(450); await A.screenshot(path='/tmp/mp_hit.png')
             if not drop and moves==2:
                 await A.screenshot(path='/tmp/mp_a.png'); await B.screenshot(path='/tmp/mp_b.png')
         else: await A.wait_for_timeout(400)
