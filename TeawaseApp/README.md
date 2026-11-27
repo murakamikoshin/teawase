@@ -15,3 +15,17 @@
 - `WebGameView.swift` の 利用規約・プライバシーのURL を本物に
 - アプリのアイコン、スクリーンショット、年齢区分、確率表示の確認
 - ゲームを更新するときは `Resources/index.html` を入れかえるだけ
+
+## みんなで 大ボス(CloudKit)を 動かす 手順
+ゲーム側は できている。アプリ側は `Teawase/Raid.swift` と `Teawase/Teawase.entitlements`。**まだ 一度も ビルドして いない**。
+1. developer.apple.com → Identifiers → `com.koshinstudio.teawase` で **iCloud** に チェック → CloudKit の コンテナ `iCloud.com.koshinstudio.teawase` を 作って 結びつける
+   (Xcode の Signing & Capabilities で「+ Capability → iCloud → CloudKit」に チェックして コンテナを 選んでも 同じ)
+2. `xcodegen generate` で 作り直す(`project.yml` に entitlements を 足して ある)
+3. CloudKit Console(icloud.developer.apple.com)→ コンテナを 選ぶ → Schema → Record Types → **RaidHit** を 作る
+   - Fields: `day`(Int(64))・`dmg`(Int(64))・`tries`(Int(64))
+   - Indexes: `day` に **QUERYABLE**、`recordName` に **QUERYABLE**
+   - Security Roles は そのまま(_icloud = 作成できる / _creator = 自分のを 書ける / _world = 読める)
+4. 実機(iCloud に サインイン済み)で バトル → 2ページ目「みんなで 大ボス」→ いどむ → 「みんなの 合計に 足す」。Console の Data で RaidHit が 1つ できて いれば OK
+5. 公開の 前に Console の **Deploy Schema Changes…** で 本番(Production)へ 反映。これを 忘れると 審査版・公開版で 動かない
+- 数字を 変える 所: ゲーム側 `RAID_TRY / RAID_GOAL / RAID_ME / RAID_RW`(index.html)、アプリ側 `capPerHit / maxTries`(Raid.swift)
+- 弱い 所: 合計は その日の 全員ぶんを 読んで 足す 作り。1日の 参加が 数千人を こえたら、集計を サーバー側に 移す 必要が ある

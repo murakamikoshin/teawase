@@ -66,12 +66,29 @@ struct WebGameView: UIViewRepresentable {
                 if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
                     SKStoreReviewController.requestReview(in: scene)
                 }
+            case "raid":
+                // みんなで 大ボス: op "get" = いまの 合計を 読む / "hit" = けずった 量を 足す。結果は teawaseRaid({...}) で 返す
+                let op = body["op"] as? String ?? "get"
+                let dmg = body["dmg"] as? Int ?? 0
+                Task { @MainActor in
+                    let result = op == "hit" ? await Raid.shared.hit(dmg: dmg) : await Raid.shared.status()
+                    self.sendJSON("teawaseRaid", result)
+                }
             case "open":
                 if let key = body["page"] as? String, let s = pages[key], let url = URL(string: s) {
                     UIApplication.shared.open(url)
                 }
             default:
                 break
+            }
+        }
+
+        /// 辞書を JSON に して ゲーム側の 関数に 渡す
+        private func sendJSON(_ fn: String, _ obj: [String: Any]) {
+            guard let data = try? JSONSerialization.data(withJSONObject: obj),
+                  let json = String(data: data, encoding: .utf8) else { return }
+            DispatchQueue.main.async {
+                self.web?.evaluateJavaScript("\(fn)(\(json))")
             }
         }
 

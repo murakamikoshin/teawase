@@ -629,3 +629,5 @@
 7. H01 の 235 テッサ(「ほほの しみを 消す」)と 69 ビャッコ(元の シートの media id を TODO で さがす。無ければ newsrc/69.png を create-upload-url で 上げて 参照に。「右下の 黒い 切れはしを 消す・目を 黒く はっきり」)
 そのあと H12〜H22(新しい 目の 文は 発注シートに 入れて ある)。
 高品質ムービーの ある 子: 404 413 415 416 421 423 424 432(+439 440 は これから)。
+- マルチ C 済: みんなで 大ボス(バトル 2ページ目)。JS: raidBoss/raidPanel/startRaid/teawaseRaid、Swift: Raid.swift + Teawase.entitlements + WebGameView の case "raid"(未ビルド)。手順は TeawaseApp/README.md。backup index_pre_raid.html。テスト /tmp/raid.py。H11 の 黒目版の 絵(436〜441)も いっしょに 公開された(ムービーは まだ カットイン。目の 描き直しで 差しかえる)。
+- 公開 最新: game 1795759790-e412/ gallery 1795757176-395d
